@@ -7,6 +7,7 @@ class Login extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('M_users');	
+		$this->load->library('form_validation');
 	}
 
 	public function index()
@@ -21,26 +22,52 @@ class Login extends CI_Controller {
 		$username = $this->input->post('username');
 		$password = $this->input->post('password');
 
+		// Validation form
+		$this->form_validation->set_rules('username', 'Username', 'required|min_length[3]', [
+			'required' => 'Mohon isi form username',
+			'min_length' => 'Username minimal 3 character'
+		]);
 
-		if(strlen($password) < 8){
-			redirect('login');
+		$this->form_validation->set_rules('password', 'Password', 'required|min_length[6]', [
+			'required' => 'Mohon isi form password',
+			'min_length' => 'Password minimal 6 digit'
+		]);
+
+		if($this->form_validation->run() != TRUE){
+			$data['title'] = "Login";
+			$this->load->view('layout/login/top', $data);
+			$this->load->view('login');
+			$this->load->view('layout/login/bottom');
 		} else {
-			$enc_passwrod = md5($password);
-			$cek_akun = $this->M_users->cek_login($username, $enc_passwrod);			
-
-			if(count($cek_akun) > 0) {
-				redirect('dashboard');
-			} else {
-				$data_session = [
-					'error' => 'Error',
-					'message' => 'Akun tidak ditemukan'
-				];
-				$this->session->set_userdata($data_session);
+			if(strlen($password) < 8){
 				redirect('login');
-			}
+			} else {
+				$enc_passwrod = md5($password);
+				$cek_akun = $this->M_users->cek_login($username, $enc_passwrod);			
 
+				if(count($cek_akun) > 0) {
+					$data_session = [
+						'status' => 'log-in' 
+					];
+					$this->session->set_userdata($data_session);
+					redirect('dashboard');
+				} else {
+					$data_session = [
+						'error' => 'Error',
+						'message' => 'Akun tidak ditemukan'
+					];
+					$this->session->set_userdata($data_session);
+					redirect('login');
+				}
+
+			}	
 		}
-
-
 	}
+
+	public function logout()
+	{
+		$this->session->sess_destroy();
+		redirect('login');
+	}
+
 }
