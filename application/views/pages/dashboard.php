@@ -1,12 +1,13 @@
 	<body class="hold-transition sidebar-mini layout-fixed">
 		<div class="wrapper">
+			<!--
 			<nav class="main-header navbar navbar-expand navbar-white navbar-light d-flex justify-content-end">
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item dropdown">
-						<a class="nav-link" data-toggle="dropdown" href="#">
-							<i class="far fa-user mr-2"></i>
-							<span>Admin</span>
-						</a>
+						<div class="nav-link d-flex align-item-center" data-toggle="dropdown">
+							<img src="<?= base_url() ?>assets/image/avatar.png" alt="logo-admin" class="rounded-circle mr-2" width="25">
+							<span style="font-weight: bold;">Admin</span>
+						</div>
 						<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
 							<div class="dropdown-divider"></div>
 							<a href="<?= base_url('login/logout'); ?>" class="dropdown-item text-danger">
@@ -17,10 +18,11 @@
 					</li>
 				</ul>
 			</nav>
-
+			-->
+			<!-- navbar -->
+			<?php $this->load->view('layout/page/navbar')?>
 			<!-- Sidebar Menu -->
 			<?php $this->load->view('layout/page/sidebar'); ?>
-
 			<div class="content-wrapper">
 				<div class="content-header">
 					<div class="container-fluid">
@@ -37,63 +39,63 @@
 					<div class="container-fluid">
 						<div class="row">
 							<div class="col-lg-3 col-6">
-								<div class="small-box bg-info">
-									<div class="inner">
+								<div class="small-box">
+									<div class="icon-box icon text-white">
+										<i class="fas fa-solid fa-users"></i>
+									</div>
+									<div class="inner bg-primary text-right">
 										<h3>150</h3>
-
-										<p>New Orders</p>
+										<p>Mahasiswa</p>
 									</div>
-									<div class="icon">
-										<i class="ion ion-bag"></i>
-									</div>
-									<a href="#" class="small-box-footer"
-										>More info <i class="fas fa-arrow-circle-right"></i
-									></a>
+									<a href="#" class="small-box-footer d-flex justify-content-between bg-white">
+										<span class="p-2 text-primary" style="font-size: 1.1rem; font-weight: semibold;">More info</span>
+										<i class="fas fa-arrow-circle-right p-3 text-primary" style="font-size: 1.1rem;"></i>
+									</a>
 								</div>
 							</div>
 							<div class="col-lg-3 col-6">
-								<div class="small-box bg-success">
-									<div class="inner">
-										<h3>53<sup style="font-size: 20px">%</sup></h3>
-										<p>Bounce Rate</p>
+								<div class="small-box">
+									<div class="inner bg-success text-right">
+										<h3>53</h3>
+										<p>Beasiswa</p>
 									</div>
-									<div class="icon">
-										<i class="ion ion-stats-bars"></i>
+									<div class="icon text-white">
+										<i class="fas fa-regular fa-book"></i>
 									</div>
-									<a href="#" class="small-box-footer"
-										>More info <i class="fas fa-arrow-circle-right"></i
-									></a>
+									<a href="#" class="small-box-footer d-flex justify-content-between bg-white">
+										<span class="p-2 text-success" style="font-size: 1.1rem; font-weight: semibold;">More info</span>
+										<i class="fas fa-arrow-circle-right p-3 text-success" style="font-size: 1.1rem;"></i>
+									</a>
 								</div>
 							</div>
 							<div class="col-lg-3 col-6">
-								<!-- small box -->
-								<div class="small-box bg-warning">
-									<div class="inner">
-										<h3>44</h3>
-
-										<p>User Registrations</p>
+								<div class="small-box">
+									<div class="inner bg-warning text-right">
+										<h3 class="text-white">44</h3>
+										<p class="text-white">Daftar Kriteria</p>
 									</div>
-									<div class="icon">
-										<i class="ion ion-person-add"></i>
+									<div class="icon text-white">
+										<i class="fas fa-solid fa-user-check"></i>
 									</div>
-									<a href="#" class="small-box-footer"
-										>More info <i class="fas fa-arrow-circle-right"></i
-									></a>
+									<a href="#" class="small-box-footer d-flex justify-content-between bg-white">
+										<span class="p-2 text-warning" style="font-size: 1.1rem; font-weight: semibold;">More info</span>
+										<i class="fas fa-arrow-circle-right p-3 text-warning" style="font-size: 1.1rem;"></i>
+									</a>
 								</div>
 							</div>
 							<div class="col-lg-3 col-6">
-								<div class="small-box bg-danger">
-									<div class="inner">
+								<div class="small-box">
+									<div class="inner bg-danger text-right">
 										<h3>65</h3>
-
-										<p>Unique Visitors</p>
+										<p>Daftar User</p>
 									</div>
-									<div class="icon">
-										<i class="ion ion-pie-graph"></i>
+									<div class="icon text-white">
+										<i class="fas fa-solid fa-user"></i>
 									</div>
-									<a href="#" class="small-box-footer"
-										>More info <i class="fas fa-arrow-circle-right"></i
-									></a>
+									<a href="#" class="small-box-footer d-flex justify-content-between bg-white">
+										<span class="p-2 text-danger" style="font-size: 1.1rem; font-weight: semibold;">More info</span>
+										<i class="fas fa-arrow-circle-right p-3 text-danger" style="font-size: 1.1rem;"></i>
+									</a>
 								</div>
 							</div>
 						</div>

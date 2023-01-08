@@ -36,4 +36,10 @@
 
 		<!-- Icon Boostrap -->
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+
+		<!-- Custom Icon -->
+		<link rel="stylesheet" href="<?= base_url() ?>assets/dist/css/style.css">
+
+		<!-- Datatables -->
+		<link rel="stylesheet" href="<?= base_url() ?>assets/datatable/css/dataTables.css">
 	</head>

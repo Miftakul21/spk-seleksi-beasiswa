@@ -4,13 +4,12 @@
 			<?php $this->load->view('layout/page/navbar'); ?>
 			<!-- Sidebar Menu -->
 			<?php $this->load->view('layout/page/sidebar'); ?>
-
 			<div class="content-wrapper">
 				<div class="content-header">
 					<div class="container-fluid">
 						<div class="row mb-2">
 							<div class="col-sm-6">
-								<h1 class="m-0 fw-bold">Data Mahasiswa</h1>
+								<h1 class="m-0 fw-bold">Data User</h1>
 							</div>
 						</div>
 
@@ -20,7 +19,7 @@
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="<?= base_url('dashboard') ?>" class="text-primary" style="text-decoration: none;">Dashboard</a></li>
-                                    <li class="breadcrumb-item text-secondary" aria-current="page">Mahasiswa</li>
+                                    <li class="breadcrumb-item text-secondary" aria-current="page">User</li>
                                 </ol>
                             </nav>
                         </div>
