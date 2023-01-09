@@ -11,6 +11,12 @@ class M_users extends CI_Model{
         return $query->result_array();
     }
 
+    function insert_user($nama, $username, $password, $level){
+        $query = $this->db_query("INSERT INTO tb_users('nama', 'username', 'password', 'level_user')
+                                VALUES('$nama', '$username', '$password', '$level')");
+        return $query;
+    }
+
 }
 
 ?>
