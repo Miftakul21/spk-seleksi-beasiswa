@@ -1,9 +1,91 @@
-.sidebar-bg-primary {
-	/* background: linear-gradient(
-		180deg,
-		rgb(165, 85, 236),
-		rgb(129, 12, 168)
-	) !important; */
+.small-box i {
+	color: rgb(240, 87, 87) !important;
+}
 
-	background-color: #6f42c1 !important;
+.sidebar-bg-primary {
+	background-color: #fff;
+}
+
+.small-box {
+	background-color: #fff;
+	min-height: 150px;
+	padding: 10px 0;
+}
+
+.small-box .inner h3 {
+	font-size: 40px;
+	color: rgb(240, 87, 87);
+}
+
+.small-box .inner p {
+	margin-top: -10px;
+	font-size: 22px;
+	color: rgb(240, 87, 87);
+}
+
+.small-box .icon {
+	color: rgb(240, 87, 87);
+}
+
+.nav-link span {
+	color: #333;
+	font-size: 18px;
+	font-weight: 500;
+}
+
+.nav-link img {
+	margin-right: 10px;
+	border-radius: 50%;
+	width: 30px;
+	height: 30px;
+}
+
+/* Dashboard (Sidebar) */
+.user-panel img {
+	width: 50px;
+	height: 50px;
+}
+
+.user-panel h5 {
+	margin-left: 5px;
+	margin-top: 5px;
+	font-size: 20px;
+	font-weight: 800;
+	line-height: 27px;
+	color: rgb(240, 87, 87);
+}
+
+/* Sidebar Active Indicator  */
+.nav-item {
+	border-radius: 15px 0 0 15px;
+}
+
+.nav-item.active {
+	background-color: rgb(240, 87, 87);
+}
+
+.nav-item.active a {
+	color: #fff;
+}
+
+.nav-item a:hover {
+	color: #333 !important;
+	transition: 0.3s;
+}
+
+/* Kriteria Card Action  */
+.card .header-card {
+	display: flex;
+	padding: 20px 20px 0 20px;
+	justify-content: space-between;
+	border-bottom: 1px solid rgb(183, 186, 183);
+}
+
+.title-card {
+	line-height: 0.9;
+}
+
+.title-card h5 {
+	font-weight: 500;
+	font-family: Arial, Helvetica, sans-serif;
 }

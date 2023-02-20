@@ -13,31 +13,55 @@ class Login extends CI_Controller {
 	public function index()
 	{
 		$data['title'] = "Login";
-		$this->load->view('layout/login/top', $data);
 		$this->load->view('login');
-		$this->load->view('layout/login/bottom');
 	}
 
 	public function cek_login() {
 		$username = $this->input->post('username');
 		$password = $this->input->post('password');
 
-		// Validation form
-		$this->form_validation->set_rules('username', 'Username', 'required|min_length[3]', [
-			'required' => 'Mohon isi form username',
-			'min_length' => 'Username minimal 3 character'
-		]);
+		if(strlen($password) < 8) {
+			$data_session = [
+				'error' => 'Error',
+				'message' => 'Kesalahan saat login, silahakan coba lagi!'
+			];
+			$this->session->set_userdata($data_session);
+			redirect('login');
+		} else {
+			$enc_passwrod = md5($password);
+			$cek_akun = $this->M_users->cek_login($username, $enc_passwrod);	
 
-		$this->form_validation->set_rules('password', 'Password', 'required|min_length[6]', [
-			'required' => 'Mohon isi form password',
-			'min_length' => 'Password minimal 6 digit'
-		]);
+			if(count($cek_akun) > 0){
+				$data_session = [
+					'status' => 'log-in'
+				];
+				$this->session->set_userdata($data_session);
+				redirect('dashboard');
+			} else {
+				$data_session = [
+					'error' => 'Error',
+					'message' => 'Kesalahan saat login, silahakan coba lagi!'
+				];
+				$this->session->set_userdata($data_session);
+				redirect('login');
+			}
 
+		}
+
+		/* 
+			Validation form
+			$this->form_validation->set_rules('username', 'Username', 'required|min_length[3]', [
+				'required' => 'Mohon isi form username',
+				'min_length' => 'Username minimal 3 character'
+			]);
+
+			$this->form_validation->set_rules('password', 'Password', 'required|min_length[6]', [
+				'required' => 'Mohon isi form password',
+				'min_length' => 'Password minimal 6 digit'
+			]);
 		if($this->form_validation->run() != TRUE){
 			$data['title'] = "Login";
-			$this->load->view('layout/login/top', $data);
-			$this->load->view('login');
-			$this->load->view('layout/login/bottom');
+			$this->load->view('login', $data);
 		} else {
 			if(strlen($password) < 8){
 				redirect('login');
@@ -54,7 +78,7 @@ class Login extends CI_Controller {
 				} else {
 					$data_session = [
 						'error' => 'Error',
-						'message' => 'Akun tidak ditemukan'
+						'message' => 'Kesalahan saat login, silahakan coba lagi!'
 					];
 					$this->session->set_userdata($data_session);
 					redirect('login');
@@ -62,6 +86,7 @@ class Login extends CI_Controller {
 
 			}	
 		}
+		*/
 	}
 
 	public function logout()

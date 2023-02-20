@@ -1,7 +1,6 @@
 		<script src="<?= base_url() ?>assets/datatable/js/jquery.js"></script>
 		<script src="<?= base_url() ?>assets/datatable/js/jquery.DataTables.js"></script>
 		<script src="<?= base_url() ?>assets/datatable/js/jquery.dataTablesBS4.js"></script>
-		<!-- <script src="assets/plugins/jquery/jquery.min.js"></script> -->
 		<script src="<?= base_url() ?>assets/plugins/jquery-ui/jquery-ui.min.js"></script>
 		<script src="<?= base_url() ?>assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 		<script src="<?= base_url() ?>assets/plugins/chart.js/Chart.min.js"></script>
@@ -15,14 +14,14 @@
 		<script src="<?= base_url() ?>assets/plugins/summernote/summernote-bs4.min.js"></script>
 		<script src="<?= base_url() ?>assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 		<script src="<?= base_url() ?>assets/dist/js/adminlte.js"></script>
-		<script src="<?= base_url() ?>assets/dist/js/demo.js"></script>
+		<!-- <script src="<? //= base_url() ?>assets/dist/js/demo.js"></script> -->
 		<script src="<?= base_url() ?>assets/dist/js/pages/dashboard.js"></script>
-
+		<script src="<?= base_url() ?>assets/izitoast/js/iziToast.js"></script>
+		<script src="<?= base_url() ?>assets/izitoast/js/iziToast.min.js"></script>
 		<script>
 			$(document).ready(function () {
 				$('#table').DataTable();
 			});
 		</script>
-
 	</body>
 </html>

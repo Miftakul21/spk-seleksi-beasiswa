@@ -32,7 +32,7 @@
 		<link rel="stylesheet" href="<?= base_url() ?>assets/plugins/summernote/summernote-bs4.min.css" />
 
 		<!-- Custom CSS -->
-		<link rel="stylesheet" href="<?= base_url() ?>assets/login/css/custom-login.css">
+		<link rel="stylesheet" href="<?= base_url() ?>assets/pages/css/style.css">
 
 		<!-- Icon Boostrap -->
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
@@ -42,4 +42,8 @@
 
 		<!-- Datatables -->
 		<link rel="stylesheet" href="<?= base_url() ?>assets/datatable/css/dataTables.css">
+
+		<!-- iziToast -->
+		<link rel="stylesheet" href="<?= base_url() ?>assets/izitoast/css/iziToast.css">
+		<!-- <link rel="stylesheet" href="<?// = base_url() ?>assets/izitoast/css/iziToats.min.css"> -->
 	</head>
