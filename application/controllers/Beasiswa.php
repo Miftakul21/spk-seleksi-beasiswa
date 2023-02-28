@@ -25,8 +25,10 @@ class Beasiswa extends CI_Controller{
         $jenis_beasiswa = $this->input->post('jenis_beasiswa');
         $kuota = $this->input->post('kuota');
         $periode = $this->input->post('periode');
+        $tgl_pendaftaran = $this->input->post('tgl_pendaftaran');
+        $tgl_penutupan = $this->input->post('tgl_penutupan');
 
-        $insert_data = $this->M_beasiswa->insert_data($jenis_beasiswa, $kuota, $periode);
+        $insert_data = $this->M_beasiswa->insert_data($jenis_beasiswa, $kuota, $periode, $$tgl_pendaftaran, $tgl_penutupan);
 
         if($insert_data){
             $data_session = [
@@ -45,15 +47,16 @@ class Beasiswa extends CI_Controller{
         }
     }
 
-
     public function update()
     {
         $jenis_beasiswa = $this->input->post('jenis_beasiswa');
         $kuota = $this->input->post('kuota');
         $periode = $this->input->post('periode');
         $id = $this->input->post('id_beasiswa');
-
-        $update_data = $this->M_beasiswa->update_data($jenis_beasiswa, $kuota, $periode, $id);
+        $tgl_pendaftaran = $this->input->post('tgl_pendaftaran');
+        $tgl_penutupan = $this->input->post('tgl_penutupan');
+        
+        $update_data = $this->M_beasiswa->update_data($jenis_beasiswa, $kuota, $periode, $tgl_pendaftaran, $tgl_penutupan, $id);
 
         if($update_data){
             $data_session = [
@@ -93,6 +96,11 @@ class Beasiswa extends CI_Controller{
             redirect('beasiswa/index');
         }  
     }
+
+    // public function status()
+    // {
+    //     $status = $this->input->post('status');        
+    // }
 
 }
 

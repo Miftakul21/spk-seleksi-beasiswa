@@ -13,6 +13,7 @@ class Dashboard extends CI_Controller {
         $this->load->model('M_users');
         $this->load->model('M_beasiswa');
         $this->load->model('M_mahasiswa');
+        $this->load->model('M_kriteria');
     }
 
     public function index()
@@ -21,6 +22,7 @@ class Dashboard extends CI_Controller {
         $data['mahasiswa'] = count($this->M_mahasiswa->get_data_mahasiswa());
         $data['users'] = count($this->M_users->get_data_users());
         $data['beasiswa'] = count($this->M_beasiswa->get_data_beasiswa());
+        $data['kriteria'] = count($this->M_kriteria->get_data_kriteria());
         $this->load->view('layout/page/top', $data);
         $this->load->view('pages/dashboard', $data);
     }

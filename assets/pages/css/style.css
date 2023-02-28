@@ -1,0 +1,41 @@
+body {
+	background-color: rgb(235, 235, 235);
+}
+
+.profil-user img {
+	display: block;
+}
+
+.profil-user span {
+	display: block;
+}
+
+.informasi-keterangan {
+	line-height: 0.9;
+}
+
+.footer {
+	position: fixed;
+	bottom: 0;
+	background: #333;
+	width: 100%;
+	padding: 10px 0;
+	text-align: center;
+	color: white;
+	font-size: 16px;
+	font-weight: 500;
+}
+
+.footer p {
+	padding-top: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+	.profil-user img {
+		display: none;
+	}
+
+	.profil-user span {
+		display: none;
+	}
+}

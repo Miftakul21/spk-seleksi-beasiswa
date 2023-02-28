@@ -8,8 +8,12 @@
 				<div class="content-header">
 					<div class="container-fluid">
 						<div class="row mb-2">
-							<div class="col-sm-6">
+							<div class="col-sm-12 col-12 d-flex justify-content-between">
 								<h1 class="m-0 fw-bold">Data Kriteria</h1>
+								<div class="breadcrumb">
+									<li class="breadcrumb-item"><a href="<?= base_url('dashboard') ?>" class="text-primary" style="text-decoration: none;">Dashboard</a></li>
+                                    <li class="breadcrumb-item text-secondary" aria-current="page">Kriteria</li>
+								</div>
 							</div>
 						</div>
                         <hr style="border-top: 1px solid #bbb">
@@ -23,14 +27,12 @@
 						?>
 							<!-- Jenis Beasiswa -->
 							<h4 class="text-center"><?= $b['jenis_beasiswa']; ?></h4>
-
 							<?php 
 								$id_beasiswa = $b['id_beasiswa'];
 								$query = "SELECT * FROM tb_kriteria AS a JOIN tb_beasiswa AS b 
 										ON a.id_beasiswa = b.id_beasiswa WHERE a.id_beasiswa = '$id_beasiswa'";
 								$kriteria = $this->db->query($query)->result_array();
 							?>
-
 							<!-- Kriteria Berdasarkan Beasiswa -->
 							<div class="row mt-2">
 							<?php  foreach($kriteria as $k): ?>
@@ -39,14 +41,14 @@
 										<div class="header-card">
 											<div class="title-card">
 												<h5><?= $k['nama_kriteria']; ?></h5>
-												<p>Nilai Bobot: <?= $k['nilai_bobot']; ?></p>
+												<p>Nilai Bobot: <?= $k['nilai_bobot']; ?> | Atribut: <?= $k['atribut_kriteria']; ?></p>
 											</div>
 											<div class="action-card">
 												<button class="btn btn-sm btn-primary" data-toggle="modal"
 													data-target="#tambahDataSubkriteria<?= $k['id_kriteria'] ?>">
 													<i class="fas fa-solid fa-plus"></i>
 												</button>
-												<button class="btn btn-sm btn-warning" data-toggle="modal"
+												<button class="btn btn-sm btn-warning mr-1 ml-1" data-toggle="modal"
 												    data-target="#editDataKriteria<?= $k['id_kriteria'] ?>">
 													<i class="fas fa-edit fa-fw text-white"></i>
 												</button>
@@ -79,11 +81,17 @@
 										?>
 												<tr>
 													<th scope="row"><?= $no++; ?></th>
-													<td><?= $sk['nama_kriteria']; ?></td>
-													<td><?= $nilai_bobot ?></td>
+													<td><?= $sk['nama_subkriteria']; ?></td>
+													<td><?= $sk['nilai_subkriteria']; ?></td>
 													<td>
-														<button class="btn btn-sm btn-info">Edit</button>
-														<button class="btn btn-sm btn-danger">Hapus</button>
+														<button class="btn btn-sm btn-warning text-white mr-2" data-toggle="modal"
+														data-target="#editDataSubkriteria<?= $sk['id_subkriteria']; ?>">
+															<i class="fas fa-edit fa-fw text-white"></i>
+														</button>
+														<button class="btn btn-sm btn-danger text-white" data-toggle="modal"
+														data-target="#hapusDataSubkriteria<?= $sk['id_subkriteria']; ?>">
+															<i class="fas fa-trash fa-fw"></i>
+														</button>
 													</td>
 												</tr>
 										<?php 
@@ -91,6 +99,70 @@
 										?>
 												</tbody>
 											</table>
+
+										<!-- Modal Edit Data Subkriteria -->
+										<?php foreach($subkriteria as $sk): ?>
+										<div class="modal fade" id="editDataSubkriteria<?= $sk['id_subkriteria']; ?>" tabindex="-1"
+												aria-labelledby="exampleModalLabel" aria-hidden="true">
+												<div class="modal-dialog">
+													<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="exampleModalLabel">Edit Data</h5>
+														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body">
+													<form action="<?= base_url('kriteria/update_subkriteria') ?>" method="POST">
+														<input type="hidden" value="<?= $sk['id_subkriteria']; ?>" name="id_subkriteria">
+														<div class="form-group">
+															<label for="sub_kriteria">Sub Kriteria<span class="text-danger">*</span></label>
+															<input type="text" class="form-control" id="sub_kriteria" name="sub_kriteria" 
+																value="<?= $sk['nama_subkriteria']; ?>">
+														</div>
+														<div class="form-group">
+															<label for="nilai_subkriteria">Nilai <span class="text-danger">*</span></label>
+															<input type="text" class="form-control" id="nilai_subkriteria" name="nilai_subkriteria"
+																value="<?= $sk['nilai_subkriteria']; ?>">
+														</div>
+													</div>
+														<div class="modal-footer">
+															<button class="btn btn-secondary" data-dismiss="modal">Batal</button>
+															<button class="btn btn-primary">Update</button>
+														</div>
+													</form>
+													</div>
+												</div>
+										</div>
+										<?php endforeach; ?>
+
+										<!-- Modal Hapus Data Subkriteria -->
+										<?php foreach($subkriteria as $sk): ?>	
+										<div class="modal fade" id="hapusDataSubkriteria<?= $sk['id_subkriteria']; ?>" tabindex="-1" 
+											aria-labelledby="exampleModalLabel" aria-hidden="true">
+											<div class="modal-dialog">
+												<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="exampleModalLabel">Hapus Data</h5>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+											<form action="<?= base_url('kriteria/delete_subkriteria'); ?>" method="POST">
+												<input type="hidden" value="<?= $sk['id_subkriteria']; ?>" name="id">
+												<div class="modal-body">
+													Anda ingin menghapus?
+												</div>
+												<div class="modal-footer">
+													<button class="btn btn-secondary" data-dismiss="modal">Batal</button>
+													<button class="btn btn-danger">Hapus</button>
+												</div>
+											</form>
+												</div>
+											</div>
+										</div>
+										<?php endforeach; ?>
+
 										</div>
 									</div>
 								</div>
@@ -110,9 +182,10 @@
 											</button>
 										</div>
 										<div class="modal-body">
-										<form action="<?= base_url('kriteria/update') ?>" method="POST">
+										<form action="<?= base_url('kriteria/store_subkriteria') ?>" method="POST">
 											<div class="form-group">
 												<label for="sub_kriteria">Sub Kriteria<span class="text-danger">*</span></label>
+												<input type="hidden" value="<?= $k['id_kriteria']; ?>" name="id_kriteria">
 												<input type="text" class="form-control" id="sub_kriteria" name="sub_kriteria" 
 													placeholder="Masukkan Subkriteria">
 											</div>
@@ -124,7 +197,7 @@
 										</div>
 											<div class="modal-footer">
 												<button class="btn btn-secondary" data-dismiss="modal">Batal</button>
-												<button class="btn btn-primary">Update</button>
+												<button class="btn btn-primary">Simpan</button>
 											</div>
 										</form>
 										</div>
@@ -156,7 +229,7 @@
 									</form>
 										</div>
 									</div>
-								</div>
+							</div>
 							<?php  endforeach; ?>
 
 							<!-- Modal Update Data Kriteria-->
@@ -199,6 +272,14 @@
 												<input type="text" class="form-control" id="nilai_bobot" name="nilai_bobot" 
 													value="<?= $k['nilai_bobot']; ?>">
 											</div>
+											<div class="form-group">
+												<label for="atribut_kriteria">Atribut<span class="text-danger">*</span></label>
+												<select class="form-control" id="atribut_kriteria" name="atribut_kriteria">
+													<option value="">--Pilih--</option>
+													<option value="Cost">Cost</option>
+													<option value="Benefit">Benefit</option>
+												</select>
+											</div>
 										</div>
 											<div class="modal-footer">
 												<button class="btn btn-secondary" data-dismiss="modal">Batal</button>
@@ -209,16 +290,14 @@
 									</div>
 							</div>
 							<?php  endforeach; ?>
-
 						<?php endforeach; ?>
-
 					</div>
 				</div>
 			</div>
 			<?php $this->load->view('layout/page/footer') ?>
 		</div>
 
-		<!-- Modal Tambah Data-->
+		<!-- Modal Tambah Data Kriteria-->
 		<form action="<?= base_url('kriteria/store') ?>" method="POST">
 			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				<div class="modal-dialog modal-lg">
@@ -246,6 +325,14 @@
 						<div class="form-group">
 							<label for="nilai_bobot">Nilai Bobot<span class="text-danger">*</span></label>
 							<input type="text" class="form-control" id="nilai_bobot" name="nilai_bobot" placeholder="Masukkan Nilai Bobot">
+						</div>
+						<div class="form-group">
+							<label for="atribut_kriteria">Atribut<span class="text-danger">*</span></label>
+							<select class="form-control" id="atribut_kriteria" name="atribut_kriteria">
+								<option value="">--Pilih--</option>
+								<option value="Cost">Cost</option>
+								<option value="Benefit">Benefit</option>
+							</select>
 						</div>
 					</div>
 						<div class="modal-footer">

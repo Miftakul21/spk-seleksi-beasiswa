@@ -41,10 +41,35 @@
 									<p class="ml-2">User</p>
 								</a>
 							</li>
-							<!-- <li class="">
+
+							<li class="nav-item <?= activate_menu('user'); ?>">
+								<a href="<?= base_url('user') ?>" class="nav-link ">
+									<i class="fas fa-solid fa-user"></i>
+									<p class="ml-2">Daftar Beasiswa</p>
+								</a>
+							</li>
+
+
+							<!-- Catatan Buat 2 Fitur Jika Nanti Disuruh Rubah -->
+							<!--
+								Pertama 
+								Terdapat Form Pencaraian Jenis Beasiswa Dan Tahun Periode (Atau Otamatis Dari Tahun Saat INI)
+
+								Kedua 
+								Langung Menampilkan Data Pendaftar Beasiswa
+							-->
+
+							<!-- Buat halaman dinamis -->
+							<!-- Navigasi item active berdasarkan controller daftar -->
+							<!-- Contoh : localhost/spk-seleksi-beasiswa/Data Pendaftar/KIP-Kuliah -->
+							
+
+
+
+							<!-- <li class="nav-item ">
 								<a href="#" class="nav-link">
 									<i class="fas fa-solid fa-database mr-2"></i>
-									<p>Data Nilai Kriteria<i class="fas fa-angle-left right"></i></p>
+									<p>Data Pendaftar<i class="fas fa-angle-left right"></i></p>
 								</a>
 								<ul class="nav nav-treeview">
 									<li class="nav-item">
@@ -55,6 +80,8 @@
 									</li>
 								</ul>
 							</li> -->
+
+
 						</ul>
 					</nav>
 				</div>

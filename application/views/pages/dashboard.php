@@ -32,7 +32,7 @@
 							<div class="col-lg-3 col-6 col-sm-12">
 								<div class="small-box">
 									<div class="inner text-right">
-										<h3><?= $beasiswa ?></h3>
+										<h3><?= $beasiswa; ?></h3>
 										<p>Beasiswa</p>
 									</div>
 									<div class="icon text-white">
@@ -43,7 +43,7 @@
 							<div class="col-lg-3 col-6 col-sm-12">
 								<div class="small-box">
 									<div class="inner text-right">
-										<h3>44</h3>
+										<h3><?= $kriteria; ?></h3>
 										<p>Daftar Kriteria</p>
 									</div>
 									<div class="icon text-white">
@@ -54,7 +54,7 @@
 							<div class="col-lg-3 col-6 col-sm-12">
 								<div class="small-box">
 									<div class="inner text-right">
-										<h3><?= $users ?></h3>
+										<h3><?= $users; ?></h3>
 										<p>Daftar User</p>
 									</div>
 									<div class="icon text-white">

@@ -1,4 +1,8 @@
 <?php
+/*
+    Status 1 => Pendaftaran buka
+    Status 0 => Pendaftaran tutup
+*/
 
 class M_beasiswa extends CI_Model{
     function get_data_beasiswa(){
@@ -6,15 +10,16 @@ class M_beasiswa extends CI_Model{
         return $query->result_array();
     }
 
-    function insert_data($jenis_beasiswa, $kuota, $periode) {
-        $query = $this->db->query("INSERT tb_beasiswa (jenis_beasiswa, kuota, periode) VALUES ('$jenis_beasiswa',
-                 '$kuota', '$periode' )");
+    function insert_data($jenis_beasiswa, $kuota, $periode, $tgl_pendaftaran, $tgl_penutupan) {
+        $query = $this->db->query("INSERT tb_beasiswa (jenis_beasiswa, kuota, periode, tgl_pendaftaran, tgl_penutupan, status) 
+                VALUES ('$jenis_beasiswa','$kuota', '$periode', '$tgl_pendaftaran', '$tgl_penutupan', '1')");
         return $query;
     }
 
-    function update_data($jenis_beasiswa, $kuota, $periode, $id) {
+    function update_data($jenis_beasiswa, $kuota, $periode, $tgl_pendaftaran, $tgl_penutupan, $id) {
         $query = $this->db->query("UPDATE tb_beasiswa SET jenis_beasiswa = '$jenis_beasiswa', kuota = '$kuota',
-                 periode = '$periode' WHERE id_beasiswa = '$id'");
+                periode = '$periode', tgl_pendaftaran = '$tgl_pendaftaran', tgl_penutupan = '$tgl_penutupan'
+                WHERE id_beasiswa = '$id'");
         return $query;
     }
 
@@ -23,5 +28,8 @@ class M_beasiswa extends CI_Model{
         return $query;
     }
 
-
+    function status($status, $id) {
+        $query = $this->db->query("UPDATE tb_beasiswa SET status = '$status' WHERE id_beasiswa = '$id'");
+        return $query;
+    }
 }

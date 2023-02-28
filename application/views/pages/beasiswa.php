@@ -30,7 +30,10 @@
 												<th>Jenis Beasiswa</th>
 												<th>Kuota</th>
 												<th>Periode</th>
+												<th>Tanggal Pendaftaran</th>
+												<th>Tanggal Penutupan</th>
 												<th style="width: 150">Aksi</th>
+												<th style="width: 150">#</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -43,6 +46,8 @@
 												<td><?= $b['jenis_beasiswa']; ?></td>												
 												<td><?= $b['kuota']; ?></td>												
 												<td><?= $b['periode']; ?></td>	
+												<td><?= $b['tgl_pendaftaran']; ?></td>	
+												<td><?= $b['tgl_penutupan']; ?></td>	
 												<td>
 													<button class="btn btn-danger" data-toggle="modal" 
 														data-target="#hapusData<?= $b['id_beasiswa']; ?>">
@@ -52,6 +57,10 @@
 														data-target="#editData<?= $b['id_beasiswa']; ?>">
 														<i class="fas fa-edit fa-fw"></i>
 													</button>
+												</td>
+												<td>
+													<button>Buka</button>
+													<button>Tutup</button>
 												</td>											
 											</tr>
 											<?php endforeach; ?>
@@ -90,6 +99,14 @@
 							<label for="periode">Periode<span class="text-danger">*</span></label>
 							<input type="number" class="form-control" id="password" name="periode" placeholder="Masukkan Periode">
 						</div>
+						<div class="form-group">
+							<label for="tgl-pendaftaran">Tanggal Pendaftaran<span class="text-danger">*</span></label>
+							<input type="date" class="form-control" id="tgl-pendaftaran" name="tgl-pendaftaran">
+						</div>
+						<div class="form-group">
+							<label for="tgl-penutupan">Tanggal Penutupan<span class="text-danger">*</span></label>
+							<input type="date" class="form-control" id="tgl-penutupan" name="tgl-penutupan">
+						</div>
 					</div>
 						<div class="modal-footer">
 							<button class="btn btn-secondary" data-dismiss="modal">Batal</button>
@@ -124,6 +141,14 @@
 						<div class="form-group">
 							<label for="periode">Periode<span class="text-danger">*</span></label>
 							<input type="number" class="form-control" id="password" name="periode" value="<?= $b['periode'] ?>">
+						</div>
+						<div class="form-group">
+							<label for="tgl-pendaftaran">Tanggal Pendaftaran<span class="text-danger">*</span></label>
+							<input type="date" class="form-control" id="tgl-pendaftaran" name="tgl_pendaftaran" value="<?= $b['tgl_pendaftaran']; ?>">
+						</div>
+						<div class="form-group">
+							<label for="tgl-penutupan">Tanggal Penutupan<span class="text-danger">*</span></label>
+							<input type="date" class="form-control" id="tgl-penutupan" name="tgl_penutupan" value="<?= $b['tgl_pendaftaran']; ?>">
 						</div>
 					</div>
 						<div class="modal-footer">
