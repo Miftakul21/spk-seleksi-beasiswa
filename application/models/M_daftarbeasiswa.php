@@ -1,24 +1,22 @@
 <?php
 class M_daftarbeasiswa extends CI_Model{
-    function get_data_pendaftar()
+    function daftar_beasiswa($id_beasiswa, $nim)
     {
-        $query = $this->db->query("SELECT * FROM tb_pendaftar");
-        return $query->result_array();
-    }
-    
-    function insert_data($id_mhs, $id_kriteria1, $id_kriteria2, $id_kriteria3, $id_kriteria4, $id_kriteria5,  $nama_file1, $nama_file2)
-    {
-        $query = $this->db->query("INSERT tb_pendaftar(id_mhs, id_kriteria1, id_kriteria2, id_kriteria3, id_kriteria4, 
-                id_kriteria5, nama_file1, nama_file2) VALUE ('$id_mhs', '$id_kriteria1', '$id_kriteria2', '$id_kriteria3', 
-                '$id_kriteria4', '$id_kriteria5', '$nama_file1', '$nama_file2')");
+        $query = $this->db->query("UPDATE tb_mahasiswa SET id_beasiswa = '$id_beasiswa' WHERE nim = '$nim'");
         return $query;        
     }
 
-    function cek_daftar($id_mhs) 
+    function cek_daftar($nim) 
     {
-        $query = $this->db->query("SELECT * FROM tb_pendaftar WHERE id_mhs = '$id_mhs'");
+        $query = $this->db->query("SELECT * FROM tb_penilaian WHERE nim = '$nim'");
         return $query->result_array();
     }
 
+
+    function insert_data_nilai($id_kriteria, $id_subkriteria, $nim, $nilai) {
+        $query = $this->db->query("INSERT INTO tb_penilaian(id_kriteria, id_subkriteria, nim, nilai) VALUES ('$id_kriteria','$id_subkriteria',
+                            '$nim', '$nilai')");
+        return $query;
+    }
 
 }

@@ -11,7 +11,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <a class="nav-link active" aria-current="page" href="<?= base_url('home') ?>">Home</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
@@ -34,7 +34,6 @@
                   <span class="text-white fw-semibold"><?= $this->session->userdata('nama_mhs'); ?></span>
                 </div>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                  <div class="dropdown-divider"></div>
                   <a href="<?= base_url('loginuser/logout'); ?>" class="dropdown-item text-danger">
                     <i class="fas fa-sharp fa-solid fa-door-open me-2"></i>Log Out
                     <span class="float-right text-muted text-sm"></span>

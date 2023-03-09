@@ -1,9 +1,4 @@
 <?php
-/*
-    Status 1 => Pendaftaran buka
-    Status 0 => Pendaftaran tutup
-*/
-
 class M_beasiswa extends CI_Model{
     function get_data_beasiswa(){
         $query = $this->db->query('SELECT * FROM tb_beasiswa ORDER BY id_beasiswa ASC');
@@ -25,11 +20,6 @@ class M_beasiswa extends CI_Model{
 
     function delete_data($id) {
         $query = $this->db->query("DELETE FROM tb_beasiswa WHERE id_beasiswa = '$id'");
-        return $query;
-    }
-
-    function status($status, $id) {
-        $query = $this->db->query("UPDATE tb_beasiswa SET status = '$status' WHERE id_beasiswa = '$id'");
         return $query;
     }
 }

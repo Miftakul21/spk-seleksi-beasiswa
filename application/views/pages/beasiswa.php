@@ -31,7 +31,7 @@
 												<th>Kuota</th>
 												<th>Periode</th>
 												<th>Tanggal Pendaftaran</th>
-												<th>Tanggal Penutupan</th>
+												<th>File Pengumuman</th>
 												<th style="width: 150">Aksi</th>
 												<th style="width: 150">#</th>
 											</tr>
@@ -46,8 +46,15 @@
 												<td><?= $b['jenis_beasiswa']; ?></td>												
 												<td><?= $b['kuota']; ?></td>												
 												<td><?= $b['periode']; ?></td>	
-												<td><?= $b['tgl_pendaftaran']; ?></td>	
-												<td><?= $b['tgl_penutupan']; ?></td>	
+												<td>
+													Pendaftaran Dibuka :<?= $b['tgl_pendaftaran']; ?><br>
+													Pendaftaran Ditutup :<?= $b['tgl_penutupan']; ?>
+												</td>	
+												<td>													
+													<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#uploadFile<?= $b['id_beasiswa']; ?>">
+														File
+													</button>
+												</td>	
 												<td>
 													<button class="btn btn-danger" data-toggle="modal" 
 														data-target="#hapusData<?= $b['id_beasiswa']; ?>">
@@ -59,8 +66,9 @@
 													</button>
 												</td>
 												<td>
-													<button>Buka</button>
-													<button>Tutup</button>
+													<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#statusPendaftaran<?= $b['id_beasiswa'] ?>">
+														Status
+													</button>
 												</td>											
 											</tr>
 											<?php endforeach; ?>
@@ -160,6 +168,7 @@
 				</div>
 		</div>
 		<?php endforeach; ?>
+
 		<!-- Modal Delete Data -->
 		<?php foreach($beasiswa as $u): ?>
 		<div class="modal fade" id="hapusData<?= $u['id_beasiswa']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -185,6 +194,84 @@
 				</div>
 			</div>
 		<?php endforeach; ?>
+
+
+
+
+		<!-- Modal Upload File Pengumuman -->
+		<?php foreach($beasiswa as $u): ?>
+		<div class="modal fade" id="uploadFile<?= $u['id_beasiswa']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Upload File Pengumuman</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+				<form action="<?= base_url('beasiswa/delete'); ?>" method="POST">
+					<input type="hidden" value="<?= $b['id_beasiswa']; ?>" name="id_beasiswa">
+					<div class="modal-body">
+						<div class="input-group mb-3">
+							<div class="custom-file">
+								<input type="file" class="custom-file-input" id="inputGroupFile01">
+								<label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+							</div>
+						</div>
+					</div>
+						<div class="modal-footer">
+							<button class="btn btn-secondary" data-dismiss="modal">Batal</button>
+							<button class="btn btn-danger">Hapus</button>
+						</div>
+				</form>
+					</div>
+				</div>
+			</div>
+		<?php endforeach; ?>
+
+
+		<!-- Modal Status Pendaftaran Beasiswa -->
+		<?php foreach($beasiswa as $u): ?>
+		<div class="modal fade" id="statusPendaftaran<?= $u['id_beasiswa']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Status Pendaftaran</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+				<form action="<?= base_url('beasiswa/delete'); ?>" method="POST">
+					<input type="hidden" value="<?= $b['id_beasiswa']; ?>" name="id_beasiswa">
+					<div class="modal-body">
+						<div class="text-center">
+							<h5>Status</h5>
+							<!-- Nanti Diambil Status Keterangan  -->
+							<!-- Berdasarkan Data Dari Database -->
+							<h5>Pendaftaran Dibuka</h5>
+						</div>
+					</div>
+						<div class="modal-footer d-flex justify-content-center">
+							<button name="status" value="buka" class="btn btn-success mr-5" data-dismiss="modal">Buka</button>
+							<button name="status" value="tutup" class="btn btn-danger">Tutup</button>
+						</div>
+				</form>
+					</div>
+				</div>
+			</div>
+		<?php endforeach; ?>
+
+
+
+		<script src="<?= base_url() ?>assets/jquery.js"></script>
+		<script>
+			$('#inputGroupFile01').on('change', function(){
+				var fileName = $(this).val();
+				let namaFile = fileName.split('fakepath\\');
+				$(this).next('.custom-file-label').html(namaFile[1]);
+			});
+		</script>
+
 
 <?php $this->load->view('layout/page/bottom'); ?>
 <?php 

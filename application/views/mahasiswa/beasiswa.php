@@ -9,10 +9,10 @@
       <div class="card mt-3">
 				<div class="card-body">
 					<div>
-						<table class="table">
+						<table class="table text-center">
 							<thead>
 								<tr>
-									<th>No</th>
+									<th>Jenis Beasiswa</th>
 									<th>Periode</th>
 									<th>Status</th>
 									<th>Opsi</th>
@@ -20,15 +20,15 @@
 							</thead>
 							<tbody>
                 <?php 
-                  $no = 1;
                   foreach($beasiswa as $b):
                     $status = ($b['status'] = '1') ? 'Aktif' : 'Tutup';
                 ?>
 								<tr>
-									<td><?= $no++; ?></td>
+                  <td>Beasiswa KIP-Kuliah</td>
                   <td>
-                    <p>Pendaftaran Dibuka : <?= tgl_indo($b['tgl_pendaftaran']); ?></p>
-                    <p>Pendaftaran Dibuka : <?= tgl_indo($b['tgl_pendaftaran']); ?></p>
+                    <!-- <p>Pendaftaran Dibuka : <? //= tgl_indo($b['tgl_pendaftaran']); ?></p>
+                    <p>Pendaftaran Dibuka : <? //= tgl_indo($b['tgl_pendaftaran']); ?></p> -->
+                    2020
                   </td>
                   <td>
                     <button class="btn btn-success fw-bold"><?= $status; ?></button>
@@ -67,7 +67,12 @@ foreach($beasiswa as $b):
         <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      <form action="daftarbeasiswa/store" method="POST" enctype="multipart/form-data">
+        <!-- daftarbeasiswa/store -->
+      <form method="POST" enctype="multipart/form-data" id="form" action="<?= base_url('daftarbeasiswa/store') ?>">
+          <!-- NIM Mahasiswa -->
+          <input type="hidden" name="<?= $this->session->userdata('nim'); ?>">
+          <!-- Id Beasiswa -->
+          <input type="hidden" name="id_beasiswa" value="<?= $b['id_beasiswa']; ?>" >
           <?php 
             $no = 1; 
             foreach($kriteria as $k):
@@ -78,12 +83,15 @@ foreach($beasiswa as $b):
           ?>
           <div class="form-group mb-2">
             <label for="<?= $k['nama_kriteria']; ?>"><?= $k['nama_kriteria']; ?></label>
-            <select class="form-control form-select" id="<?= $k['nama_kriteria']; ?>" class="nilai_rata2_rapot" name="<?= $no++; ?>">
+            <select class="form-control form-select" id="<?= $k['nama_kriteria']; ?>" name="<?= $no++; ?>">
                 <option value="">--Pilih--</option>
                 <?php
                   foreach($subkriteria as $sk):
                 ?>
-                  <option value="<?= $sk['id_subkriteria']; ?>"><?= $sk['nama_subkriteria']; ?></option>
+                                  <!-- 1.nama subkriteria, 2.nilai subkriteria, 3.id subkriteria, 4. id kriteia -->
+                  <option value="<?= $sk['nama_subkriteria']; ?>|<?= $sk['nilai_subkriteria'] ?>|<?= $sk['id_subkriteria'] ?>|<?= $sk['id_kriteria'] ?>">
+                    <?= $sk['nama_subkriteria']; ?>
+                  </option>
                 <?php endforeach; ?>
             </select>
           </div>

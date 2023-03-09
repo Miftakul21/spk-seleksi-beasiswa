@@ -14,3 +14,11 @@ function tgl_indo($tgl)
     $date2 = date_format($date, 'd-m-Y');
     return $date2;
 }
+
+function split_string($str,$posisi)
+{
+    $value = $str;
+    $pisah = explode('|',$value)[$posisi];
+
+    return $pisah;
+}

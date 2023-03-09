@@ -23,7 +23,7 @@ class Login extends CI_Controller {
 		if(strlen($password) < 8) {
 			$data_session = [
 				'error' => 'Error',
-				'message' => 'Kesalahan saat login, silahakan coba lagi!'
+				'message' => 'Kesalahan saat login, silahakan coba kembali!'
 			];
 			$this->session->set_userdata($data_session);
 			redirect('login');
@@ -40,7 +40,7 @@ class Login extends CI_Controller {
 			} else {
 				$data_session = [
 					'error' => 'Error',
-					'message' => 'Kesalahan saat login, silahakan coba lagi!'
+					'message' => 'Kesalahan saat login, silahakan coba kembali!'
 				];
 				$this->session->set_userdata($data_session);
 				redirect('login');

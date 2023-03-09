@@ -29,7 +29,7 @@
               <button>Login</button>
             </form>
             <?php if($this->session->userdata('error')){ ?>
-              <span class="form-message"><?= $this->session->userdata('message'); ?></span>
+              <span class="form-message">Kesalahan saat login, silahakan coba lagi!</span>
             <?php 
                 $this->session->unset_userdata('error');
                 $this->session->unset_userdata('message');

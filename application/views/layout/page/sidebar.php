@@ -1,3 +1,6 @@
+<?php 
+	$beasiswa = $this->db->query("SELECT * FROM tb_beasiswa ORDER BY id_beasiswa")->result_array();
+?>			
 			<aside class="main-sidebar sidebar-bg-primary elevation-1">
 				<div class="sidebar">
 					<div class="user-panel mt-3 p-3  d-flex align-items-center">
@@ -35,53 +38,31 @@
 									<p class="ml-1">Kriteria</p>
 								</a>
 							</li>
-                            <li class="nav-item <?= activate_menu('user'); ?>">
+							<li class="nav-item <?= activate_menu('user'); ?>">
 								<a href="<?= base_url('user') ?>" class="nav-link ">
 									<i class="fas fa-solid fa-user"></i>
 									<p class="ml-2">User</p>
 								</a>
 							</li>
-
-							<li class="nav-item <?= activate_menu('user'); ?>">
-								<a href="<?= base_url('user') ?>" class="nav-link ">
-									<i class="fas fa-solid fa-user"></i>
-									<p class="ml-2">Daftar Beasiswa</p>
-								</a>
-							</li>
-
-
-							<!-- Catatan Buat 2 Fitur Jika Nanti Disuruh Rubah -->
-							<!--
-								Pertama 
-								Terdapat Form Pencaraian Jenis Beasiswa Dan Tahun Periode (Atau Otamatis Dari Tahun Saat INI)
-
-								Kedua 
-								Langung Menampilkan Data Pendaftar Beasiswa
-							-->
-
-							<!-- Buat halaman dinamis -->
-							<!-- Navigasi item active berdasarkan controller daftar -->
-							<!-- Contoh : localhost/spk-seleksi-beasiswa/Data Pendaftar/KIP-Kuliah -->
-							
-
-
-
-							<!-- <li class="nav-item ">
+							<li class="nav-item ">
 								<a href="#" class="nav-link">
-									<i class="fas fa-solid fa-database mr-2"></i>
-									<p>Data Pendaftar<i class="fas fa-angle-left right"></i></p>
+									<i class="fas fa-table mr-2"></i>
+									<p>Data Penilian<i class="fas fa-angle-left right"></i></p>
 								</a>
 								<ul class="nav nav-treeview">
+								<?php foreach($beasiswa as $jb): ?>	
 									<li class="nav-item">
-										<a href="#" class="nav-link"><p>Nilai Kriteria</p></a>
+										<a href="<?= base_url('datanilai/beasiswa/') ?><?= $jb['id_beasiswa'] ?>" class="nav-link"><p><?= $jb['jenis_beasiswa'] ?></p></a>
 									</li>
-									<li class="nav-item">
-										<a href="#"class="nav-link"><p>Hasil Perhitungan</p></a>
-									</li>
+								<?php endforeach; ?>
 								</ul>
-							</li> -->
-
-
+							</li>
+							<li class="nav-item <?= activate_menu(''); ?>">
+								<a href="<?= base_url('') ?>" class="nav-link ">
+									<i class="fas fa-file-alt"></i>
+									<p class="ml-2">Laporan</p>
+								</a>
+							</li>
 						</ul>
 					</nav>
 				</div>

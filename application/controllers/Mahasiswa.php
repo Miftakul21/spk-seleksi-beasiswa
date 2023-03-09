@@ -36,7 +36,7 @@ class Mahasiswa extends CI_Controller{
             $this->session->set_userdata($data_session);
             redirect('mahasiswa/index');
         } else {
-            $insert_data = $this->M_mahasiswa->insert_data($nama, $nim, $jurusan, $angkatan);
+            $insert_data = $this->M_mahasiswa->insert_data($nama, $nim, $jurusan, $angkatan, $nim);
             if($insert_data){
                 $data_session = [
                     'info' => 'Success',
