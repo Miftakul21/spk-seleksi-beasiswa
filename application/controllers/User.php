@@ -21,12 +21,12 @@ class User extends CI_Controller{
         $this->load->view('pages/user', $data);
     }
 
-    public function form_tambah_data() {
-        $data['title'] = 'Halaman Tambah User';
-        $this->load->view('layout/page/top',$data);
-        $this->load->view('pages/tambah_user');
-        $this->load->view('layout/page/bottom');
-    }
+    // public function form_tambah_data() {
+    //     $data['title'] = 'Halaman Tambah User';
+    //     $this->load->view('layout/page/top',$data);
+    //     $this->load->view('pages/tambah_user');
+    //     $this->load->view('layout/page/bottom');
+    // }
 
     public function store()
     {

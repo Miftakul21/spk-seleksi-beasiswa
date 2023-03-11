@@ -6,8 +6,8 @@ class M_beasiswa extends CI_Model{
     }
 
     function insert_data($jenis_beasiswa, $kuota, $periode, $tgl_pendaftaran, $tgl_penutupan) {
-        $query = $this->db->query("INSERT tb_beasiswa (jenis_beasiswa, kuota, periode, tgl_pendaftaran, tgl_penutupan, status) 
-                VALUES ('$jenis_beasiswa','$kuota', '$periode', '$tgl_pendaftaran', '$tgl_penutupan', '1')");
+        $query = $this->db->query("INSERT tb_beasiswa (jenis_beasiswa, kuota, periode, tgl_pendaftaran, tgl_penutupan, file, status) 
+                VALUES ('$jenis_beasiswa','$kuota', '$periode', '$tgl_pendaftaran', '$tgl_penutupan', '', '1')");
         return $query;
     }
 

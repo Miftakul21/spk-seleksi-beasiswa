@@ -1,3 +1,8 @@
+<?php 
+	$CI = & get_instance();
+	$CI->load->model('M_datanilai');
+?>
+
 <!-- Top -->
 <?php $this->load->view('layout/page2/top') ?>
 <!-- Navbar -->
@@ -7,50 +12,55 @@
   <div class="row">
     <div class="col">
       <div class="card mt-3">
-				<div class="card-body">
-					<div>
-						<table class="table text-center">
-							<thead>
-								<tr>
-									<th>Jenis Beasiswa</th>
-									<th>Periode</th>
-									<th>Status</th>
-									<th>Opsi</th>
-								</tr>
-							</thead>
-							<tbody>
+			<div class="card-body">
+				<table class="table table-hover table-striped w-100 border-info">
+					<thead>
+						<tr>
+							<th>Jenis Beasiswa</th>
+							<th>Masa Periode</th>
+							<th>Status</th>
+							<th>File Pengumuman</th>
+							<th>Opsi</th>
+						</tr>
+					</thead>
+					<tbody>
                 <?php 
-                  foreach($beasiswa as $b):
-                    $status = ($b['status'] = '1') ? 'Aktif' : 'Tutup';
+                	foreach($beasiswa as $b):
+                    // $status = ($b['status'] = '1') ? 'Aktif' : 'Tutup';
                 ?>
-								<tr>
-                  <td>Beasiswa KIP-Kuliah</td>
-                  <td>
-                    <!-- <p>Pendaftaran Dibuka : <? //= tgl_indo($b['tgl_pendaftaran']); ?></p>
-                    <p>Pendaftaran Dibuka : <? //= tgl_indo($b['tgl_pendaftaran']); ?></p> -->
-                    2020
-                  </td>
-                  <td>
-                    <button class="btn btn-success fw-bold"><?= $status; ?></button>
-                  </td>
-                  <td>
-                    <button class="btn btn-success fw-500" data-toggle="modal" data-target="#tambahData<?= $b['id_beasiswa'] ?>">
-                      Daftar Beasiswa
-										</button>
-                  </td>
-								</tr>
+						<tr>
+							<td>Beasiswa KIP-Kuliah</td>
+							<td>
+								<p>Pendaftaran Dibuka: 01-01-2023 <br> Pendaftaran Ditutup: 01-01-2024</p>
+							</td>
+							<td>
+								<h5 class="text-success"><?// = $status; ?> Test</h5>
+							</td>
+							<td>
+
+								<button type="button" class="btn btn-light shadow bg-white rounded" data-toggle="modal" data-target="#exampleModal">
+									File
+								</button>
+							</td>
+							<td>
+								<button class="btn btn-success fw-500" data-toggle="modal" data-target="#daftarBeasiswa<?= $b['id_beasiswa'] ?>">
+									Daftar Beasiswa
+								</button>
+							</td>
+						</tr>
                 <?php
-                  endforeach;
+                	endforeach;
                 ?>
-							</tbody>
-						</table>
-					</div>
-          <span>Catatan<span class="text-danger">*</span> Pendaftaran hanya bisa dilakukan sekali</span>
-				</div>
+					</tbody>
+				</table>
+				<!-- <span>Catatan<span class="text-danger">*</span> Pendaftaran hanya bisa dilakukan sekali</span> -->
 			</div>
+		</div>
     </div>
   </div>
 </div>
+
+
 
 <!-- Modal -->
 <?php 
@@ -59,18 +69,18 @@ foreach($beasiswa as $b):
   $sql = "SELECT * FROM tb_beasiswa AS a JOIN tb_kriteria AS b ON a.`id_beasiswa` = b.`id_beasiswa` WHERE a.`id_beasiswa` = '$id_beasiswa'";
   $kriteria = $this->db->query($sql)->result_array();
 ?>
-<div class="modal fade" id="tambahData<?= $b['id_beasiswa']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="daftarBeasiswa<?= $b['id_beasiswa']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
       </div>
       <div class="modal-body">
         <!-- daftarbeasiswa/store -->
       <form method="POST" enctype="multipart/form-data" id="form" action="<?= base_url('daftarbeasiswa/store') ?>">
           <!-- NIM Mahasiswa -->
-          <input type="hidden" name="<?= $this->session->userdata('nim'); ?>">
+          <input type="hidden" name="nim" value="<?= $this->session->userdata('nim'); ?>" >
           <!-- Id Beasiswa -->
           <input type="hidden" name="id_beasiswa" value="<?= $b['id_beasiswa']; ?>" >
           <?php 
@@ -88,25 +98,24 @@ foreach($beasiswa as $b):
                 <?php
                   foreach($subkriteria as $sk):
                 ?>
-                                  <!-- 1.nama subkriteria, 2.nilai subkriteria, 3.id subkriteria, 4. id kriteia -->
-                  <option value="<?= $sk['nama_subkriteria']; ?>|<?= $sk['nilai_subkriteria'] ?>|<?= $sk['id_subkriteria'] ?>|<?= $sk['id_kriteria'] ?>">
+				          <!-- 1. id_kriteria, 2. id_subkriteria, 3. nilai_subkritreia -->		
+                  <option value="<?= $sk['id_kriteria']; ?>|<?= $sk['id_subkriteria']; ?>|<?= $sk['nilai_subkriteria']; ?>">
                     <?= $sk['nama_subkriteria']; ?>
                   </option>
                 <?php endforeach; ?>
             </select>
           </div>
           <?php endforeach; ?>
-          <div class="row">
-            <div class="col-4 ">
-                <label for="nilai_rapot" class="mb-2">Upload File Nilai Rapot</label>
-                <input type="file" class="d-block" id="nilai_rapot" name="file_1">
-                <small id="emailHelp" class="form-text text-muted">Upload file maksimal 2mb</small>
-            </div>
-            <div class="col-4 offset-2">
-                <label for="sktm" class="mb-2">Upload File KIP/PKH/KKS</label>
-                <input type="file" class="d-block" id="sktm" name="file_2">
-                <small id="emailHelp" class="form-text text-muted">Upload file maksimal 2mb</small>
-            </div>
+
+          <!-- <input type="file" class="form-control"> -->
+          <div class="form-group mb-2">
+            <label for="">Upload Nilai Rapot</label>
+            <input type="file" class="form-control" name="file1">
+          </div>
+
+          <div class="form-group mb-2">
+            <label for="">Upload Kartu Sosial / Surat Keterangan</label>
+            <input type="file" class="form-control" name="file2">
           </div>
       </div>
       <div class="modal-footer">
@@ -118,6 +127,38 @@ foreach($beasiswa as $b):
   </div>
 </div>
 <?php endforeach; ?>
+
+
+
+
+
+
+
+
+<!-- 
+	Jika Ada File Maka Menampilkan File Pengumuman
+	Jika Tidak Maka Menampilkan Card
+ -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+		<div class="modal-header">
+			<h5 class="modal-title" id="exampleModalLabel">File Pengumuman</h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		<div class="modal-body">
+			
+		</div>
+			<div class="modal-footer">
+				<button class="btn btn-secondary" data-dismiss="modal">Batal</button>
+				<button class="btn btn-primary">Simpan</button>
+			</div>
+		</div>
+	</div>
+</div>
+
 
 <div class="footer">
   <p>Informasi Pendaftaran Beasiswa</p>

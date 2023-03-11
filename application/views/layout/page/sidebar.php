@@ -57,8 +57,8 @@
 								<?php endforeach; ?>
 								</ul>
 							</li>
-							<li class="nav-item <?= activate_menu(''); ?>">
-								<a href="<?= base_url('') ?>" class="nav-link ">
+							<li class="nav-item <?= activate_menu('laporan'); ?>">
+								<a href="<?= base_url('laporan') ?>" class="nav-link ">
 									<i class="fas fa-file-alt"></i>
 									<p class="ml-2">Laporan</p>
 								</a>

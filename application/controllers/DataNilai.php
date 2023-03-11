@@ -92,7 +92,5 @@ class DataNilai extends CI_Controller {
                 redirect('datanilai/beasiswa/'.$id_beasiswa);
             }
         }
-        
     }
-
 }

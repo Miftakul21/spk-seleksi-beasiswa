@@ -14,16 +14,21 @@ body {
 	line-height: 0.9;
 }
 
+.jumbotron {
+	padding: 0;
+}
+
 .footer {
 	position: fixed;
 	bottom: 0;
-	background: #333;
+	background: #fff;
 	width: 100%;
 	padding: 10px 0;
 	text-align: center;
-	color: white;
+	color: #000;
 	font-size: 16px;
 	font-weight: 500;
+	box-shadow: 0px -1px 1px rgb(214, 211, 211) !important;
 }
 
 .footer p {

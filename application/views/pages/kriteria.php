@@ -1,3 +1,6 @@
+<?php 
+	$atribut = ['Cost','Benefit'];
+?>
 	<body class="hold-transition sidebar-mini layout-fixed">
 		<div class="wrapper">
 			<!-- Navbar -->
@@ -275,9 +278,17 @@
 											<div class="form-group">
 												<label for="atribut_kriteria">Atribut<span class="text-danger">*</span></label>
 												<select class="form-control" id="atribut_kriteria" name="atribut_kriteria">
-													<option value="">--Pilih--</option>
+													<!-- <option value="">--Pilih--</option>
 													<option value="Cost">Cost</option>
-													<option value="Benefit">Benefit</option>
+													<option value="Benefit">Benefit</option> -->
+												<?php 
+													foreach($atribut as $a):
+														$selected = ($a == $k['atribut_kriteria']) ? 'selected': '';	
+												?>
+												<option value="<?= $a ?>" <?= $selected ?>> <?= $a ?> </option>
+												<?php 
+													endforeach;
+												?>
 												</select>
 											</div>
 										</div>

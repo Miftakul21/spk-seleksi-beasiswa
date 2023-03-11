@@ -97,10 +97,22 @@ class Beasiswa extends CI_Controller{
         }  
     }
 
-    // public function status()
-    // {
-    //     $status = $this->input->post('status');        
-    // }
+    
+    /* Untuk stauts pembukaan pendaftaran beasiswa
+    public function status()
+    {
+        $id_beasiswa
+        $tombol active atau tutup pake button value nanti cari refernsi di internet
+    }
+    */
+
+    /* Untuk Upload File
+    public function uploadFile()
+    {
+        $id_beasiswa
+        $file_name
+    }
+    */
 
 }
 

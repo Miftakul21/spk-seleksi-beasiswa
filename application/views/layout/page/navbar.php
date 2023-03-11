@@ -5,7 +5,7 @@
 				<i class="fa fa-user-circle fs-2 mr-2" style="font-size: 26px;"></i>
                 <span class="text-white fw-semibold">Admin</span>
 			</div>
-			<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+			<div class="dropdown-menu dropdown-menu-right">
 				<a href="<?= base_url('login/logout'); ?>" class="dropdown-item text-danger">
 					<i class="fas fa-sharp fa-solid fa-door-open mr-2"></i>Log Out
 					<span class="float-right text-muted text-sm"></span>

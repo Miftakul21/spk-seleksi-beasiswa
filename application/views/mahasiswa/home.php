@@ -6,7 +6,7 @@
     <div class="container mt-3">
       <div class="card">
         <div class="card-body">
-          <div class="jumbotron">
+          <div class="jumbotron bg-transparent">
             <h1 class="display-4">Selamat Datang</h1>
             <p class="lead">Mahasiswa Pejuang Beasiswa, disini merupakan media informasi untuk pendaftaran beasiswa</p>
             <hr class="my-3">
@@ -17,7 +17,7 @@
               <p>Tanggal Penutupan Pendaftaran: Senin, 17 Maret 2023</p>
             </div>
             <div class="informasi-keterangan">
-              <p class="mt-5 fw-bold">Keterangan<span class="text-danger">*</span></p>
+              <p class=" fw-bold" style="margin-top: 3rem;">Keterangan<span class="text-danger">*</span></p>
               Jadawal pendaftaran dapat berubah sewaktu-waktu
             </div>
           </div>
