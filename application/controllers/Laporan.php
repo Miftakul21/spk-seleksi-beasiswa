@@ -1,6 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+require FCPATH . 'vendor/autoload.php';
+
+use Dompdf\Dompdf;
+
 class Laporan extends CI_Controller{
     public function __construct()
     {
@@ -19,4 +23,34 @@ class Laporan extends CI_Controller{
         $this->load->view('layout/page/top', $data);
         $this->load->view('pages/laporan', $data);
     }
+
+    
+    public function hasil()
+    {
+        $pdf = $this->load->view('laporan\laporan', null, true);
+
+        $dompdf = new Dompdf();
+
+        $dompdf->set_option('isRemoteEnabled', TRUE);
+
+        $dompdf->loadHTML($pdf);
+
+        $dompdf->setPaper('A4', 'landscape');
+
+        $dompdf->render();
+
+        $dompdf->stream('laporan.pdf', array('Attachment' => 0));
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 }

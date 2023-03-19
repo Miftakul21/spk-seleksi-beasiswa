@@ -11,6 +11,11 @@ class M_datanilai extends CI_Model{
         return $query;
     }
 
+    function get_data_mahasiswa_all(){
+        $query = $this->db->query("SELECT * FROM tb_beasiswa")->result_array();
+        return $query;
+    }
+
     function get_data_mahasiswa($id_beasiswa){
         $query = $this->db->query("SELECT * FROM tb_mahasiswa WHERE id_beasiswa = '$id_beasiswa'")->result_array();
         return $query;
@@ -55,7 +60,22 @@ class M_datanilai extends CI_Model{
         return $query;
     }
 
+    // Data Subkriteria Berdasarkan Kriteria Beasiswa
+    function get_data_subkriteria($id_beasiswa){
+        $query = $this->db->query("SELECT a.id_kriteria, a.nama_kriteria FROM tb_kriteria AS a JOIN tb_beasiswa AS b ON a.`id_beasiswa` 
+                                    = b.`id_beasiswa` WHERE a.`id_beasiswa` = '$id_beasiswa'")->result_array();
+        return $query;
+    }
 
+    function delete_data_mhs($nim) {
+        $query = $this->db->query("DELETE FROM tb_penilaian WHERE nim = '$nim'");
+        return $query;
+    }
+
+    function delete_file($nim){
+        $query = $this->db->query("DELETE FROM tb_file WHERE nim = '$nim'");
+        return $query;
+    }
 }
 
 ?>

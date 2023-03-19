@@ -25,12 +25,7 @@
 							</div>
 						</div>
                         <hr style="border-top: 1px solid #bbb">
-
-						<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-						    <i class="fas fa-solid fa-plus mr-2"></i> Tambah Data Mahasiswa
-						</button> -->
-
-				<!-- Data Kriteria Mahasiswa -->
+						<!-- Data Kriteria Mahasiswa -->
 						<div class="card mt-3">
 							<div class="card-header">
 								<h5>Data Kriteria Mahasiswa </h5>
@@ -55,11 +50,10 @@
 										<tbody>
 						<?php 
 							$no = 1;
-							foreach($beasiswa as $b):
+							foreach($beasiswa as $b){
 								$id_beasiswa = $b['id_beasiswa'];
 								$mhs = $CI->M_datanilai->get_data_mahasiswa($id_beasiswa);
-
-								foreach($mhs as $m):
+								foreach($mhs as $m){
 									$nim_mhs = $m['nim'];
 									$nilai = $CI->M_datanilai->get_data_nama_kriteria($nim_mhs);
 						?>
@@ -71,19 +65,19 @@
 												<td><?= $n['nama_subkriteria']; ?></td>
 											<?php endforeach; ?>
 												<td>
-													<button class="btn btn-primary" data-toggle="modal" data-target="#fileBukti<?= $nim_mhs ?>">
+													<button class="btn btn-primary" data-toggle="modal" data-target="#fileBukti<?//=  ?>">
 														<i class="fas fa-file-alt"></i>
 													</button>
 												</td>
 												<td>
-													<button class="btn btn-danger" data-toggle="modal" data-target="#hapusData<?= $nim_mhs ?>">
+													<button class="btn btn-danger" data-toggle="modal" data-target="#hapusData<?= $m['nim']; ?>">
 														<i class="fas fa-trash fa-fw"></i>
 													</button>
 												</td>
 											</tr>
 						<?php 									
-								endforeach;
-							endforeach;
+								}
+							}
 						?>
 										</tbody>
 									</table>
@@ -91,7 +85,7 @@
 							</div>
 						</div>
 
-				<!-- Data Nilai Kriteria -->
+						<!-- Data Nilai Kriteria -->
 						<div class="card mt-3">
 							<div class="card-header">
 								<h5>Data Nilai Kriteria</h5>
@@ -138,10 +132,11 @@
 								</div>
 							</div>
 						</div>
+
 				<!-- Data Normalisasi -->
 				<div class="card mt-3">
 							<div class="card-header">
-								<h5 class="fw-bold">Normalisasi</h5>
+								<h5 class="fw-bold">Data Normalisasi</h5>
 							</div>
 							<div class="card-body">
 								<div class="table-responsive">
@@ -164,7 +159,6 @@
 							foreach($beasiswa as $b):
 								$id_beasiswa = $b['id_beasiswa'];
 								$mhs = $CI->M_datanilai->get_data_mahasiswa($id_beasiswa);
-
 								foreach($mhs as $m):
 									$nim_mhs = $m['nim'];
 									$nilai = $CI->M_datanilai->get_data_nilai_kriteria($nim_mhs);
@@ -174,8 +168,6 @@
 												<td><?= $m['nama'] ?></td>
 												<td><?= $m['nim'] ?></td>	
 						<?php 
-									// $hasil_normalisasi = 0;
-									// $hasil = 0;
 									foreach($nilai as $n){
 										$id_kriteria = $n['id_kriteria'];
 										$kriteria = $CI->M_datanilai->get_data_kriteria($id_kriteria);
@@ -186,9 +178,6 @@
 												foreach($nilai_min as $min){
 													// $data_min = $min['nilai_min'];
 													$hasil = $min['nilai_min'] / $n['nilai'];
-
-												
-						
 						?>			
 										<td><?= $hasil ?></td>
 						<?php 
@@ -217,85 +206,156 @@
 						</div>
 
 
+					<!-- Data Pembobotan -->
+					<div class="card mt-3">
+						<div class="card-header">
+							<h5 class="fw-bold">Data Nilai Pembobotan</h5>
+						</div>
+						<div class="card-body">
+							<div class="table-responsive">
+								<table class="table table-hover table-striped w-100">
+									<thead>
+										<tr>
+											<th>No</th>
+											<th>Nama</th>
+											<th>NIM</th>
+											<th>Nilai Rapot</th>
+											<th>Penghasilan Orang Tua</th>
+											<th>Jumlah Tanggungan</th>
+											<th>Status Anak</th>
+											<th>Kartu Sosial</th>
+											<th>Hasil</th>
+										</tr>
+									</thead>
+									<tbody>
+						<?php 
+							$hasil_ranks = array();
+							$no = 1;
+							foreach($beasiswa as $b){
+								$id_beasiswa = $b['id_beasiswa'];
+								$mhs = $CI->M_datanilai->get_data_mahasiswa($id_beasiswa);
+
+								foreach($mhs as $m){
+									$nim_mhs = $m['nim'];
+									$nilai = $CI->M_datanilai->get_data_nilai_kriteria($nim_mhs);
+						?>
+											<tr>
+												<td><?= $no++; ?></td>
+												<td><?= $m['nama'] ?></td>
+												<td><?= $m['nim'] ?></td>	
+						<?php 
+									$hasil_normalisasi = 0;
+									$hasil = 0;
+									foreach($nilai as $n){
+										$id_kriteria = $n['id_kriteria'];
+										$kriteria = $CI->M_datanilai->get_data_kriteria($id_kriteria);
+										foreach($kriteria as $k){
+											if($k['atribut_kriteria'] == 'Cost') {
+												$nilai_min = $CI->M_datanilai->get_data_nilai_min($id_kriteria);
+												foreach($nilai_min as $min){
+													$hasil = $min['nilai_min'] / $n['nilai'];
+													$hasil_kali = $hasil * $k['nilai_bobot'];
+													$hasil_normalisasi = $hasil_normalisasi + $hasil_kali;
+						?>			
+												<td><?= $hasil_kali ?></td>
+						<?php 
+												}	
+											} else if($k['atribut_kriteria'] == 'Benefit'){
+												$nilai_max = $CI->M_datanilai->get_data_nilai_max($id_kriteria);
+												foreach($nilai_max as $max){
+													$hasil = $n['nilai'] / $max['nilai_max'];												
+													$hasil_kali = $hasil * $k['nilai_bobot'];
+													$hasil_normalisasi = $hasil_normalisasi + $hasil_kali;
+						?>
+												<td><?= $hasil_kali ?></td>
+						<?php 
+												}
+											}
+										}
+									}
+
+									// Nilai Hasil Pembobotan
+									$nilai_rank['nim'] = $nim_mhs;
+									$nilai_rank['nilai'] = $hasil_normalisasi;
+									array_push($hasil_ranks,$nilai_rank)
+					
+								
+						?>
+												<td><?= $hasil_normalisasi; ?></td>
+											</tr>
+						<?php 									
+								}
+							}
+						?>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						
+
+						<!-- Insert Data Hasil Pembobotan Untuk Perangkingan -->
+						<?php 
+							// Cek Jumlah Data Penilaian (Group Berdasarkan NIM Mahasiswa)
+							$query1 = "SELECT * FROM tb_penilaian GROUP BY nim";
+							$penilaian = $this->db->query($query1)->result_array();
+
+							foreach($penilaian as $p){
+								foreach($hasil_ranks as $rank){
+									$nim = $rank['nim'];
+									$hasil_pembobotan = $rank['nilai'];
+									$cek = $this->db->query("SELECT * FROM tb_hasil WHERE nim = '$nim'")->result_array();
+									
+									if(count($cek)==0){
+										$this->db->query("INSERT INTO tb_hasil(nim, nilai) VALUES ('$nim', $hasil_pembobotan)");		
+									}
+								}
+							}
+						?>
+
+						<div class="d-flex justify-content-center">
+							<div class="col-6">
+								<div class="card mt-3">
+									<div class="card-header">
+										Test Perangkingan
+									</div>
+									<div class="card-body">
+										<table class="table">
+											<thead>
+												<tr>
+													<th scope="col">#</th>
+													<th scope="col">First</th>
+													<th scope="col">Last</th>
+												</tr>
+											</thead>
+											<tbody>
+										<?php 
+											$no=1;
+											foreach($hasil_ranks as $rank){ 
+										?>
+												<tr>
+													<th scope="row"><?= $no++ ?></th>
+													<td><?= $rank['nim'] ?></td>
+													<td><?= $rank['nilai'] ?></td>
+												</tr>
+										<?php } ?>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+
+					<!-- End Content -->
 					</div>
 				</div>
 			</div>
 			<?php $this->load->view('layout/page/footer') ?>
 		</div>
 
-<!-- Modal Tambah Data-->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-		<div class="modal-header">
-			<h5 class="modal-title" id="exampleModalLabel">Tambah Data</h5>
-			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-			</button>
-		</div>
-	<div class="modal-body">
-		<form action="<?= base_url('datanilai/store') ?>" method="POST">
-			<!-- id Beasiswa -->
-			<input type="hidden" name="id_beasiswa" value="<?= $id_beasiswa ?>">
-			
 
-			<div class="form-group">
-				<label for="nim">Mahasiswa<span class="text-danger">*</span></label>	
-				<select name="nim" id="nim" class="form-control">
-					<option value="">--Pilih---</option>
-				<?php foreach($mahasiswa as $m): ?>
-					<option value="<?= $m['nim'];?>"><?= $m['nama']; ?></option>
-				<?php endforeach; ?>
-				</select>
-			</div>
-		<?php foreach($beasiswa as $b):
-				$id_beasiswa = $b['id_beasiswa'];
-
-				// // Nanti Diganti -----------------
-				// $sql = "SELECT * FROM tb_kriteria AS a JOIN tb_beasiswa AS b ON 
-				// 		a.id_beasiswa = b.`id_beasiswa` WHERE b.id_beasiswa = '$id_beasiswa'";
-				// $kriteria = $this->db->query($sql)->result_array();
-		?>
-		<?php endforeach ?>
-		<?php 
-			foreach($beasiswa as $b):
-				$id_beasiswa = $b['id_beasiswa'];
-				$sql2 = "SELECT a.id_kriteria, a.nama_kriteria FROM tb_kriteria AS a 
-						JOIN tb_beasiswa AS b ON a.`id_beasiswa` = b.`id_beasiswa`
-						WHERE a.`id_beasiswa` = '1'";
-				$kriteria = $this->db->query($sql2)->result_array();
-				$no = 1;
-				foreach($kriteria as $k):
-		?>
-		<div class="form-group">
-			<label for="<?= $k['nama_kriteria']; ?>"><?= $k['nama_kriteria']; ?></label>
-			<select class="form-control form-select" name="<?= $no++; ?>" id="<?= $nama_kriteria ?>">
-				<option value="">--Pilih--</option>
-				<?php
-					$id_kriteria = $k['id_kriteria']; 
-					$sql3 = "SELECT a.id_subkriteria, a.nama_subkriteria, a.nilai_subkriteria, b.id_kriteria FROM tb_subkriteria AS a JOIN
-							tb_kriteria AS b ON a.`id_kriteria` = b.`id_kriteria` WHERE b.`id_kriteria` = '$id_kriteria'";
-					$subkriteria = $this->db->query($sql3)->result_array();
-					foreach($subkriteria as $sk):
-				?>
-				<!-- 1. id_kriteria, 2. id_subkriteria, 3. nilai_subkritreia -->
-				<option value="<?= $sk['id_kriteria']; ?>|<?= $sk['id_subkriteria']; ?>|<?= $sk['nilai_subkriteria']; ?>"><?= $sk['nama_subkriteria'] ?></option>
-				<?php endforeach; ?>
-			</select>
-		</div>
-		<?php 
-				endforeach;
-			endforeach;
-		?>
-		</div>
-			<div class="modal-footer">
-				<button class="btn btn-secondary" data-dismiss="modal">Batal</button>
-				<button class="btn btn-primary">Simpan</button>
-			</div>
-		</form>
-		</div>
-	</div>
-</div>
 
 		
 
@@ -315,7 +375,7 @@
 				<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-		<form action="<?= base_url(''); ?>" method="POST">
+		<form action="<?//= base_url(''); ?>" method="POST">
 			<input type="hidden" value="<?// = $b['id_beasiswa']; ?>" name="id_beasiswa">
 			<div class="modal-body">
 				<div class="row">
@@ -338,7 +398,6 @@
 	endforeach; 
 ?>
 
-
 <!-- Modal Hapus Data-->
 <?php 
 foreach($beasiswa as $b):
@@ -350,14 +409,13 @@ foreach($beasiswa as $b):
 		<div class="modal-dialog">
 			<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Hapus Data</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Hapus Data <?= $m['nama']; ?></h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 				<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 		<form action="<?= base_url(''); ?>" method="POST">
-			<!-- Nanti ambil id beasiswa untuk update pendaftaran -->
-			<input type="hidden" value="<? //= $u['id_users']; ?>" name="id">
+			<input type="hidden" value="<?= $m['nim']; ?>" name="nim">
 			<div class="modal-body">
 				Anda ingin menghapus?
 			</div>

@@ -35,6 +35,9 @@ class M_mahasiswa extends CI_Model{
         return $query->result_array();
     }
 
-
-
+    function update_beasiswa_mhs($nim)
+    {
+        $query = $this->db->query("UPDATE tb_mahasiswa SET id_beasiswa = '' WHERE nim = '$nim'");
+        return $query;
+    }
 }

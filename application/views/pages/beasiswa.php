@@ -96,23 +96,23 @@
 					</div>
 					<div class="modal-body">
 						<div class="form-group">
-							<label for="jenis_beasiswa">Jenis Beasiswa<span class="text-danger">*</span></label>
+							<label for="jenis_beasiswa">Jenis Beasiswa</label>
 							<input type="text" class="form-control" id="jenis_beasiswa" name="jenis_beasiswa" placeholder="Masukkan Jenis Beasiswa">
 						</div>
 						<div class="form-group">
-							<label for="kuota">Kuota<span class="text-danger">*</span></label>
+							<label for="kuota">Kuota</label>
 							<input type="number" class="form-control" id="kuota" name="kuota" placeholder="Masukkan Kuota">
 						</div>
 						<div class="form-group">
-							<label for="periode">Periode<span class="text-danger">*</span></label>
+							<label for="periode">Periode</label>
 							<input type="number" class="form-control" id="password" name="periode" placeholder="Masukkan Periode">
 						</div>
 						<div class="form-group">
-							<label for="tgl-pendaftaran">Tanggal Pendaftaran<span class="text-danger">*</span></label>
+							<label for="tgl-pendaftaran">Tanggal Pendaftaran</label>
 							<input type="date" class="form-control" id="tgl-pendaftaran" name="tgl-pendaftaran">
 						</div>
 						<div class="form-group">
-							<label for="tgl-penutupan">Tanggal Penutupan<span class="text-danger">*</span></label>
+							<label for="tgl-penutupan">Tanggal Penutupan</label>
 							<input type="date" class="form-control" id="tgl-penutupan" name="tgl-penutupan">
 						</div>
 					</div>
@@ -124,6 +124,7 @@
 				</div>
 			</div>
 		</form>	
+
 		<!-- Modal Edit Data -->
 		<?php foreach($beasiswa as $b): ?>
 		<div class="modal fade" id="editData<?= $b['id_beasiswa'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -139,23 +140,23 @@
 					<form action="<?= base_url('beasiswa/update') ?>" method="POST">
 						<input type="hidden" value="<?= $b['id_beasiswa'] ?>" name="id_beasiswa">
 						<div class="form-group">
-							<label for="jenis_beasiswa">Jenis Beasiswa<span class="text-danger">*</span></label>
+							<label for="jenis_beasiswa">Jenis Beasiswa</label>
 							<input type="text" class="form-control" id="jenis_beasiswa" name="jenis_beasiswa" value="<?= $b['jenis_beasiswa'] ?>">
 						</div>
 						<div class="form-group">
-							<label for="kuota">Kuota<span class="text-danger">*</span></label>
+							<label for="kuota">Kuota</label>
 							<input type="number" class="form-control" id="kuota" name="kuota" value="<?= $b['kuota'] ?>">
 						</div>
 						<div class="form-group">
-							<label for="periode">Periode<span class="text-danger">*</span></label>
+							<label for="periode">Periode</label>
 							<input type="number" class="form-control" id="password" name="periode" value="<?= $b['periode'] ?>">
 						</div>
 						<div class="form-group">
-							<label for="tgl-pendaftaran">Tanggal Pendaftaran<span class="text-danger">*</span></label>
+							<label for="tgl-pendaftaran">Tanggal Pendaftaran</label>
 							<input type="date" class="form-control" id="tgl-pendaftaran" name="tgl_pendaftaran" value="<?= $b['tgl_pendaftaran']; ?>">
 						</div>
 						<div class="form-group">
-							<label for="tgl-penutupan">Tanggal Penutupan<span class="text-danger">*</span></label>
+							<label for="tgl-penutupan">Tanggal Penutupan</label>
 							<input type="date" class="form-control" id="tgl-penutupan" name="tgl_penutupan" value="<?= $b['tgl_pendaftaran']; ?>">
 						</div>
 					</div>

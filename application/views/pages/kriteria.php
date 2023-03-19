@@ -119,12 +119,12 @@
 													<form action="<?= base_url('kriteria/update_subkriteria') ?>" method="POST">
 														<input type="hidden" value="<?= $sk['id_subkriteria']; ?>" name="id_subkriteria">
 														<div class="form-group">
-															<label for="sub_kriteria">Sub Kriteria<span class="text-danger">*</span></label>
+															<label for="sub_kriteria">Sub Kriteria</label>
 															<input type="text" class="form-control" id="sub_kriteria" name="sub_kriteria" 
 																value="<?= $sk['nama_subkriteria']; ?>">
 														</div>
 														<div class="form-group">
-															<label for="nilai_subkriteria">Nilai <span class="text-danger">*</span></label>
+															<label for="nilai_subkriteria">Nilai </label>
 															<input type="text" class="form-control" id="nilai_subkriteria" name="nilai_subkriteria"
 																value="<?= $sk['nilai_subkriteria']; ?>">
 														</div>
@@ -187,13 +187,13 @@
 										<div class="modal-body">
 										<form action="<?= base_url('kriteria/store_subkriteria') ?>" method="POST">
 											<div class="form-group">
-												<label for="sub_kriteria">Sub Kriteria<span class="text-danger">*</span></label>
+												<label for="sub_kriteria">Sub Kriteria</label>
 												<input type="hidden" value="<?= $k['id_kriteria']; ?>" name="id_kriteria">
 												<input type="text" class="form-control" id="sub_kriteria" name="sub_kriteria" 
 													placeholder="Masukkan Subkriteria">
 											</div>
 											<div class="form-group">
-												<label for="nilai">Nilai <span class="text-danger">*</span></label>
+												<label for="nilai">Nilai </label>
 												<input type="text" class="form-control" id="nilai" name="nilai" 
 													placeholder="Masukkan Nilai">
 											</div>
@@ -252,7 +252,7 @@
 											<input type="hidden" value="<?= $k['id_kriteria']; ?>" name="id">
 											<input type="hidden" value="<?= $k['id_beasiswa']; ?>" name="jenis_beasiswa">
 											<div class="form-group">
-												<label for="jenis_beasiswa">Jenis Beasiswa<span class="text-danger">*</span></label>
+												<label for="jenis_beasiswa">Jenis Beasiswa</label>
 												<select class="form-control" id="jenis_beasiswa" name="jenis_beasiswa" 
 													value="<?= $k['id_beasiswa'] ?>" disabled>
 													<?php 
@@ -266,21 +266,18 @@
 												</select>
 											</div>
 											<div class="form-group">
-												<label for="nama_kriteria">Kriteria<span class="text-danger">*</span></label>
+												<label for="nama_kriteria">Kriteria</label>
 												<input type="text" class="form-control" id="nama_kriteria" name="nama_kriteria" 
 													value="<?= $k['nama_kriteria']; ?>">
 											</div>
 											<div class="form-group">
-												<label for="nilai_bobot">Nilai Bobot<span class="text-danger">*</span></label>
+												<label for="nilai_bobot">Nilai Bobot</label>
 												<input type="text" class="form-control" id="nilai_bobot" name="nilai_bobot" 
 													value="<?= $k['nilai_bobot']; ?>">
 											</div>
 											<div class="form-group">
-												<label for="atribut_kriteria">Atribut<span class="text-danger">*</span></label>
+												<label for="atribut_kriteria">Atribut</label>
 												<select class="form-control" id="atribut_kriteria" name="atribut_kriteria">
-													<!-- <option value="">--Pilih--</option>
-													<option value="Cost">Cost</option>
-													<option value="Benefit">Benefit</option> -->
 												<?php 
 													foreach($atribut as $a):
 														$selected = ($a == $k['atribut_kriteria']) ? 'selected': '';	
@@ -321,7 +318,7 @@
 					</div>
 					<div class="modal-body">
 						<div class="form-group">
-							<label for="jenis_beasiswa">Jenis Beasiswa<span class="text-danger">*</span></label>
+							<label for="jenis_beasiswa">Jenis Beasiswa</label>
 							<select class="form-control" id="jenis_beasiswa" name="jenis_beasiswa">
 								<option>--Pilih--</option>
 								<?php foreach($beasiswa as $b): ?>
@@ -330,15 +327,15 @@
 							</select>
 						</div>
 						<div class="form-group">
-							<label for="nama_kriteria">Kriteria<span class="text-danger">*</span></label>
+							<label for="nama_kriteria">Kriteria</label>
 							<input type="text" class="form-control" id="nama_kriteria" name="nama_kriteria" placeholder="Masukkan Kriteria">
 						</div>
 						<div class="form-group">
-							<label for="nilai_bobot">Nilai Bobot<span class="text-danger">*</span></label>
+							<label for="nilai_bobot">Nilai Bobot</label>
 							<input type="text" class="form-control" id="nilai_bobot" name="nilai_bobot" placeholder="Masukkan Nilai Bobot">
 						</div>
 						<div class="form-group">
-							<label for="atribut_kriteria">Atribut<span class="text-danger">*</span></label>
+							<label for="atribut_kriteria">Atribut</label>
 							<select class="form-control" id="atribut_kriteria" name="atribut_kriteria">
 								<option value="">--Pilih--</option>
 								<option value="Cost">Cost</option>

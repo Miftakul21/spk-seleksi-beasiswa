@@ -20,14 +20,7 @@ class User extends CI_Controller{
         $this->load->view('layout/page/top',$data);
         $this->load->view('pages/user', $data);
     }
-
-    // public function form_tambah_data() {
-    //     $data['title'] = 'Halaman Tambah User';
-    //     $this->load->view('layout/page/top',$data);
-    //     $this->load->view('pages/tambah_user');
-    //     $this->load->view('layout/page/bottom');
-    // }
-
+    
     public function store()
     {
         $nama = $this->input->post('nama');
@@ -96,20 +89,32 @@ class User extends CI_Controller{
         $id = $this->input->post('id');
         $delete_data = $this->M_users->delete_data($id);
 
-        if($delete_data) {
-            $data_session = [
-                'info' => 'Success',
-                'message' => 'Berhasil dihapus!'
-            ];
-            $this->session->set_userdata($data_session);
-            redirect('user/index');
-        } else {
+        $data = $this->M_users->get_users_id($id);
+        $data_terakhir = $data['id_users'];
+
+        if($data_terakhir == '1'){
             $data_session = [
                 'info' => 'Error',
-                'message' => 'Gagal dihapus!'
+                'message' => 'Data terakhir tidak bisa dihapus!'
             ];
             $this->session->set_userdata($data_session);
-            redirect('user/index');
+            redirect('user/index');            
+        } else {
+            if($delete_data) {
+                $data_session = [
+                    'info' => 'Success',
+                    'message' => 'Berhasil dihapus!'
+                ];
+                $this->session->set_userdata($data_session);
+                redirect('user/index');
+            } else {
+                $data_session = [
+                    'info' => 'Error',
+                    'message' => 'Gagal dihapus!'
+                ];
+                $this->session->set_userdata($data_session);
+                redirect('user/index');
+            }
         }
     }
 

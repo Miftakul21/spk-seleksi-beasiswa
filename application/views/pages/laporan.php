@@ -17,12 +17,7 @@
 							</div>
 						</div>
                         <hr style="border-top: 1px solid #bbb">
-						
-                        <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-						    <i class="fas fa-solid fa-plus mr-2"></i> Tambah Data
-						</button> -->
-
-
+				
                         <div class="row">
                             <div class="col-4 d-flex align-items-center">
                                 <label for="" class="mr-3">Jenis Beasiswa</label>
@@ -40,7 +35,7 @@
                         <!-- Dikasih Pengkondisian -->
                         <!-- Jika Tidak Melakukan Pencarian Maka Tidak Menampilkan Data -->
 
-                        <button class="btn btn-success mt-3"><i class="fas fa-print text-white"></i> Cetak PDF</button>
+                        <a href="<?= base_url('laporan/hasil') ?>" class="btn btn-success mt-3"><i class="fas fa-print text-white"></i> Cetak PDF</a>
                         <!-- Menampilkan Hasil Perangkingan -->
 						
                         <div class="d-flex justify-content-center">

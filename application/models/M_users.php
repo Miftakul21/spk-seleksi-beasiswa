@@ -7,6 +7,11 @@ class M_users extends CI_Model{
         return $query->result_array();
     }
 
+    function get_users_id($id){
+        $query = $this->db->query("SELECT * FROM tb_users WHERE id_users = '$id'")->result_array();
+        return $query;
+    }
+
     function cek_login($username, $password) {
         $query  = $this->db->query("SELECT * FROM tb_users WHERE username = '$username' AND password = '$password'");
         return $query->result_array();

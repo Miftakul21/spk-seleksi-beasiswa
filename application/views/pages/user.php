@@ -79,22 +79,22 @@
 					</div>
 					<div class="modal-body">
 						<div class="form-group">
-							<label for="nama">Nama<span class="text-danger">*</span></label>
+							<label for="nama">Nama</label>
 							<input type="text" class="form-control" id="nama" name="nama" value="" placeholder="Masukkan Nama">
 						</div>
 
 						<div class="form-group">
-							<label for="username">Username<span class="text-danger">*</span></label>
+							<label for="username">Username</label>
 							<input type="text" class="form-control" id="username" name="username" value="" placeholder="Masukkan Username">
 						</div>
 
 						<div class="form-group">
-							<label for="password">Password<span class="text-danger">*</span></label>
+							<label for="password">Password</label>
 							<input type="password" class="form-control" id="password" name="password" value="" placeholder="Masukkan Password">
 						</div>
 
 						<div class="form-group">
-							<label for="level_user">Level User<span class="text-danger">*</span></label>
+							<label for="level_user">Level User</label>
 							<select class="form-control" id="level_user" name="level_user">
 								<option>--Pilih--</option>
 								<?php foreach($level_user as $l):?>
@@ -127,19 +127,19 @@
 					<div class="modal-body">
 						<input type="hidden" value="<?= $u['id_users']; ?>" name="id">	
 						<div class="form-group">
-							<label for="nama">Nama<span class="text-danger">*</span></label>
+							<label for="nama">Nama</label>
 							<input type="text" class="form-control" id="nama" name="nama" value="<?= $u['nama']; ?>">
 						</div>
 						<div class="form-group">
-							<label for="username">Username<span class="text-danger">*</span></label>
+							<label for="username">Username</label>
 							<input type="text" class="form-control" id="username" name="username" value="<?= $u['username'] ?>">
 						</div>
 						<div class="form-group">
-							<label for="password">Password<span class="text-danger">*</span></label>
+							<label for="password">Password</label>
 							<input type="password" class="form-control" id="password" name="password" value="<?= str_repeat("*", strlen(substr($u['password'], 0, 8))); ?>">
 						</div>
 						<div class="form-group">
-							<label for="level_user">Level User<span class="text-danger">*</span></label>
+							<label for="level_user">Level User</label>
 							<select class="form-control" id="level_user" name="level_user" >
 								<?php 
 									foreach($level_user as $l): 

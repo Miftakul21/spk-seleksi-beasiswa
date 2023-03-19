@@ -39,6 +39,7 @@ class Kriteria extends CI_Controller{
             $this->session->set_userdata($data_session);
             redirect('kriteria/index');
         } else {
+            $nilai_bobot = $nilai_bobot / 100;
             $insert_data = $this->M_kriteria->insert_data($nama_kriteria, $nilai_bobot, $atribut_kriteria, $jenis_beasiswa);
 
             if($insert_data){
@@ -65,7 +66,9 @@ class Kriteria extends CI_Controller{
         $nilai_bobot = $this->input->post('nilai_bobot');
         $jenis_beasiswa = $this->input->post('jenis_beasiswa');
         $id = $this->input->post('id');
-        $atribut_kriteria = $this->input->post('atribut_kriteria');  
+        $atribut_kriteria = $this->input->post('atribut_kriteria'); 
+        
+        $nilai_bobot = $nilai_bobot / 100;
         
         $update_data = $this->M_kriteria->update_data($nama_kriteria, $nilai_bobot, $atribut_kriteria, $jenis_beasiswa, $id);
         

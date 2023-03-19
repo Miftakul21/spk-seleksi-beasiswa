@@ -16,12 +16,13 @@ class DataNilai extends CI_Controller {
 
     public function beasiswa()
     {
-        $data['title'] = "test";
+        $data['title'] = "Halaman Penilianan SAW";
         $data['mahasiswa'] = $this->M_mahasiswa->get_data_mahasiswa();
         $this->load->view('layout/page/top', $data);
         $this->load->view('pages/data_nilai', $data);
     }
 
+    /*
     public function insert_data_nilai($nim,$nilairapot,$penghasilan_ortu,$jumlah_tanggungan,$status_anak,$kartu_sosial)
     {
         // id kriteria
@@ -93,4 +94,13 @@ class DataNilai extends CI_Controller {
             }
         }
     }
+    */
+
+    public function delete()
+    {
+        $nim = $this->input->post('nim');
+
+        
+    }
+
 }

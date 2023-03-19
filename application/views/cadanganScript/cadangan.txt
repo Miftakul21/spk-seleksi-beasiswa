@@ -1,0 +1,65 @@
+<!-- Modal Tambah Data-->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+		<div class="modal-header">
+			<h5 class="modal-title" id="exampleModalLabel">Tambah Data</h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+	<div class="modal-body">
+		<form action="<?= base_url('datanilai/store') ?>" method="POST">
+			<!-- id Beasiswa -->
+			<input type="hidden" name="id_beasiswa" value="<?= $id_beasiswa ?>">
+
+			<div class="form-group">
+				<label for="nim">Mahasiswa<span class="text-danger">*</span></label>	
+				<select name="nim" id="nim" class="form-control">
+					<option value="">--Pilih---</option>
+				<?php foreach($mahasiswa as $m): ?>
+					<option value="<?= $m['nim'];?>"><?= $m['nama']; ?></option>
+				<?php endforeach; ?>
+				</select>
+			</div>
+		<?php 
+			foreach($beasiswa as $b):
+				$id_beasiswa = $b['id_beasiswa'];
+				$kriteria = $CI->M_datanilai->get_data_subkriteria($id_beasiswa);
+				$no = 1;
+				foreach($kriteria as $k):
+		?>
+		<div class="form-group">
+			<label for="<?= $k['nama_kriteria']; ?>"><?= $k['nama_kriteria']; ?></label>
+			<select class="form-control form-select" name="<?= $no++; ?>" id="<?= $nama_kriteria ?>">
+				<option value="">--Pilih--</option>
+				<?php
+					$id_kriteria = $k['id_kriteria']; 
+					$sql3 = "SELECT a.id_subkriteria, a.nama_subkriteria, a.nilai_subkriteria, b.id_kriteria FROM tb_subkriteria AS a JOIN
+							tb_kriteria AS b ON a.`id_kriteria` = b.`id_kriteria` WHERE b.`id_kriteria` = '$id_kriteria'";
+					$subkriteria = $this->db->query($sql3)->result_array();
+					foreach($subkriteria as $sk):
+				?>
+				<!-- 1. id_kriteria, 2. id_subkriteria, 3. nilai_subkritreia -->
+				<option value="<?= $sk['id_kriteria']; ?>|<?= $sk['id_subkriteria']; ?>|<?= $sk['nilai_subkriteria']; ?>"><?= $sk['nama_subkriteria'] ?></option>
+				<?php endforeach; ?>
+			</select>
+		</div>
+		<?php 
+				endforeach;
+			endforeach;
+		?>
+		</div>
+			<div class="modal-footer">
+				<button class="btn btn-secondary" data-dismiss="modal">Batal</button>
+				<button class="btn btn-primary">Simpan</button>
+			</div>
+		</form>
+		</div>
+	</div>
+</div>
+
+
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    <i class="fas fa-solid fa-plus mr-2"></i> Tambah Data Mahasiswa
+</button> -->
