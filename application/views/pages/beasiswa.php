@@ -196,9 +196,6 @@
 			</div>
 		<?php endforeach; ?>
 
-
-
-
 		<!-- Modal Upload File Pengumuman -->
 		<?php foreach($beasiswa as $u): ?>
 		<div class="modal fade" id="uploadFile<?= $u['id_beasiswa']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -230,7 +227,6 @@
 			</div>
 		<?php endforeach; ?>
 
-
 		<!-- Modal Status Pendaftaran Beasiswa -->
 		<?php foreach($beasiswa as $u): ?>
 		<div class="modal fade" id="statusPendaftaran<?= $u['id_beasiswa']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -261,8 +257,6 @@
 				</div>
 			</div>
 		<?php endforeach; ?>
-
-
 
 		<script src="<?= base_url() ?>assets/jquery.js"></script>
 		<script>

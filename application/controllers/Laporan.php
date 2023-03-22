@@ -1,8 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
 require FCPATH . 'vendor/autoload.php';
-
 use Dompdf\Dompdf;
 
 class Laporan extends CI_Controller{
@@ -19,38 +17,29 @@ class Laporan extends CI_Controller{
 
     public function index()
     {
+        $id_beasiswa = isset($_POST['id_beasiswa']) ? $_POST['id_beasiswa'] : '';
+        $periode = isset($_POST['periode']) ? $_POST['periode'] : '';
+
+        $data['beasiswa'] = $this->db->query("SELECT id_beasiswa, kuota FROM tb_beasiswa WHERE id_beasiswa = '$id_beasiswa' 
+                                    AND periode = '$periode'")->result_array();
         $data['title'] = 'Halaman Laporan';
         $this->load->view('layout/page/top', $data);
         $this->load->view('pages/laporan', $data);
     }
-
     
     public function hasil()
     {
-        $pdf = $this->load->view('laporan\laporan', null, true);
-
+        $id_beasiswa = $this->input->post('id_beasiswa');
+        $data['kuota'] = $this->input->post('kuota');
+        $data['hasil'] = $this->db->query("SELECT a.nama, a.nim, b.nilai FROM tb_mahasiswa AS a JOIN tb_hasil AS b ON a.nim = b.nim WHERE 
+                        a.`id_beasiswa` = '$id_beasiswa' ORDER BY b.nilai DESC")->result_array();
+                        
+        $pdf = $this->load->view('laporan\laporan', $data, true);
         $dompdf = new Dompdf();
-
-        $dompdf->set_option('isRemoteEnabled', TRUE);
-
+        $dompdf->set_options(['isRemoteEnabled' => TRUE]);
         $dompdf->loadHTML($pdf);
-
-        $dompdf->setPaper('A4', 'landscape');
-
+        $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
-
         $dompdf->stream('laporan.pdf', array('Attachment' => 0));
     }
-
-
-
-
-
-
-
-
-
-
-
-
 }

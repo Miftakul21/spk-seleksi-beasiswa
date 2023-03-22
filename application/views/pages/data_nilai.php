@@ -65,7 +65,7 @@
 												<td><?= $n['nama_subkriteria']; ?></td>
 											<?php endforeach; ?>
 												<td>
-													<button class="btn btn-primary" data-toggle="modal" data-target="#fileBukti<?//=  ?>">
+													<button class="btn btn-primary" data-toggle="modal" data-target="#fileBukti<?= $m['nim'] ?>">
 														<i class="fas fa-file-alt"></i>
 													</button>
 												</td>
@@ -293,7 +293,6 @@
 							</div>
 						</div>
 						
-
 						<!-- Insert Data Hasil Pembobotan Untuk Perangkingan -->
 						<?php 
 							// Cek Jumlah Data Penilaian (Group Berdasarkan NIM Mahasiswa)
@@ -313,39 +312,54 @@
 							}
 						?>
 
-						<div class="d-flex justify-content-center">
+						<!-- <div class="d-flex justify-content-center">
 							<div class="col-6">
 								<div class="card mt-3">
 									<div class="card-header">
-										Test Perangkingan
+										Hasil Seleksi Penerima Beasiswa
 									</div>
 									<div class="card-body">
 										<table class="table">
 											<thead>
 												<tr>
-													<th scope="col">#</th>
-													<th scope="col">First</th>
-													<th scope="col">Last</th>
+													<th scope="col">No</th>
+													<th scope="col">Nama</th>
+													<th scope="col">Nim</th>
+													<th scope="col">Nilai</th>
+													<th scope="col">Keterangan</th>
 												</tr>
 											</thead>
 											<tbody>
-										<?php 
+									<?php 
+										foreach($beasiswa as $b){
 											$no=1;
-											foreach($hasil_ranks as $rank){ 
-										?>
+											$query_hasil = $this->db->query("SELECT a.nama, a.nim, b.nilai FROM tb_mahasiswa AS a JOIN tb_hasil AS b ON 
+																			a.nim = b.nim WHERE a.`id_beasiswa` = 1 ORDER BY b.nilai DESC")->result_array();
+											$kuota_beasiswa = $b['kuota'];
+
+											foreach($query_hasil as $hasil){ 
+												$ket = ($no <= $kuota_beasiswa) ? 'Diterima' : 'Ditolak';
+									?>
 												<tr>
-													<th scope="row"><?= $no++ ?></th>
-													<td><?= $rank['nim'] ?></td>
-													<td><?= $rank['nilai'] ?></td>
+													<th scope="row"><?//= $no++ ?></th>
+													<td><?//= $hasil['nama'] ?></td>
+													<td><?//= $hasil['nim'] ?></td>
+													<td><?//= $hasil['nilai'] ?></td>
+													<td><?//= $ket; ?></td>
 												</tr>
-										<?php } ?>
+									<?php 
+											}
+										} 
+										
+									?>
+
+
 											</tbody>
 										</table>
 									</div>
 								</div>
 							</div>
-						</div>
-
+						</div> -->
 
 
 					<!-- End Content -->
@@ -353,11 +367,7 @@
 				</div>
 			</div>
 			<?php $this->load->view('layout/page/footer') ?>
-		</div>
-
-
-
-		
+		</div>		
 
 <!-- Modal File Bukti -->
 <?php 
@@ -365,31 +375,35 @@
 		$id_beasiswa = $b['id_beasiswa']; 
 		$mhs = $CI->M_datanilai->get_data_mahasiswa($id_beasiswa);
 		foreach($mhs as $m):
+			$nim_mhs = $m['nim'];
+			$data_file = $CI->M_datanilai->get_data_file($nim_mhs);
 ?>
 <div class="modal fade" id="fileBukti<?= $m['nim']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">File Bukti <?= $m['nama'] ?></h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-		<form action="<?//= base_url(''); ?>" method="POST">
-			<input type="hidden" value="<?// = $b['id_beasiswa']; ?>" name="id_beasiswa">
-			<div class="modal-body">
-				<div class="row">
-					<div class="col-4 offset-2 text-center">
-						<label for="">File Nilai Rapot</label>
-						<a href="#" class="btn btn-primary"><i class="fas fa-file-alt"></i></a>
-					</div>
-					<div class="col-4 text-center">
-						<label for="">File Kartu Sosial</label>
-						<a href="#" class="btn btn-primary"><i class="fas fa-file-alt"></i></a>
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">File Bukti <?= $m['nama'] ?></h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+					<?php 
+						foreach($data_file as $file){
+					?>	
+						<div class="col-4 offset-2 text-center">
+							<label for="">File Nilai Rapot </label>
+							<a href="<?= base_url('datanilai/view/') ?><?= $file['file1'] ?>" class="btn btn-primary"><i class="fas fa-file-alt"></i></a>
+						</div>
+						<div class="col-4 text-center">
+							<label for="">File Kartu Sosial</label>
+							<a href="<?= base_url('datanilai/view/') ?><?= $file['file2'] ?>" class="btn btn-primary"><i class="fas fa-file-alt"></i></a>
+						</div>
+
+					<?php } ?>
 					</div>
 				</div>
-			</div>
-		</form>
 			</div>
 		</div>
 	</div>
@@ -414,7 +428,8 @@ foreach($beasiswa as $b):
 				<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-		<form action="<?= base_url(''); ?>" method="POST">
+		<form action="<?= base_url('datanilai/delete'); ?>" method="POST">
+			<input type="hidden" value="<?= $b['id_beasiswa'] ?>" name="id_beasiswa">
 			<input type="hidden" value="<?= $m['nim']; ?>" name="nim">
 			<div class="modal-body">
 				Anda ingin menghapus?

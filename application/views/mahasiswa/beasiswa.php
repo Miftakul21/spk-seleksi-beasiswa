@@ -37,10 +37,9 @@
 								<h5 class="text-success"><?// = $status; ?> Test</h5>
 							</td>
 							<td>
-
-								<button type="button" class="btn btn-light shadow bg-white rounded" data-toggle="modal" data-target="#exampleModal">
-									File
-								</button>
+                <a href="<?= base_url('daftarbeasiswa/view/penelitian_saw_3.pdf') ?>" class="btn btn-light shadow bg-white rounded">
+                  File
+                </a>
 							</td>
 							<td>
 								<button class="btn btn-success fw-500" data-toggle="modal" data-target="#daftarBeasiswa<?= $b['id_beasiswa'] ?>">

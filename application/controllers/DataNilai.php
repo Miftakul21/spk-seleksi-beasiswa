@@ -9,6 +9,7 @@ class DataNilai extends CI_Controller {
         $this->load->model('M_beasiswa');
         $this->load->model('M_mahasiswa');
         $this->load->model('M_daftarbeasiswa');
+        $this->load->model('M_datanilai');
         if($this->session->userdata('status') != 'log-in'){
             redirect('login');
         }       
@@ -99,8 +100,35 @@ class DataNilai extends CI_Controller {
     public function delete()
     {
         $nim = $this->input->post('nim');
+        $id_beasiswa = $this->input->post('id_beasiswa');
 
-        
+        $update_mhs = $this->M_mahasiswa->update_beasiswa_mhs($nim);
+        $delete_penilaian = $this->M_datanilai->delete_data_mhs($nim);
+        $delete_file = $this->M_datanilai->delete_file($nim);
+
+        if($update_mhs){
+            $data_session = [
+                'info' => 'Success',
+                'message' => 'Data berhasil dihapus!'
+            ];
+            $this->session->set_userdata($data_session);
+            redirect('datanilai/beasiswa/'.$id_beasiswa);
+        } else {
+            $data_session = [
+                'info' => 'Error',
+                'message' => 'Data gagal dihapus!'
+            ];
+            $this->session->set_userdata($data_session);
+            redirect('datanilai/beasiswa/'.$id_beasiswa);
+        }
+    }
+
+    public function view()
+    {
+        $fname = $this->uri->segment(3);
+        $tofile= realpath("uploads/".$fname);
+        header('Content-Type: application/pdf');
+        readfile($tofile);
     }
 
 }

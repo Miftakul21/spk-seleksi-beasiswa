@@ -76,6 +76,12 @@ class M_datanilai extends CI_Model{
         $query = $this->db->query("DELETE FROM tb_file WHERE nim = '$nim'");
         return $query;
     }
+
+    function get_data_file($nim){
+        $query = $this->db->query("SELECT * FROM tb_file WHERE nim = '$nim'")->result_array();
+        return $query;
+    }
+
 }
 
 ?>

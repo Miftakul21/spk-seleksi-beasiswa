@@ -134,8 +134,14 @@ class DaftarBeasiswa extends CI_Controller {
                 $this->session->set_userdata($data_session);
                 redirect('daftarbeasiswa');
             }
-        } 
+        }    
+    }
 
-        
+    public function view()
+    {
+        $fname = $this->uri->segment(3);
+        $tofile= realpath("uploads/".$fname);
+        header('Content-Type: application/pdf');
+        readfile($tofile);
     }
 }
