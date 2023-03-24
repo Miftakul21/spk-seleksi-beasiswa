@@ -102,6 +102,30 @@ class DataNilai extends CI_Controller {
         $nim = $this->input->post('nim');
         $id_beasiswa = $this->input->post('id_beasiswa');
 
+        $data = $this->db->query("SELECT a.nim, b.file1, b.file2 FROM tb_mahasiswa AS a JOIN tb_file AS b ON 
+                                a.nim = b.nim where a.nim = '$nim'")->result_array();
+        $file_1;
+        $file_2;
+
+        foreach($data as $df){
+            $file_1 =  $df['file1'];
+            $file_2 = $df['file2'];
+        }
+
+        if(file_exists('uploads/'.$file_1)){
+            // echo "File Ada ".$file_1." Pada Folder Upload". "<br>";
+            unlink('uploads/'.$file_1);
+        } else {
+            echo "File Tidak Ada ".$file_1." Pada Folder Upload"."<br>";            
+        }
+
+        if(file_exists('uploads/'.$file_2)){
+            // echo "File Ada ".$file_2." Pada Folder Upload". "<br>";
+            unlink('uploads/'.$file_2);
+        } else {
+            echo "File Tidak Ada ".$file_2." Pada Folder Upload"."<br>";            
+        }
+
         $update_mhs = $this->M_mahasiswa->update_beasiswa_mhs($nim);
         $delete_penilaian = $this->M_datanilai->delete_data_mhs($nim);
         $delete_file = $this->M_datanilai->delete_file($nim);

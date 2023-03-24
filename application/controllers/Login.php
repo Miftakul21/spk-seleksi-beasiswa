@@ -2,7 +2,6 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Login extends CI_Controller {
-
 	public function __construct()
 	{
 		parent::__construct();
@@ -29,11 +28,17 @@ class Login extends CI_Controller {
 			redirect('login');
 		} else {
 			$enc_passwrod = md5($password);
-			$cek_akun = $this->M_users->cek_login($username, $enc_passwrod);	
+			$cek_akun = $this->M_users->cek_login($username, $enc_passwrod);
+			
+			$level_user;
+			foreach($cek_akun as $data){
+				$level_user = $data['level_user'];
+			}
 
 			if(count($cek_akun) > 0){
 				$data_session = [
-					'status' => 'log-in'
+					'status' => 'log-in',
+					'level_user' => $level_user
 				];
 				$this->session->set_userdata($data_session);
 				redirect('dashboard');

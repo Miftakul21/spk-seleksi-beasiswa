@@ -24,17 +24,19 @@
 						</tr>
 					</thead>
 					<tbody>
-                <?php 
-                	foreach($beasiswa as $b):
-                    // $status = ($b['status'] = '1') ? 'Aktif' : 'Tutup';
-                ?>
+              <?php 
+                foreach($beasiswa as $b):
+                    $status = ($b['status'] == '1') ? 'modal' : '';
+                    $status_pendaftaran = ($b['status'] == '1') ? 'Aktif' : 'Tutup';
+                    $text_color = ($status_pendaftaran == 'Aktif') ? 'text-success' : 'text-danger';
+              ?>
 						<tr>
 							<td>Beasiswa KIP-Kuliah</td>
 							<td>
 								<p>Pendaftaran Dibuka: 01-01-2023 <br> Pendaftaran Ditutup: 01-01-2024</p>
 							</td>
 							<td>
-								<h5 class="text-success"><?// = $status; ?> Test</h5>
+								<h5 class="<?= $text_color ?>"><?= $status_pendaftaran; ?></h5>
 							</td>
 							<td>
                 <a href="<?= base_url('daftarbeasiswa/view/penelitian_saw_3.pdf') ?>" class="btn btn-light shadow bg-white rounded">
@@ -42,7 +44,7 @@
                 </a>
 							</td>
 							<td>
-								<button class="btn btn-success fw-500" data-toggle="modal" data-target="#daftarBeasiswa<?= $b['id_beasiswa'] ?>">
+								<button class="btn btn-success fw-500" data-toggle="<?= $status ?>" data-target="#daftarBeasiswa<?= $b['id_beasiswa'] ?>">
 									Daftar Beasiswa
 								</button>
 							</td>

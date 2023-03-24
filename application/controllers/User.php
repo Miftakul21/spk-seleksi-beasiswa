@@ -27,23 +27,38 @@ class User extends CI_Controller{
         $username = $this->input->post('username');
         $password = $this->input->post('password');
         $level_user = $this->input->post('level_user');  
-        $insert_data = $this->M_users->insert_data($nama, $username, $password, $level_user);
+        
 
-        if($insert_data){
+        if(strlen($password) < 8) {
             $data_session = [
-                'info' => 'Success',
-                'message' => 'Berhasil disimpan!'
+                'info' => 'Error',
+                'message' => 'password minimal 8 digit'
             ];
             $this->session->set_userdata($data_session);
             redirect('user/index');
         } else {
-            $data_session = [
-                'info' => 'Error',
-                'message' => 'Gagal disimpan!'
-            ];
-            $this->session->set_userdata($data_session);
-            redirect('user/index');
+            $enc_password = md5($password);
+            $insert_data = $this->M_users->insert_data($nama, $username, $enc_password, $level_user);
+            if($insert_data){
+                $data_session = [
+                    'info' => 'Success',
+                    'message' => 'Berhasil disimpan!'
+                ];
+                $this->session->set_userdata($data_session);
+                redirect('user/index');
+            } else {
+                $data_session = [
+                    'info' => 'Error',
+                    'message' => 'Gagal disimpan!'
+                ];
+                $this->session->set_userdata($data_session);
+                redirect('user/index');
+            }
+
         }
+
+
+        
 
     }
 
@@ -54,7 +69,7 @@ class User extends CI_Controller{
         $level_user = $this->input->post('level_user');  
         $id = $this->input->post('id');  
 
-        if($password < 8) {
+        if(strlen($password) < 8) {
             $data_session = [
                 'info' => 'Error',
                 'message' => 'password minimal 8 digit'

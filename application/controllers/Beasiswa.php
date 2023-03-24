@@ -98,13 +98,32 @@ class Beasiswa extends CI_Controller{
     }
 
     
-    /* Untuk stauts pembukaan pendaftaran beasiswa
+    // Untuk stauts pembukaan pendaftaran beasiswa
     public function status()
     {
-        $id_beasiswa
-        $tombol active atau tutup pake button value nanti cari refernsi di internet
+        $id_beasiswa=$this->input->post('id_beasiswa');
+        $status=$this->input->post('status');
+
+        // print_r($id_beasiswa." ".$status);
+
+        $status_pendaftaran = $this->db->query("UPDATE tb_beasiswa SET status = '$status' WHERE id_beasiswa = '$id_beasiswa'");
+        if($status == '1'){
+            $data_session = [
+                'info' => 'Success',
+                'message' => 'Pendaftaran Beasiswa Aktif!'
+            ];
+            $this->session->set_userdata($data_session);
+            redirect('beasiswa/index');
+        } else if($status == '0'){
+            $data_session = [
+                'info' => 'Gagal',
+                'message' => 'Pendaftaran Beasiswa Tutup!'
+            ];
+            $this->session->set_userdata($data_session);
+            redirect('beasiswa/index');            
+        }
     }
-    */
+    
 
     /* Untuk Upload File
     public function uploadFile()

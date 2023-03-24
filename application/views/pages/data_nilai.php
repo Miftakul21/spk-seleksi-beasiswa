@@ -420,8 +420,8 @@ foreach($beasiswa as $b):
 	foreach($mhs as $m): 
 ?>
 <div class="modal fade" id="hapusData<?= $m['nim']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
+	<div class="modal-dialog">
+		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="exampleModalLabel">Hapus Data <?= $m['nama']; ?></h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">

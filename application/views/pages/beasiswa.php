@@ -232,27 +232,34 @@
 		<div class="modal fade" id="statusPendaftaran<?= $u['id_beasiswa']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				<div class="modal-dialog">
 					<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Status Pendaftaran</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-				<form action="<?= base_url('beasiswa/delete'); ?>" method="POST">
-					<input type="hidden" value="<?= $b['id_beasiswa']; ?>" name="id_beasiswa">
-					<div class="modal-body">
-						<div class="text-center">
-							<h5>Status</h5>
-							<!-- Nanti Diambil Status Keterangan  -->
-							<!-- Berdasarkan Data Dari Database -->
-							<h5>Pendaftaran Dibuka</h5>
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Status Pendaftaran</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+							</button>
 						</div>
-					</div>
+						<div class="modal-body">
+							<div class="text-center">
+								<h5>Status</h5>
+								<?php 
+									$status = $b['status']; 
+									$ket = '';
+									if($status == '1'){
+										$ket = 'Pendaftaran Dibuka';
+									}else if($status == '0' || $status == null) {
+										$ket = 'Pendaftaran Ditutup'; 	
+									}							
+								?>
+								<h5><?= $ket; ?></h5>
+							</div>
+						</div>
 						<div class="modal-footer d-flex justify-content-center">
-							<button name="status" value="buka" class="btn btn-success mr-5" data-dismiss="modal">Buka</button>
-							<button name="status" value="tutup" class="btn btn-danger">Tutup</button>
+							<form action="<?= base_url('beasiswa/status') ?>" method="POST">
+								<input type="hidden" name="id_beasiswa" value="<?= $b['id_beasiswa']; ?>">
+								<button name="status" value="1" class="btn btn-success mr-5">Buka</button>
+								<button name="status" value="0" class="btn btn-danger">Tutup</button>
+							</form>
 						</div>
-				</form>
 					</div>
 				</div>
 			</div>
