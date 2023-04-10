@@ -234,7 +234,6 @@
 							foreach($beasiswa as $b){
 								$id_beasiswa = $b['id_beasiswa'];
 								$mhs = $CI->M_datanilai->get_data_mahasiswa($id_beasiswa);
-
 								foreach($mhs as $m){
 									$nim_mhs = $m['nim'];
 									$nilai = $CI->M_datanilai->get_data_nilai_kriteria($nim_mhs);
@@ -273,7 +272,6 @@
 											}
 										}
 									}
-
 									// Nilai Hasil Pembobotan
 									$nilai_rank['nim'] = $nim_mhs;
 									$nilai_rank['nilai'] = $hasil_normalisasi;
@@ -311,8 +309,8 @@
 								}
 							}
 						?>
-
-						<!-- <div class="d-flex justify-content-center">
+						<!-- Card menampilkan hasil pembobotan
+						<div class="d-flex justify-content-center">
 							<div class="col-6">
 								<div class="card mt-3">
 									<div class="card-header">
@@ -359,9 +357,8 @@
 									</div>
 								</div>
 							</div>
-						</div> -->
-
-
+						</div> 
+						-->
 					<!-- End Content -->
 					</div>
 				</div>
@@ -369,118 +366,111 @@
 			<?php $this->load->view('layout/page/footer') ?>
 		</div>		
 
-<!-- Modal File Bukti -->
-<?php 
-	foreach($beasiswa as $b):
-		$id_beasiswa = $b['id_beasiswa']; 
-		$mhs = $CI->M_datanilai->get_data_mahasiswa($id_beasiswa);
-		foreach($mhs as $m):
-			$nim_mhs = $m['nim'];
-			$data_file = $CI->M_datanilai->get_data_file($nim_mhs);
-?>
-<div class="modal fade" id="fileBukti<?= $m['nim']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">File Bukti <?= $m['nama'] ?></h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<div class="row">
-					<?php 
-						foreach($data_file as $file){
-					?>	
-						<div class="col-4 offset-2 text-center">
-							<label for="">File Nilai Rapot </label>
-							<a href="<?= base_url('datanilai/view/') ?><?= $file['file1'] ?>" class="btn btn-primary"><i class="fas fa-file-alt"></i></a>
+		<!-- Modal File Bukti -->
+		<?php 
+			foreach($beasiswa as $b):
+				$id_beasiswa = $b['id_beasiswa']; 
+				$mhs = $CI->M_datanilai->get_data_mahasiswa($id_beasiswa);
+				foreach($mhs as $m):
+					$nim_mhs = $m['nim'];
+					$data_file = $CI->M_datanilai->get_data_file($nim_mhs);
+		?>
+		<div class="modal fade" id="fileBukti<?= $m['nim']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">File Bukti <?= $m['nama'] ?></h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+							</button>
 						</div>
-						<div class="col-4 text-center">
-							<label for="">File Kartu Sosial</label>
-							<a href="<?= base_url('datanilai/view/') ?><?= $file['file2'] ?>" class="btn btn-primary"><i class="fas fa-file-alt"></i></a>
-						</div>
+						<div class="modal-body">
+							<div class="row">
+							<?php 
+								foreach($data_file as $file){
+							?>	
+								<div class="col-4 offset-2 text-center">
+									<label for="">File Nilai Rapot </label>
+									<a href="<?= base_url('datanilai/view/') ?><?= $file['file1'] ?>" class="btn btn-primary"><i class="fas fa-file-alt"></i></a>
+								</div>
+								<div class="col-4 text-center">
+									<label for="">File Kartu Sosial</label>
+									<a href="<?= base_url('datanilai/view/') ?><?= $file['file2'] ?>" class="btn btn-primary"><i class="fas fa-file-alt"></i></a>
+								</div>
 
-					<?php } ?>
+							<?php } ?>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
-<?php 
-		endforeach;
-	endforeach; 
-?>
-
-<!-- Modal Hapus Data-->
-<?php 
-foreach($beasiswa as $b):
-	$id_beasiswa = $b['id_beasiswa'];
-	$mhs = $CI->M_datanilai->get_data_mahasiswa($id_beasiswa);
-	foreach($mhs as $m): 
-?>
-<div class="modal fade" id="hapusData<?= $m['nim']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Hapus Data <?= $m['nama']; ?></h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-		<form action="<?= base_url('datanilai/delete'); ?>" method="POST">
-			<input type="hidden" value="<?= $b['id_beasiswa'] ?>" name="id_beasiswa">
-			<input type="hidden" value="<?= $m['nim']; ?>" name="nim">
-			<div class="modal-body">
-				Anda ingin menghapus?
-			</div>
-				<div class="modal-footer">
-					<button class="btn btn-secondary" data-dismiss="modal">Batal</button>
-					<button class="btn btn-danger">Hapus</button>
+		<?php 
+				endforeach;
+			endforeach; 
+		?>
+		<!-- Modal Hapus Data-->
+		<?php 
+		foreach($beasiswa as $b):
+			$id_beasiswa = $b['id_beasiswa'];
+			$mhs = $CI->M_datanilai->get_data_mahasiswa($id_beasiswa);
+			foreach($mhs as $m): 
+		?>
+		<div class="modal fade" id="hapusData<?= $m['nim']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Hapus Data <?= $m['nama']; ?></h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+				<form action="<?= base_url('datanilai/delete'); ?>" method="POST">
+					<input type="hidden" value="<?= $b['id_beasiswa'] ?>" name="id_beasiswa">
+					<input type="hidden" value="<?= $m['nim']; ?>" name="nim">
+					<div class="modal-body">
+						Anda ingin menghapus?
+					</div>
+						<div class="modal-footer">
+							<button class="btn btn-secondary" data-dismiss="modal">Batal</button>
+							<button class="btn btn-danger">Hapus</button>
+						</div>
+				</form>
+					</div>
 				</div>
-		</form>
 			</div>
-		</div>
-	</div>
-<?php 
-	endforeach; 
-endforeach;
-?>
+		<?php 
+			endforeach; 
+		endforeach;
+		?>
 
+	<?php $this->load->view('layout/page/bottom'); ?>
+	<?php 
+	if($this->session->userdata('info') == 'Success'){	
+	?>
+	<script>
+		iziToast.success({
+			title: 'Sukses',
+			message: `<?= $this->session->userdata('message'); ?>`,
+			position: 'topCenter',
+			timeout: 5000
+		});
+	</script>
+	<?php
+	$this->session->unset_userdata('info'); 
+	$this->session->unset_userdata('message'); 
+	} else if($this->session->userdata('info') == 'Error') {
+	?>
+	<script>
+		iziToast.error({
+			title: 'Failed',
+			message: `<?= $this->session->userdata('message'); ?>`,
+			position: 'topCenter',
+			timeout: 5000
+		});
+	</script>
 
-
-
-
-
-
-<?php $this->load->view('layout/page/bottom'); ?>
-<?php 
-if($this->session->userdata('info') == 'Success'){	
-?>
-<script>
-	iziToast.success({
-        title: 'Sukses',
-        message: `<?= $this->session->userdata('message'); ?>`,
-        position: 'topCenter',
-        timeout: 5000
-    });
-</script>
-<?php
-$this->session->unset_userdata('info'); 
-$this->session->unset_userdata('message'); 
-} else if($this->session->userdata('info') == 'Error') {
-?>
-<script>
-	iziToast.error({
-        title: 'Failed',
-        message: `<?= $this->session->userdata('message'); ?>`,
-        position: 'topCenter',
-        timeout: 5000
-    });
-</script>
-
-<?php 
-$this->session->unset_userdata('info'); 
-$this->session->unset_userdata('message');
-} 
-?>
+	<?php 
+	$this->session->unset_userdata('info'); 
+	$this->session->unset_userdata('message');
+	} 
+	?>

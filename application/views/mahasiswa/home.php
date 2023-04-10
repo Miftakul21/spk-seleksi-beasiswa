@@ -12,9 +12,18 @@
             <hr class="my-3">
             <p>Berikut Informasi Pendaftaran Beasiswa : </p>
             <div>
-              <h4 class="mb-3">Beasiswa KIP-Kuliah</h4>
-              <p>Tanggal Pembukaan Pendaftaran: Senin, 17 Februari 2023</p>
-              <p>Tanggal Penutupan Pendaftaran: Senin, 17 Maret 2023</p>
+            <?php 
+              foreach($beasiswa as $data){ 
+                // $hari = $data['tgl_pendaftaran'];
+                $bulan1 = split_date($data['tgl_pendaftaran'], 1);
+                $bulan2 = split_date($data['tgl_penutupan'], 1);
+            ?>
+              <div class="mb-2">
+                <h4 class="mb-3"><?= $data['jenis_beasiswa'] ?></h4>
+                <p>Tanggal Pembukaan Pendaftaran: <?= $data['hari_pendaftaran']; ?> <?= nama_bulan($bulan1); ?> <?= split_date($data['tgl_pendaftaran'],0); ?></p>
+                <p>Tanggal Penutupan Pendaftaran: <?= $data['hari_penutupan']; ?> <?= nama_bulan($bulan2); ?> <?= split_date($data['tgl_pendaftaran'],0); ?></p>
+              </div>
+            <?php } ?>
             </div>
             <div class="informasi-keterangan">
               <p class=" fw-bold" style="margin-top: 3rem;">Keterangan<span class="text-danger">*</span></p>

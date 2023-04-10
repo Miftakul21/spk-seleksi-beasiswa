@@ -15,8 +15,8 @@ class Home extends CI_Controller {
     public function index()
     {
         $data['title'] = 'Home';
-        // $data['id_mhs'] = $this->session->userdata('id_mhs');
-        // $data['nama_mhs'] = $this->session->userdata('nama_mhs');
+        $data['beasiswa'] = $this->db->query("SELECT a.jenis_beasiswa, a.tgl_pendaftaran, a.tgl_penutupan, DAY(a.`tgl_pendaftaran`) 
+                            AS hari_pendaftaran, DAY(a.`tgl_penutupan`) AS hari_penutupan FROM tb_beasiswa AS a")->result_array();
         $this->load->view('mahasiswa/home',$data);
     }
     

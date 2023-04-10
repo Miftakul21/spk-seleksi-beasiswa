@@ -1,4 +1,7 @@
 <?php
+
+use function PHPSTORM_META\map;
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Beasiswa extends CI_Controller{
@@ -98,7 +101,7 @@ class Beasiswa extends CI_Controller{
     }
 
     
-    // Untuk stauts pembukaan pendaftaran beasiswa
+    // Untuk status pembukaan pendaftaran beasiswa
     public function status()
     {
         $id_beasiswa=$this->input->post('id_beasiswa');
@@ -125,13 +128,59 @@ class Beasiswa extends CI_Controller{
     }
     
 
-    /* Untuk Upload File
-    public function uploadFile()
+    // Untuk Upload File
+    public function upload()
     {
-        $id_beasiswa
-        $file_name
+        
+        $id_beasiswa = $this->input->post('id_beasiswa');
+    
+        // Settting format file
+        $config['upload_path']   = './uploads/pengumuman';
+        $config['allowed_types'] = 'pdf|png|doc';
+        $config['max_size']      = '2048';
+        $config['overwrite']     = TRUE;
+        $config['encrypt_name']  = TRUE;
+
+        $this->load->library('upload', $config);
+
+        if(!$this->upload->do_upload('file1')) {
+            $data_session = [
+                'info' => 'Error',
+                'message' => 'Upload File Tidak Sesuai Format'
+            ];
+            $this->session->set_userdata($data_session);
+            redirect('beasiswa');
+        } else {
+            $nama_file1 = $this->upload->data();
+            $file1 = $nama_file1['file_name'];
+        }
+
+        // Hapus file jika nama file tidak sama
+        $data_file = scandir('./uploads/pengumuman');
+        foreach($data_file as $d){
+            if($d != $file1) {
+                unlink('uploads/pengumuman/'.$d);
+            }
+        }
+
+        $update_data = $this->db->query("UPDATE tb_beasiswa SET file = '$file1' WHERE id_beasiswa = '$id_beasiswa'");
+        if($update_data) {
+            $data_session = [
+                'info' => 'Success',
+                'message' => 'Berhasil upload!'
+            ];
+            $this->session->set_userdata($data_session);
+            redirect('beasiswa');
+        } else {
+            $data_session = [
+                'info' => 'Error',
+                'message' => 'Gagal upload!'
+            ];
+            $this->session->set_userdata($data_session);
+            redirect('beasiswa');
+        }
+
     }
-    */
 
 }
 

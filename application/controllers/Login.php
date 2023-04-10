@@ -6,6 +6,7 @@ class Login extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('M_users');	
+		$this->load->model('M_mahasiswa');
 		$this->load->library('form_validation');
 	}
 
@@ -18,7 +19,7 @@ class Login extends CI_Controller {
 	public function cek_login() {
 		$username = $this->input->post('username');
 		$password = $this->input->post('password');
-
+		
 		if(strlen($password) < 8) {
 			$data_session = [
 				'error' => 'Error',
@@ -26,7 +27,38 @@ class Login extends CI_Controller {
 			];
 			$this->session->set_userdata($data_session);
 			redirect('login');
+		} else if($username == $password) {
+			// Login Mahasiswa Mendaftar Beasiswa
+			$cek_akun2 = $this->M_mahasiswa->cek_mahasiswa($username);
+
+			$id_mhs;
+			$nama;
+			$nim;
+			foreach($cek_akun2 as $akun){
+				$id_mhs = $akun['id_mahasiswa'];
+				$nama = $akun['nama'];
+				$nim = $akun['nim'];
+			}
+
+			if(count($cek_akun2) > 0){
+				$data_session = [
+					'id_mhs' => $id_mhs,
+					'nama_mhs'=> $nama,
+					'nim' => $nim,
+					'status' => 'log-in mahasiswa'
+				];
+				$this->session->set_userdata($data_session);
+				redirect('home');
+			} else {
+				$data_session = [
+					'error' => 'Error',
+					'message' => 'Kesalahan saat login, silahkan coba kembali!'
+				];
+				$this->session->set_userdata($data_session);
+				redirect('login');
+			}
 		} else {
+			// Login Admin, Kepala Biro Untuk Seleksi Beasiswa
 			$enc_passwrod = md5($password);
 			$cek_akun = $this->M_users->cek_login($username, $enc_passwrod);
 			
@@ -50,48 +82,7 @@ class Login extends CI_Controller {
 				$this->session->set_userdata($data_session);
 				redirect('login');
 			}
-
 		}
-
-		/* 
-			Validation form
-			$this->form_validation->set_rules('username', 'Username', 'required|min_length[3]', [
-				'required' => 'Mohon isi form username',
-				'min_length' => 'Username minimal 3 character'
-			]);
-
-			$this->form_validation->set_rules('password', 'Password', 'required|min_length[6]', [
-				'required' => 'Mohon isi form password',
-				'min_length' => 'Password minimal 6 digit'
-			]);
-		if($this->form_validation->run() != TRUE){
-			$data['title'] = "Login";
-			$this->load->view('login', $data);
-		} else {
-			if(strlen($password) < 8){
-				redirect('login');
-			} else {
-				$enc_passwrod = md5($password);
-				$cek_akun = $this->M_users->cek_login($username, $enc_passwrod);			
-
-				if(count($cek_akun) > 0) {
-					$data_session = [
-						'status' => 'log-in' 
-					];
-					$this->session->set_userdata($data_session);
-					redirect('dashboard');
-				} else {
-					$data_session = [
-						'error' => 'Error',
-						'message' => 'Kesalahan saat login, silahakan coba lagi!'
-					];
-					$this->session->set_userdata($data_session);
-					redirect('login');
-				}
-
-			}	
-		}
-		*/
 	}
 
 	public function logout()

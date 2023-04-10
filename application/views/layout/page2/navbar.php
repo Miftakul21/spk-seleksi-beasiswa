@@ -22,7 +22,7 @@
               </ul>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Informasi</a>
+              <a class="nav-link" href="<?= base_url('informasi'); ?>">Informasi</a>
             </li>
           </ul>
           <div class="d-flex profil-user">
@@ -33,7 +33,10 @@
                   <span class="text-white font-weight-normal"><?= $this->session->userdata('nama_mhs'); ?></span>
                 </div>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                  <a href="<?= base_url('loginuser/logout'); ?>" class="dropdown-item text-danger">
+                  <!-- 
+                    base_url('loginuser/logout'); 
+                  -->
+                  <a href="<?= base_url('login/logout'); ?>" class="dropdown-item text-danger">
                     <i class="fas fa-sharp fa-solid fa-door-open mr-2"></i>Log Out
                     <span class="float-right text-muted text-sm"></span>
                   </a>

@@ -9,14 +9,18 @@
   </head>
   <body>
     <div class="circle"></div>
-    <h1>
+    <!-- 
+      <h1>
       Sistem Pendukung Keputusan Seleksi Beasiswa Mahasiswa Baru <br />
       Universitas 17 Agustus 1945 Surabaya
-    </h1>
+      </h1> 
+    -->
+    <h1>PENERIMAAN BEASISWA MAHASISWA BARU <br> UNIVERSITAS 17 AGUSTUS 1945 SURABAYA</h1>  
+
     <div class="container">
       <div class="row">
         <div class="col-2">
-          <img src="<?= base_url()?>assets/image/img-dss.svg" />
+          <img src="<?= base_url()?>assets/image/img-dss-2.svg" />
         </div>
         <div class="col-2">
           <div class="card">

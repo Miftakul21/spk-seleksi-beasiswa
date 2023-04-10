@@ -33,13 +33,15 @@
 						<tr>
 							<td>Beasiswa KIP-Kuliah</td>
 							<td>
-								<p>Pendaftaran Dibuka: 01-01-2023 <br> Pendaftaran Ditutup: 01-01-2024</p>
+								<p>Pendaftaran Dibuka: <?= date('d-m-Y', strtotime($b['tgl_pendaftaran'])); ?> 
+                  <br> Pendaftaran Ditutup: <?= date('d-m-Y', strtotime($b['tgl_penutupan'])); ?>
+                </p>
 							</td>
 							<td>
 								<h5 class="<?= $text_color ?>"><?= $status_pendaftaran; ?></h5>
 							</td>
 							<td>
-                <a href="<?= base_url('daftarbeasiswa/view/penelitian_saw_3.pdf') ?>" class="btn btn-light shadow bg-white rounded">
+                <a href="<?= base_url('daftarbeasiswa/view/') ?><?= $b['file']; ?>" class="btn btn-light shadow bg-white rounded">
                   File
                 </a>
 							</td>
@@ -63,7 +65,7 @@
 
 
 
-<!-- Modal -->
+<!-- Modal Daftar Beasiswa-->
 <?php 
 foreach($beasiswa as $b): 
   $id_beasiswa = $b['id_beasiswa'];
@@ -74,11 +76,11 @@ foreach($beasiswa as $b):
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Pendaftaran Beasiswa</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
       </div>
       <div class="modal-body">
-        <!-- daftarbeasiswa/store -->
+      <!-- daftarbeasiswa/store -->
       <form method="POST" enctype="multipart/form-data" id="form" action="<?= base_url('daftarbeasiswa/store') ?>">
           <!-- NIM Mahasiswa -->
           <input type="hidden" name="nim" value="<?= $this->session->userdata('nim'); ?>" >
@@ -128,12 +130,6 @@ foreach($beasiswa as $b):
   </div>
 </div>
 <?php endforeach; ?>
-
-
-
-
-
-
 
 
 <!-- 

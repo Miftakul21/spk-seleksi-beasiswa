@@ -207,19 +207,14 @@
 						<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
-				<form action="<?= base_url('beasiswa/delete'); ?>" method="POST">
+				<form action="<?= base_url('beasiswa/upload'); ?>" method="POST" enctype="multipart/form-data">
 					<input type="hidden" value="<?= $b['id_beasiswa']; ?>" name="id_beasiswa">
 					<div class="modal-body">
-						<div class="input-group mb-3">
-							<div class="custom-file">
-								<input type="file" class="custom-file-input" id="inputGroupFile01">
-								<label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-							</div>
-						</div>
+						<input type="file" class="form-control" name="file1">
 					</div>
 						<div class="modal-footer">
 							<button class="btn btn-secondary" data-dismiss="modal">Batal</button>
-							<button class="btn btn-danger">Hapus</button>
+							<button class="btn btn-primary">Simpan</button>
 						</div>
 				</form>
 					</div>
@@ -264,16 +259,6 @@
 				</div>
 			</div>
 		<?php endforeach; ?>
-
-		<script src="<?= base_url() ?>assets/jquery.js"></script>
-		<script>
-			$('#inputGroupFile01').on('change', function(){
-				var fileName = $(this).val();
-				let namaFile = fileName.split('fakepath\\');
-				$(this).next('.custom-file-label').html(namaFile[1]);
-			});
-		</script>
-
 
 <?php $this->load->view('layout/page/bottom'); ?>
 <?php 

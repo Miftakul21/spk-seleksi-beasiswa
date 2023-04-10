@@ -63,10 +63,6 @@ class DaftarBeasiswa extends CI_Controller {
         $status_anak = $this->input->post('4');
         $kartu_sosial = $this->input->post('5');
         $id_beasiswa = $this->input->post('id_beasiswa');
-        // $file1 = $this->input->post('file_1');
-        // $file2 = $this->input->post('file_2');
-
-        // print_r($nilai_rapot." ".$penghasilan_ortu." ".$jumlah_tanggungan." ".$status_anak." ".$kartu_sosial." ".$nim." ".$file1." " .$file2. " ".$id_beasiswa);
         
         $cek_pendaftar = $this->M_daftarbeasiswa->cek_daftar($nim); // Upload Pendaftaran
 
@@ -78,10 +74,11 @@ class DaftarBeasiswa extends CI_Controller {
             $this->session->set_userdata($data_session);
             redirect('daftarbeasiswa');    
         } else {
-
+            // Settting format file
             $config['upload_path'] = './uploads/';
             $config['allowed_types'] = 'pdf|png|doc';
             $config['max_size']     = '2048';
+            $config['encrypt_name'] = TRUE;
             
             $this->load->library('upload', $config);
 
@@ -97,8 +94,6 @@ class DaftarBeasiswa extends CI_Controller {
                 $nama_file1 = $this->upload->data();
                 $file1 = $nama_file1['file_name'];              
             }
-
-
             if(!$this->upload->do_upload('file2')) {
                 $data_session = [
                     'info' => 'Error',
@@ -110,12 +105,9 @@ class DaftarBeasiswa extends CI_Controller {
                 $nama_file2 = $this->upload->data();
                 $file2 = $nama_file2['file_name'];   
             }
-            
             $update_data = $this->M_daftarbeasiswa->daftar_beasiswa($id_beasiswa,$nim);
-            
             // Upload file Document
             $this->M_daftarbeasiswa->upload_file($nim, $file1, $file2);
-
             // Upload Nilai Kriteria                                                                    
             $this->insert_data_nilai($nim,$nilai_rapot,$penghasilan_ortu,$jumlah_tanggungan,$status_anak,$kartu_sosial);
 
@@ -140,8 +132,18 @@ class DaftarBeasiswa extends CI_Controller {
     public function view()
     {
         $fname = $this->uri->segment(3);
-        $tofile= realpath("uploads/".$fname);
-        header('Content-Type: application/pdf');
-        readfile($tofile);
+
+        if($fname == '') {
+            $data_session = [
+                'info' => 'Error',
+                'message' => 'File pengumum tidak ditemukan!'
+            ];
+            $this->session->set_userdata($data_session);
+            redirect('daftarbeasiswa/index');
+        } else {
+            $tofile= realpath("uploads/".$fname);
+            header('Content-Type: application/pdf');
+            readfile($tofile);
+        }
     }
 }

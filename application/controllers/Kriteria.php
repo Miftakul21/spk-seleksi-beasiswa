@@ -182,6 +182,5 @@ class Kriteria extends CI_Controller{
             $this->session->set_userdata($data_session);
             redirect('kriteria/index');
         }
-
     }
 }
