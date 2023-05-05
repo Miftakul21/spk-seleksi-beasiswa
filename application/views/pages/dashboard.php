@@ -1,3 +1,8 @@
+	<style>
+		@media only screen and (max-width: 600px){
+			
+		}
+	</style>
 	<body class="hold-transition sidebar-mini layout-fixed">
 		<div class="wrapper">
 			<!-- navbar -->

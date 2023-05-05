@@ -1,5 +1,10 @@
 <?php
 class M_beasiswa extends CI_Model{
+    function get_data_idBeasiswa($id_beasiswa) {
+        $query = $this->db->query("SELECT * FROM tb_beasiswa WHERE id_beasiswa = '$id_beasiswa'")->result_array();
+        return $query;
+    }
+
     function get_data_beasiswa(){
         $query = $this->db->query('SELECT * FROM tb_beasiswa ORDER BY id_beasiswa ASC');
         return $query->result_array();

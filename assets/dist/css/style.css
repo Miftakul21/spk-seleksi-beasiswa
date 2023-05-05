@@ -98,3 +98,12 @@
 .page-link {
 	color: black !important;
 }
+
+@media only screen and (max-width: 600px) {
+	.breadcrumb {
+		display: none !important;
+	}
+	.main-footer {
+		font-size: 14px;
+	}
+}

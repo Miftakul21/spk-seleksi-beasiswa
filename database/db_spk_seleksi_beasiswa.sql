@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 19, 2023 at 04:29 PM
+-- Generation Time: Apr 12, 2023 at 01:14 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -43,7 +43,7 @@ CREATE TABLE `tb_beasiswa` (
 --
 
 INSERT INTO `tb_beasiswa` (`id_beasiswa`, `jenis_beasiswa`, `kuota`, `periode`, `tgl_pendaftaran`, `tgl_penutupan`, `file`, `status`) VALUES
-(1, 'KIP-Kuliah', 50, '2022', '2023-02-01', '2023-02-28', '', '');
+(1, 'KIP-Kuliah', 1, '2022', '2022-01-01', '2022-02-01', '44c037bd7debdbe66bf75d3acd59f571.pdf', '1');
 
 -- --------------------------------------------------------
 
@@ -63,7 +63,10 @@ CREATE TABLE `tb_file` (
 --
 
 INSERT INTO `tb_file` (`id_file`, `nim`, `file1`, `file2`) VALUES
-(2, '1461900064', 'penelitian_saw_3.pdf', 'penelitian_saw_8.pdf');
+(15, '1462200049', '8e03b7be8e3b9ac599b139d9a6d7beca.pdf', 'e2c477b621c405050370dffddb010083.pdf'),
+(16, '1462200035', '39b7015770ce1242bd2a6ace0d1ab957.pdf', '5d5ef8fe556be894ae003fa45e046a9d.pdf'),
+(17, '1462200081', 'ba76c405e1a06edd0b2fb752d529be9e.pdf', 'db2b96a6f13323ad78f114d52708469b.pdf'),
+(18, '1462200092', '38e61c83f75e6da80a6f32e91c8868e6.pdf', '7957e64b3e51aa8c72e6e3baab53f8cd.pdf');
 
 -- --------------------------------------------------------
 
@@ -82,9 +85,10 @@ CREATE TABLE `tb_hasil` (
 --
 
 INSERT INTO `tb_hasil` (`id_nilai`, `nim`, `nilai`) VALUES
-(1, '1461900064', 0.61666666666667),
-(2, '1461900049', 0.75),
-(3, '1461900035', 0.75);
+(12, '1462200049', 0.675),
+(13, '1462200035', 0.875),
+(14, '1462200081', 0.6125),
+(15, '1462200092', 0.7125);
 
 -- --------------------------------------------------------
 
@@ -131,9 +135,12 @@ CREATE TABLE `tb_mahasiswa` (
 --
 
 INSERT INTO `tb_mahasiswa` (`id_mahasiswa`, `nama`, `nim`, `jurusan`, `angkatan`, `id_beasiswa`) VALUES
-(2, 'Putra Dwi Andrianto', '1461900064', 'Teknik Informatika', '2019', '1'),
-(3, 'Gito Pramana Karya ', '1461900049', 'Teknik Industri', '2020', '1'),
-(4, 'Miftakul Huda', '1461900035', 'Teknik Informatika', '2019', '1');
+(2, 'Putra Dwi Andrianto', '1462200064', 'Teknik Informatika', '2022', ''),
+(3, 'Gito Pramana Karya ', '1462200049', 'Teknik Industri', '2022', '1'),
+(4, 'Miftakul Huda', '1462200035', 'Teknik Informatika', '2022', '1'),
+(6, 'Muhammad Haris', '1462200081', 'Teknik Informatika', '2022', '1'),
+(7, 'Muhammad jamaludin', '1462200092', 'Teknik Informatika', '2022', '1'),
+(8, 'Adit WIjanarko', '1462000121', 'Teknik Informatika', '2020', '');
 
 -- --------------------------------------------------------
 
@@ -154,21 +161,26 @@ CREATE TABLE `tb_penilaian` (
 --
 
 INSERT INTO `tb_penilaian` (`id_nilai`, `id_kriteria`, `id_subkriteria`, `nim`, `nilai`) VALUES
-(11, '1', '4', '1461900035', 3),
-(12, '6', '11', '1461900035', 4),
-(13, '7', '15', '1461900035', 3),
-(14, '8', '19', '1461900035', 2),
-(15, '18', '22', '1461900035', 1),
-(42, '1', '3', '1461900049', 2),
-(43, '6', '8', '1461900049', 1),
-(44, '7', '13', '1461900049', 1),
-(45, '8', '18', '1461900049', 1),
-(46, '18', '22', '1461900049', 1),
-(67, '1', '3', '1461900064', 2),
-(68, '6', '10', '1461900064', 3),
-(69, '7', '14', '1461900064', 2),
-(70, '8', '18', '1461900064', 1),
-(71, '18', '22', '1461900064', 1);
+(117, '1', '3', '1462200049', 2),
+(118, '6', '9', '1462200049', 2),
+(119, '7', '13', '1462200049', 1),
+(120, '8', '18', '1462200049', 1),
+(121, '18', '22', '1462200049', 1),
+(122, '1', '5', '1462200035', 4),
+(123, '6', '10', '1462200035', 3),
+(124, '7', '16', '1462200035', 4),
+(125, '8', '19', '1462200035', 2),
+(126, '18', '23', '1462200035', 2),
+(127, '1', '4', '1462200081', 3),
+(128, '6', '11', '1462200081', 4),
+(129, '7', '13', '1462200081', 1),
+(130, '8', '18', '1462200081', 1),
+(131, '18', '26', '1462200081', 4),
+(132, '1', '4', '1462200092', 3),
+(133, '6', '10', '1462200092', 3),
+(134, '7', '14', '1462200092', 2),
+(135, '8', '18', '1462200092', 1),
+(136, '18', '26', '1462200092', 4);
 
 -- --------------------------------------------------------
 
@@ -207,8 +219,11 @@ INSERT INTO `tb_subkriteria` (`id_subkriteria`, `nama_subkriteria`, `nilai_subkr
 (19, 'Yatim', 2, '8'),
 (20, 'Piatu', 3, '8'),
 (21, 'Yatim Piatu ', 4, '8'),
-(22, 'Tidak Memiliki KIP/KKS/PKH', 1, '18'),
-(23, 'Memiliki KIP/KKS/PKH', 3, '18');
+(22, 'Tidak memiliki surat rekomendasi', 1, '18'),
+(23, 'Surat Keterangan Miskin', 2, '18'),
+(24, 'Kartu Keluarga Sejahtera (KKS)', 3, '18'),
+(25, 'Program Keluarga Harapan (PKH)', 3, '18'),
+(26, 'Kartu Indonesia Pintar', 4, '18');
 
 -- --------------------------------------------------------
 
@@ -230,7 +245,7 @@ CREATE TABLE `tb_users` (
 
 INSERT INTO `tb_users` (`id_users`, `nama`, `username`, `password`, `level_user`) VALUES
 (1, 'Admin', 'admin', '0192023a7bbd73250516f069df18b500', 'Admin'),
-(11, 'adasdd', 'asdasdd', 'asdadasd', 'aa');
+(17, 'kepala biro', 'kepalabiro123', 'b8c802e90b3cbd3239015685778d2581', 'Kepala Biro');
 
 --
 -- Triggers `tb_users`
@@ -311,13 +326,13 @@ ALTER TABLE `tb_beasiswa`
 -- AUTO_INCREMENT for table `tb_file`
 --
 ALTER TABLE `tb_file`
-  MODIFY `id_file` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_file` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `tb_hasil`
 --
 ALTER TABLE `tb_hasil`
-  MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `tb_kriteria`
@@ -329,25 +344,25 @@ ALTER TABLE `tb_kriteria`
 -- AUTO_INCREMENT for table `tb_mahasiswa`
 --
 ALTER TABLE `tb_mahasiswa`
-  MODIFY `id_mahasiswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_mahasiswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `tb_penilaian`
 --
 ALTER TABLE `tb_penilaian`
-  MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=137;
 
 --
 -- AUTO_INCREMENT for table `tb_subkriteria`
 --
 ALTER TABLE `tb_subkriteria`
-  MODIFY `id_subkriteria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id_subkriteria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `tb_users`
 --
 ALTER TABLE `tb_users`
-  MODIFY `id_users` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_users` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

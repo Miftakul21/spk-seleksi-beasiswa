@@ -176,7 +176,6 @@
 											if($k['atribut_kriteria'] == 'Cost') {
 												$nilai_min = $CI->M_datanilai->get_data_nilai_min($id_kriteria);
 												foreach($nilai_min as $min){
-													// $data_min = $min['nilai_min'];
 													$hasil = $min['nilai_min'] / $n['nilai'];
 						?>			
 										<td><?= $hasil ?></td>

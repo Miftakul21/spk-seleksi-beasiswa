@@ -8,6 +8,7 @@ class DaftarBeasiswa extends CI_Controller {
         if($this->session->userdata('status') != 'log-in mahasiswa'){
             redirect('login_mhs');
         }
+        $this->load->model('M_mahasiswa');
         $this->load->model('M_beasiswa');
         $this->load->model('M_kriteria');
         $this->load->model('M_daftarbeasiswa');
@@ -65,68 +66,91 @@ class DaftarBeasiswa extends CI_Controller {
         $id_beasiswa = $this->input->post('id_beasiswa');
         
         $cek_pendaftar = $this->M_daftarbeasiswa->cek_daftar($nim); // Upload Pendaftaran
+        $data_mahasiswa = $this->M_mahasiswa->cek_mahasiswa($nim);
+        $data_beasiswa = $this->M_beasiswa->get_data_idBeasiswa($id_beasiswa);
 
-        if(count($cek_pendaftar) >= 5){
+        $tahun_angkatan_mhs;
+        $periode_beasiswa;
+        foreach($data_mahasiswa as $data){
+            $tahun_angkatan_mhs = $data['angkatan'];
+        }
+
+        foreach($data_beasiswa as $data) {
+            $periode_beasiswa = $data['periode'];
+        }
+
+        // Validasi periode pendaftaran
+        if($periode_beasiswa == $tahun_angkatan_mhs) {
+            // Validasi Mendaftar Hanya 1 Kali
+            if(count($cek_pendaftar) >= 5){
+                $data_session = [
+                    'info' => 'Error',
+                    'message' => "Anda sudah mendaftar beasiswa"
+                ];
+                $this->session->set_userdata($data_session);
+                redirect('daftarbeasiswa');    
+            } else {
+                // Settting format file
+                $config['upload_path'] = './uploads/';
+                $config['allowed_types'] = 'pdf|png|doc';
+                $config['max_size']     = '2048';
+                $config['encrypt_name'] = TRUE;
+                
+                $this->load->library('upload', $config);
+
+                if(!$this->upload->do_upload('file1')) {
+                    $data_session = [
+                        'info' => 'Error',
+                        'message' => 'Upload File Tidak Sesuai Format'
+                    ];
+                    $this->session->set_userdata($data_session);
+                    redirect('daftarbeasiswa');
+
+                } else {
+                    $nama_file1 = $this->upload->data();
+                    $file1 = $nama_file1['file_name'];              
+                }
+                if(!$this->upload->do_upload('file2')) {
+                    $data_session = [
+                        'info' => 'Error',
+                        'message' => 'Upload File Tidak Sesuai Format'
+                    ];
+                    $this->session->set_userdata($data_session);
+                    redirect('daftarbeasiswa');
+                } else {
+                    $nama_file2 = $this->upload->data();
+                    $file2 = $nama_file2['file_name'];   
+                }
+                $update_data = $this->M_daftarbeasiswa->daftar_beasiswa($id_beasiswa,$nim);
+                // Upload file Document
+                $this->M_daftarbeasiswa->upload_file($nim, $file1, $file2);
+                // Upload Nilai Kriteria                                                                    
+                $this->insert_data_nilai($nim,$nilai_rapot,$penghasilan_ortu,$jumlah_tanggungan,$status_anak,$kartu_sosial);
+
+                if($update_data){
+                    $data_session = [
+                        'info' => 'Success',
+                        'message' => 'Data Berhasil disimpan!'
+                    ];
+                    $this->session->set_userdata($data_session);
+                    redirect('daftarbeasiswa');
+                } else {
+                    $data_session = [
+                        'info' => 'Error',
+                        'message' => 'Data Gagal disimpan!'
+                    ];
+                    $this->session->set_userdata($data_session);
+                    redirect('daftarbeasiswa');
+                }
+            }  
+        } else {
             $data_session = [
                 'info' => 'Error',
-                'message' => "Anda sudah mendaftar beasiswa"
+                'message' => 'Pendaftaran beasiswa dikhususkan untuk tahun angkatan '. $periode_beasiswa
             ];
             $this->session->set_userdata($data_session);
-            redirect('daftarbeasiswa');    
-        } else {
-            // Settting format file
-            $config['upload_path'] = './uploads/';
-            $config['allowed_types'] = 'pdf|png|doc';
-            $config['max_size']     = '2048';
-            $config['encrypt_name'] = TRUE;
-            
-            $this->load->library('upload', $config);
-
-            if(!$this->upload->do_upload('file1')) {
-                $data_session = [
-                    'info' => 'Error',
-                    'message' => 'Upload File Tidak Sesuai Format'
-                ];
-                $this->session->set_userdata($data_session);
-                redirect('daftarbeasiswa');
-
-            } else {
-                $nama_file1 = $this->upload->data();
-                $file1 = $nama_file1['file_name'];              
-            }
-            if(!$this->upload->do_upload('file2')) {
-                $data_session = [
-                    'info' => 'Error',
-                    'message' => 'Upload File Tidak Sesuai Format'
-                ];
-                $this->session->set_userdata($data_session);
-                redirect('daftarbeasiswa');
-            } else {
-                $nama_file2 = $this->upload->data();
-                $file2 = $nama_file2['file_name'];   
-            }
-            $update_data = $this->M_daftarbeasiswa->daftar_beasiswa($id_beasiswa,$nim);
-            // Upload file Document
-            $this->M_daftarbeasiswa->upload_file($nim, $file1, $file2);
-            // Upload Nilai Kriteria                                                                    
-            $this->insert_data_nilai($nim,$nilai_rapot,$penghasilan_ortu,$jumlah_tanggungan,$status_anak,$kartu_sosial);
-
-            if($update_data){
-                $data_session = [
-                    'info' => 'Success',
-                    'message' => 'Data Berhasil disimpan!'
-                ];
-                $this->session->set_userdata($data_session);
-                redirect('daftarbeasiswa');
-            } else {
-                $data_session = [
-                    'info' => 'Error',
-                    'message' => 'Data Gagal disimpan!'
-                ];
-                $this->session->set_userdata($data_session);
-                redirect('daftarbeasiswa');
-            }
-        }    
+            redirect('daftarbeasiswa');
+        }
     }
 
     public function view()

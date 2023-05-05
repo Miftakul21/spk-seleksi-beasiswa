@@ -113,22 +113,21 @@ class DataNilai extends CI_Controller {
         }
 
         if(file_exists('uploads/'.$file_1)){
-            // echo "File Ada ".$file_1." Pada Folder Upload". "<br>";
             unlink('uploads/'.$file_1);
         } else {
             echo "File Tidak Ada ".$file_1." Pada Folder Upload"."<br>";            
         }
 
         if(file_exists('uploads/'.$file_2)){
-            // echo "File Ada ".$file_2." Pada Folder Upload". "<br>";
             unlink('uploads/'.$file_2);
         } else {
             echo "File Tidak Ada ".$file_2." Pada Folder Upload"."<br>";            
         }
 
         $update_mhs = $this->M_mahasiswa->update_beasiswa_mhs($nim);
-        $delete_penilaian = $this->M_datanilai->delete_data_mhs($nim);
-        $delete_file = $this->M_datanilai->delete_file($nim);
+        $this->M_datanilai->delete_data_nilai_mhs($nim); // hapus data penilaian
+        $this->M_datanilai->delete_data_hasil($nim); // hapus data hasil
+        $this->M_datanilai->delete_file($nim); // hapus data file
 
         if($update_mhs){
             $data_session = [

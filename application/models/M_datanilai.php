@@ -52,7 +52,6 @@ class M_datanilai extends CI_Model{
         return $query;
     }
 
-
     // Data Kriteria Beasiswa
     function kriteria_beasiswa($id_beasiswa){
         $query = $this->db->query("SELECT * FROM tb_kriteria AS a JOIN tb_beasiswa AS b ON a.id_beasiswa = b.`id_beasiswa` WHERE 
@@ -67,13 +66,21 @@ class M_datanilai extends CI_Model{
         return $query;
     }
 
-    function delete_data_mhs($nim) {
+    // Hapus data penilaian kritera
+    function delete_data_nilai_mhs($nim) {
         $query = $this->db->query("DELETE FROM tb_penilaian WHERE nim = '$nim'");
         return $query;
     }
 
+    // Hapus file pendaftaran beasiswa
     function delete_file($nim){
         $query = $this->db->query("DELETE FROM tb_file WHERE nim = '$nim'");
+        return $query;
+    }
+
+    // Hapus data hasil penilaian bobot 
+    function delete_data_hasil($nim){
+        $query = $this->db->query("DELETE FROM tb_hasil WHERE nim = '$nim'");
         return $query;
     }
 

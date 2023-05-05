@@ -39,7 +39,7 @@
 							<!-- Kriteria Berdasarkan Beasiswa -->
 							<div class="row mt-2">
 							<?php  foreach($kriteria as $k): ?>
-								<div class="col-6">
+								<div class="col-lg-6 col-sm-12">
 									<div class="card">
 										<div class="header-card">
 											<div class="title-card">

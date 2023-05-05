@@ -17,7 +17,8 @@
 					<thead>
 						<tr>
 							<th>Jenis Beasiswa</th>
-							<th>Masa Periode</th>
+              <th>Periode</th>
+							<th>Tanggal Pendaftatan</th>
 							<th>Status</th>
 							<th>File Pengumuman</th>
 							<th>Opsi</th>
@@ -31,7 +32,8 @@
                     $text_color = ($status_pendaftaran == 'Aktif') ? 'text-success' : 'text-danger';
               ?>
 						<tr>
-							<td>Beasiswa KIP-Kuliah</td>
+							<td>Beasiswa <?= $b['jenis_beasiswa']; ?></td>
+              <td><?= $b['periode']; ?></td>
 							<td>
 								<p>Pendaftaran Dibuka: <?= date('d-m-Y', strtotime($b['tgl_pendaftaran'])); ?> 
                   <br> Pendaftaran Ditutup: <?= date('d-m-Y', strtotime($b['tgl_penutupan'])); ?>
@@ -56,7 +58,6 @@
                 ?>
 					</tbody>
 				</table>
-				<!-- <span>Catatan<span class="text-danger">*</span> Pendaftaran hanya bisa dilakukan sekali</span> -->
 			</div>
 		</div>
     </div>

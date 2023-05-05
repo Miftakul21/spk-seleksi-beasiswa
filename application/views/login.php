@@ -9,14 +9,8 @@
   </head>
   <body>
     <div class="circle"></div>
-    <!-- 
-      <h1>
-      Sistem Pendukung Keputusan Seleksi Beasiswa Mahasiswa Baru <br />
-      Universitas 17 Agustus 1945 Surabaya
-      </h1> 
-    -->
     <h1>PENERIMAAN BEASISWA MAHASISWA BARU <br> UNIVERSITAS 17 AGUSTUS 1945 SURABAYA</h1>  
-
+    <!-- Form Login -->
     <div class="container">
       <div class="row">
         <div class="col-2">
@@ -43,5 +37,6 @@
         </div>
       </div>
     </div>
+    <!-- End Form Login -->
   </body>
 </html>

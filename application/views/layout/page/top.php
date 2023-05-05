@@ -37,7 +37,7 @@
 		<!-- Icon Boostrap -->
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 
-		<!-- Custom Icon -->
+		<!-- Custom Icon and Sidebar -->
 		<link rel="stylesheet" href="<?= base_url() ?>assets/dist/css/style.css">
 
 		<!-- Datatables -->
@@ -45,5 +45,4 @@
 
 		<!-- iziToast -->
 		<link rel="stylesheet" href="<?= base_url() ?>assets/izitoast/css/iziToast.css">
-		<!-- <link rel="stylesheet" href="<?// = base_url() ?>assets/izitoast/css/iziToats.min.css"> -->
 	</head>
