@@ -1,5 +1,4 @@
 <?php 
-
 class M_datanilai extends CI_Model{
     function get_all_data_beasiswa(){
         $query = $this->db->query("SELECT * FROM tb_beasiswa")->result_array();

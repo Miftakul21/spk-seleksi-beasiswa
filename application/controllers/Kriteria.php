@@ -31,10 +31,10 @@ class Kriteria extends CI_Controller{
         // Cek Jumlah Kriteria Minimal 5
         $cek_jumlah_kriteria = $this->M_kriteria->cek_jumlah_kriteria($jenis_beasiswa);
 
-        if(count($cek_jumlah_kriteria) >= 5) {
+        if(count($cek_jumlah_kriteria) >= 6) {
             $data_session = [
                 'info' => 'Error',
-                'message' => 'Kriteria Beasiswa Maksimal 5'
+                'message' => 'Kriteria Beasiswa Maksimal 6'
             ];
             $this->session->set_userdata($data_session);
             redirect('kriteria/index');

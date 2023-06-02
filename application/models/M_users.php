@@ -3,7 +3,7 @@
 class M_users extends CI_Model{
 
     function get_data_users() {
-        $query  = $this->db->query("SELECT * FROM tb_users");
+        $query  = $this->db->query("SELECT * FROM tb_users WHERE NOT level_user = 'mahasiswa'");
         return $query->result_array();
     }
 

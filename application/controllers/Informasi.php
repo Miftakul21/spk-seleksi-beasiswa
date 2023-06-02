@@ -7,7 +7,7 @@ class Informasi extends CI_Controller{
         parent::__construct();
         $this->load->model('M_beasiswa');
         if($this->session->userdata('status') != 'log-in mahasiswa'){
-            redirect('login_mhs');
+            redirect('login');
         }       
     }
 

@@ -29,7 +29,7 @@
 							foreach($beasiswa as $b):
 						?>
 							<!-- Jenis Beasiswa -->
-							<h4 class="text-center"><?= $b['jenis_beasiswa']; ?></h4>
+							<h4 class="text-center"><?= $b['jenis_beasiswa']; ?> <?= $b['periode']; ?></h4>
 							<?php 
 								$id_beasiswa = $b['id_beasiswa'];
 								$query = "SELECT * FROM tb_kriteria AS a JOIN tb_beasiswa AS b 

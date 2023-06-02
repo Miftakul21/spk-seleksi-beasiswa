@@ -53,4 +53,4 @@ $route['default_controller'] = 'login';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['login_mhs'] = 'loginuser';
-// $route['datanilai/:id'] = 'datanilai';
+$route['profil/edit/(:any)'] = 'profil/edit/$1';

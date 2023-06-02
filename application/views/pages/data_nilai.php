@@ -42,8 +42,8 @@
 												<th>Penghasilan Orang Tua</th>
 												<th>Jumlah Tanggungan</th>
 												<th>Status Anak</th>
-												<th>Kartu Sosial</th>
-												<th>File Bukti</th>
+												<th>SKTM</th>
+												<th>File Upload</th>
 												<th style="width: 150">Aksi</th>
 											</tr>
 										</thead>
@@ -97,12 +97,10 @@
 											<tr>
 												<th>No</th>
 												<th>Nama</th>
-												<th>NIM</th>
-												<th>Nilai Rapot</th>
-												<th>Penghasilan Orang Tua</th>
-												<th>Jumlah Tanggungan</th>
-												<th>Status Anak</th>
-												<th>Kartu Sosial</th>
+												<!-- <th>NIM</th> -->
+											<?php for($Ci = 1; $Ci <=6; $Ci++){ ?>
+												<th>C<?= $Ci; ?></th>
+											<?php } ?>
 											</tr>
 										</thead>
 										<tbody>
@@ -118,7 +116,7 @@
 											<tr>
 												<td><?= $no++; ?></td>
 												<td><?= $m['nama'] ?></td>
-												<td><?= $m['nim'] ?></td>
+												<!-- <td><?// = $m['nim'] ?></td> -->
 											<?php foreach($nilai as $n): ?>
 												<td><?= $n['nilai']; ?></td>
 											<?php endforeach; ?>
@@ -145,12 +143,10 @@
 											<tr>
 												<th>No</th>
 												<th>Nama</th>
-												<th>NIM</th>
-												<th>Nilai Rapot</th>
-												<th>Penghasilan Orang Tua</th>
-												<th>Jumlah Tanggungan</th>
-												<th>Status Anak</th>
-												<th>Kartu Sosial</th>
+												<!-- <th>NIM</th> -->
+												<?php for($Ci = 1; $Ci <=6; $Ci++){ ?>
+													<th>C<?= $Ci; ?></th>
+												<?php } ?>
 											</tr>
 										</thead>
 										<tbody>
@@ -158,18 +154,21 @@
 							$no = 1;
 							foreach($beasiswa as $b):
 								$id_beasiswa = $b['id_beasiswa'];
+								// Mahasiswa Mendaftar Beasiswa
 								$mhs = $CI->M_datanilai->get_data_mahasiswa($id_beasiswa);
 								foreach($mhs as $m):
 									$nim_mhs = $m['nim'];
+									// Nilai Subkriteria Berdasarkan Kriteria Dari Beasiswa
 									$nilai = $CI->M_datanilai->get_data_nilai_kriteria($nim_mhs);
 						?>
 											<tr>
 												<td><?= $no++; ?></td>
 												<td><?= $m['nama'] ?></td>
-												<td><?= $m['nim'] ?></td>	
+												<!-- <td><?//= $m['nim'] ?></td>	 -->
 						<?php 
 									foreach($nilai as $n){
 										$id_kriteria = $n['id_kriteria'];
+										// Untuk Mengambil Atribut Benefit dan Cost
 										$kriteria = $CI->M_datanilai->get_data_kriteria($id_kriteria);
 
 										foreach($kriteria as $k){
@@ -181,7 +180,7 @@
 										<td><?= $hasil ?></td>
 						<?php 
 												}	
-											} else if($k['atribut_kriteria'] == 'Benefit'){
+											} elseif($k['atribut_kriteria'] == 'Benefit'){
 												$nilai_max = $CI->M_datanilai->get_data_nilai_max($id_kriteria);
 												foreach($nilai_max as $max){
 													$hasil = $n['nilai'] / $max['nilai_max'];												
@@ -204,7 +203,6 @@
 							</div>
 						</div>
 
-
 					<!-- Data Pembobotan -->
 					<div class="card mt-3">
 						<div class="card-header">
@@ -217,13 +215,10 @@
 										<tr>
 											<th>No</th>
 											<th>Nama</th>
-											<th>NIM</th>
-											<th>Nilai Rapot</th>
-											<th>Penghasilan Orang Tua</th>
-											<th>Jumlah Tanggungan</th>
-											<th>Status Anak</th>
-											<th>Kartu Sosial</th>
-											<th>Hasil</th>
+											<!-- <th>NIM</th> -->
+											<?php for($Ci = 1; $Ci <=6; $Ci++){ ?>
+												<th>C<?= $Ci; ?></th>
+											<?php } ?>
 										</tr>
 									</thead>
 									<tbody>
@@ -240,7 +235,7 @@
 											<tr>
 												<td><?= $no++; ?></td>
 												<td><?= $m['nama'] ?></td>
-												<td><?= $m['nim'] ?></td>	
+												<!-- <td><?//= $m['nim'] ?></td> -->
 						<?php 
 									$hasil_normalisasi = 0;
 									$hasil = 0;
@@ -278,7 +273,7 @@
 					
 								
 						?>
-												<td><?= $hasil_normalisasi; ?></td>
+												<!-- <td><?//= $hasil_normalisasi; ?></td> -->
 											</tr>
 						<?php 									
 								}
@@ -295,7 +290,6 @@
 							// Cek Jumlah Data Penilaian (Group Berdasarkan NIM Mahasiswa)
 							$query1 = "SELECT * FROM tb_penilaian GROUP BY nim";
 							$penilaian = $this->db->query($query1)->result_array();
-
 							foreach($penilaian as $p){
 								foreach($hasil_ranks as $rank){
 									$nim = $rank['nim'];
@@ -305,60 +299,19 @@
 									if(count($cek)==0){
 										$this->db->query("INSERT INTO tb_hasil(nim, nilai) VALUES ('$nim', $hasil_pembobotan)");		
 									}
+
+									$nim2 = $p['nim'];
+
+									// Buat Update Data
+									if($nim == $nim2) {
+										$this->db->query("UPDATE tb_hasil SET nilai = '$hasil_pembobotan' WHERE nim = '$nim'");
+									}
 								}
 							}
+
 						?>
-						<!-- Card menampilkan hasil pembobotan
-						<div class="d-flex justify-content-center">
-							<div class="col-6">
-								<div class="card mt-3">
-									<div class="card-header">
-										Hasil Seleksi Penerima Beasiswa
-									</div>
-									<div class="card-body">
-										<table class="table">
-											<thead>
-												<tr>
-													<th scope="col">No</th>
-													<th scope="col">Nama</th>
-													<th scope="col">Nim</th>
-													<th scope="col">Nilai</th>
-													<th scope="col">Keterangan</th>
-												</tr>
-											</thead>
-											<tbody>
-									<?php 
-										foreach($beasiswa as $b){
-											$no=1;
-											$query_hasil = $this->db->query("SELECT a.nama, a.nim, b.nilai FROM tb_mahasiswa AS a JOIN tb_hasil AS b ON 
-																			a.nim = b.nim WHERE a.`id_beasiswa` = 1 ORDER BY b.nilai DESC")->result_array();
-											$kuota_beasiswa = $b['kuota'];
-
-											foreach($query_hasil as $hasil){ 
-												$ket = ($no <= $kuota_beasiswa) ? 'Diterima' : 'Ditolak';
-									?>
-												<tr>
-													<th scope="row"><?//= $no++ ?></th>
-													<td><?//= $hasil['nama'] ?></td>
-													<td><?//= $hasil['nim'] ?></td>
-													<td><?//= $hasil['nilai'] ?></td>
-													<td><?//= $ket; ?></td>
-												</tr>
-									<?php 
-											}
-										} 
-										
-									?>
-
-
-											</tbody>
-										</table>
-									</div>
-								</div>
-							</div>
-						</div> 
-						-->
 					<!-- End Content -->
+
 					</div>
 				</div>
 			</div>

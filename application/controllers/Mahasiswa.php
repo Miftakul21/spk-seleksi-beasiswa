@@ -102,5 +102,4 @@ class Mahasiswa extends CI_Controller{
             redirect('mahasiswa/index');
         }       
     }
-    
 }

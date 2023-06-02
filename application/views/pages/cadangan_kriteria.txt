@@ -1,0 +1,254 @@
+<?php 
+	$CI = & get_instance();
+	$CI->load->model('M_datanilai');
+	// Id beasiswa
+	$id_beasiswa = $this->uri->segment(3);	
+	$beasiswa = $CI->M_datanilai->get_data_beasiswa($id_beasiswa);
+?>
+
+	<body class="hold-transition sidebar-mini layout-fixed">
+		<div class="wrapper">
+			<!-- Navbar -->
+			<?php $this->load->view('layout/page/navbar'); ?>
+			<!-- Sidebar Menu -->
+			<?php $this->load->view('layout/page/sidebar'); ?>
+			<div class="content-wrapper">
+				<div class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-12 col-12 d-flex justify-content-between">
+								<h1 class="m-0 fw-bold">Data Penilaian Beasiswa KIP-Kuliah</h1>
+								<div class="breadcrumb">
+									<li class="breadcrumb-item"><a href="<?= base_url('dashboard') ?>" class="text-primary" style="text-decoration: none;">Dashboard</a></li>
+                                    <li class="breadcrumb-item text-secondary" aria-current="page">Data Penilaian</li>
+								</div>
+							</div>
+						</div>
+                        <hr style="border-top: 1px solid #bbb">
+
+						<!-- Data Nilai Kriteria -->
+						<div class="card mt-3">
+							<div class="card-header">
+								<h5>Data Nilai Kriteria</h5>
+							</div>
+							<div class="card-body">
+								<div class="table-responsive">
+									<table class="table table-hover table-striped w-100">
+										<thead>
+											<tr>
+												<th>No</th>
+												<th>Nama</th>
+												<!-- <th>NIM</th> -->
+											<?php for($Ci = 1; $Ci <=6; $Ci++){ ?>
+												<th>C<?= $Ci; ?></th>
+											<?php } ?>
+											</tr>
+										</thead>
+										<tbody>
+						<?php 
+							$no = 1;
+							foreach($beasiswa as $b):
+								$id_beasiswa = $b['id_beasiswa'];
+								$mhs = $CI->M_datanilai->get_data_mahasiswa($id_beasiswa);
+								foreach($mhs as $m):
+									$nim_mhs = $m['nim'];
+									$nilai = $CI->M_datanilai->get_data_nilai_kriteria($nim_mhs);
+						?>
+											<tr>
+												<td><?= $no++; ?></td>
+												<td><?= $m['nama'] ?></td>
+											<?php foreach($nilai as $n): ?>
+												<td><?= $n['nilai']; ?></td>
+											<?php endforeach; ?>
+											</tr>
+						<?php 									
+								endforeach;
+							endforeach;
+						?>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+
+				<!-- Data Normalisasi -->
+				<div class="card mt-3">
+					<div class="card-header">
+						<h5>Normalisasi</h5>
+					</div>
+
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table table-hover table-striped w-100">
+								<thead>
+									<tr>
+										<th>No</th>
+										<th>Nama</th>
+									<?php for($Ci = 1; $Ci <= 6; $Ci++){ ?>
+										<th>C<?= $Ci; ?></th>
+									<?php } ?>
+									</tr>
+								</thead>
+								<tbody>
+								<?php 
+									$no = 1;
+									// Ambil Data Mahasiswa Yang Sudah Mendaftar Berdasarkan ID Beasiswa
+									$get_data_mhs = $this->db->query("SELECT * FROM tb_mahasiswa WHERE id_beasiswa = '$id_beasiswa'")->result_array();
+									foreach($get_data_mhs as $data) {
+								?>
+									<tr>
+										<td><?= $no++; ?></td>
+										<td><?= $data['nama']; ?></td>
+
+								<?php 
+									// Ambil Nilai Subkriteria Dari Kriteria Yang Dipilih Mahasiswa
+									$nim = $data['nim'];
+									$nilai_kriteria_mhs = $this->db->query("SELECT * FROM tb_penilaian WHERE nim = '$nim'")->result_array();	
+									
+									
+									// Ambil Nilai Minimal
+									// Ambil Nilai Maksimal
+									foreach($nilai_kriteria_mhs as $nilai_kriteria){
+								?>
+										<td><?= $nilai_kriteria['nilai']; ?></td>
+									<?php } ?>
+									
+									</tr>
+				
+								<?php } ?>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+
+
+				</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+					</div>
+				</div>
+			</div>
+			<?php $this->load->view('layout/page/footer') ?>
+		</div>		
+
+		<!-- Modal File Bukti -->
+		<?php 
+			foreach($beasiswa as $b):
+				$id_beasiswa = $b['id_beasiswa']; 
+				$mhs = $CI->M_datanilai->get_data_mahasiswa($id_beasiswa);
+				foreach($mhs as $m):
+					$nim_mhs = $m['nim'];
+					$data_file = $CI->M_datanilai->get_data_file($nim_mhs);
+		?>
+		<div class="modal fade" id="fileBukti<?= $m['nim']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">File Bukti <?= $m['nama'] ?></h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="row">
+							<?php 
+								foreach($data_file as $file){
+							?>	
+								<div class="col-4 offset-2 text-center">
+									<label for="">File Nilai Rapot </label>
+									<a href="<?= base_url('datanilai/view/') ?><?= $file['file1'] ?>" class="btn btn-primary"><i class="fas fa-file-alt"></i></a>
+								</div>
+								<div class="col-4 text-center">
+									<label for="">File Kartu Sosial</label>
+									<a href="<?= base_url('datanilai/view/') ?><?= $file['file2'] ?>" class="btn btn-primary"><i class="fas fa-file-alt"></i></a>
+								</div>
+
+							<?php } ?>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		<?php 
+				endforeach;
+			endforeach; 
+		?>
+		<!-- Modal Hapus Data-->
+		<?php 
+		foreach($beasiswa as $b):
+			$id_beasiswa = $b['id_beasiswa'];
+			$mhs = $CI->M_datanilai->get_data_mahasiswa($id_beasiswa);
+			foreach($mhs as $m): 
+		?>
+		<div class="modal fade" id="hapusData<?= $m['nim']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Hapus Data <?= $m['nama']; ?></h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+				<form action="<?= base_url('datanilai/delete'); ?>" method="POST">
+					<input type="hidden" value="<?= $b['id_beasiswa'] ?>" name="id_beasiswa">
+					<input type="hidden" value="<?= $m['nim']; ?>" name="nim">
+					<div class="modal-body">
+						Anda ingin menghapus?
+					</div>
+						<div class="modal-footer">
+							<button class="btn btn-secondary" data-dismiss="modal">Batal</button>
+							<button class="btn btn-danger">Hapus</button>
+						</div>
+				</form>
+					</div>
+				</div>
+			</div>
+		<?php 
+			endforeach; 
+		endforeach;
+		?>
+
+	<?php $this->load->view('layout/page/bottom'); ?>
+	<?php 
+	if($this->session->userdata('info') == 'Success'){	
+	?>
+	<script>
+		iziToast.success({
+			title: 'Sukses',
+			message: `<?= $this->session->userdata('message'); ?>`,
+			position: 'topCenter',
+			timeout: 5000
+		});
+	</script>
+	<?php
+	$this->session->unset_userdata('info'); 
+	$this->session->unset_userdata('message'); 
+	} else if($this->session->userdata('info') == 'Error') {
+	?>
+	<script>
+		iziToast.error({
+			title: 'Failed',
+			message: `<?= $this->session->userdata('message'); ?>`,
+			position: 'topCenter',
+			timeout: 5000
+		});
+	</script>
+
+	<?php 
+	$this->session->unset_userdata('info'); 
+	$this->session->unset_userdata('message');
+	} 
+	?>

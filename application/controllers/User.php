@@ -9,7 +9,7 @@ class User extends CI_Controller{
         $this->load->library('form_validation');
         if($this->session->userdata('status') !='log-in') {
             redirect('login');
-        } 
+        }
     }
 
     public function index()
@@ -132,5 +132,4 @@ class User extends CI_Controller{
             }
         }
     }
-
 }

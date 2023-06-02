@@ -53,7 +53,7 @@
 					<ul class="nav nav-treeview">
 					<?php foreach($beasiswa as $jb): ?>	
 						<li class="nav-item">
-							<a href="<?= base_url('datanilai/beasiswa/') ?><?= $jb['id_beasiswa'] ?>" class="nav-link"><p><?= $jb['jenis_beasiswa'] ?></p></a>
+							<a href="<?= base_url('datanilai/beasiswa/') ?><?= $jb['id_beasiswa'] ?>" class="nav-link"><p><?= $jb['jenis_beasiswa'] ?> <?= $jb['periode']; ?></p></a>
 						</li>
 					<?php endforeach; ?>
 					</ul>
@@ -88,7 +88,7 @@
 					<ul class="nav nav-treeview">
 					<?php foreach($beasiswa as $jb): ?>	
 						<li class="nav-item">
-							<a href="<?= base_url('datanilai/beasiswa/') ?><?= $jb['id_beasiswa'] ?>" class="nav-link"><p><?= $jb['jenis_beasiswa'] ?></p></a>
+							<a href="<?= base_url('datanilai/beasiswa/') ?><?= $jb['id_beasiswa'] ?>" class="nav-link"><p><?= $jb['jenis_beasiswa']; ?> <?= $jb['periode']; ?></p></a>
 						</li>
 					<?php endforeach; ?>
 					</ul>

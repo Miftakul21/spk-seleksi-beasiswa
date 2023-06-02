@@ -47,7 +47,8 @@
             padding: 0 5px;
         }
         .container-ttd {
-            margin-top: 50%; 
+            margin-top: 20%; 
+            text-align:right;
         }
         .container-ttd .tgl-ttd{
             margin-bottom: 13%;

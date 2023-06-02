@@ -8,7 +8,7 @@ class Home extends CI_Controller {
         $this->load->model('M_beasiswa');
         $this->load->model('M_mahasiswa');
         if($this->session->userdata('status') != 'log-in mahasiswa'){
-            redirect('login_mhs');
+            redirect('login');
         }
     }
 

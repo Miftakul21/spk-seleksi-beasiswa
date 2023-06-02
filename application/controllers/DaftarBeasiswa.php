@@ -6,7 +6,7 @@ class DaftarBeasiswa extends CI_Controller {
     {
         parent::__construct(); 
         if($this->session->userdata('status') != 'log-in mahasiswa'){
-            redirect('login_mhs');
+            redirect('login');
         }
         $this->load->model('M_mahasiswa');
         $this->load->model('M_beasiswa');
@@ -24,7 +24,7 @@ class DaftarBeasiswa extends CI_Controller {
         ]);
     }
 
-    public function insert_data_nilai($nim,$nilairapot,$penghasilan_ortu,$jumlah_tanggungan,$status_anak,$kartu_sosial)
+    public function insert_data_nilai($nim,$nilairapot,$penghasilan_ortu,$jumlah_tanggungan,$status_anak,$kartu_sosial,$prestasi_non_akademik)
     {
         // id kriteria
         $dataz_1 = split_string($nilairapot,0);
@@ -32,7 +32,8 @@ class DaftarBeasiswa extends CI_Controller {
         $dataz_3 = split_string($jumlah_tanggungan,0);
         $dataz_4 = split_string($status_anak,0);
         $dataz_5 = split_string($kartu_sosial,0);
-        $data_id_kriteria = [$dataz_1,$dataz_2,$dataz_3,$dataz_4,$dataz_5];  
+        $dataz_6 = split_string($prestasi_non_akademik,0);
+        $data_id_kriteria = [$dataz_1,$dataz_2,$dataz_3,$dataz_4,$dataz_5,$dataz_6];  
 
         // id subkriteria
         $dataz1 = split_string($nilairapot,1);
@@ -40,7 +41,8 @@ class DaftarBeasiswa extends CI_Controller {
         $dataz3 = split_string($jumlah_tanggungan,1);
         $dataz4 = split_string($status_anak,1);
         $dataz5 = split_string($kartu_sosial,1);
-        $data_id_subkriteria = [$dataz1,$dataz2,$dataz3,$dataz4,$dataz5];
+        $dataz6 = split_string($prestasi_non_akademik,1);
+        $data_id_subkriteria = [$dataz1,$dataz2,$dataz3,$dataz4,$dataz5,$dataz6];
 
         // nilai subkriteria
         $data1 = split_string($nilairapot,2);
@@ -48,9 +50,10 @@ class DaftarBeasiswa extends CI_Controller {
         $data3 = split_string($jumlah_tanggungan,2);
         $data4 = split_string($status_anak,2);
         $data5 = split_string($kartu_sosial,2);
-        $data_nilai_subkriteria = [$data1,$data2,$data3,$data4,$data5];  
+        $data6 = split_string($prestasi_non_akademik,2);
+        $data_nilai_subkriteria = [$data1,$data2,$data3,$data4,$data5,$data6];  
         
-        for($i = 0; $i < 5; $i++){
+        for($i = 0; $i < 6; $i++){
             $this->M_daftarbeasiswa->insert_data_nilai($data_id_kriteria[$i],$data_id_subkriteria[$i],$nim,$data_nilai_subkriteria[$i]);    
         }        
     }
@@ -63,6 +66,7 @@ class DaftarBeasiswa extends CI_Controller {
         $jumlah_tanggungan = $this->input->post('3');
         $status_anak = $this->input->post('4');
         $kartu_sosial = $this->input->post('5');
+        $prestasi_non_akademik = $this->input->post('6');
         $id_beasiswa = $this->input->post('id_beasiswa');
         
         $cek_pendaftar = $this->M_daftarbeasiswa->cek_daftar($nim); // Upload Pendaftaran
@@ -82,7 +86,7 @@ class DaftarBeasiswa extends CI_Controller {
         // Validasi periode pendaftaran
         if($periode_beasiswa == $tahun_angkatan_mhs) {
             // Validasi Mendaftar Hanya 1 Kali
-            if(count($cek_pendaftar) >= 5){
+            if(count($cek_pendaftar) >= 6){
                 $data_session = [
                     'info' => 'Error',
                     'message' => "Anda sudah mendaftar beasiswa"
@@ -125,7 +129,7 @@ class DaftarBeasiswa extends CI_Controller {
                 // Upload file Document
                 $this->M_daftarbeasiswa->upload_file($nim, $file1, $file2);
                 // Upload Nilai Kriteria                                                                    
-                $this->insert_data_nilai($nim,$nilai_rapot,$penghasilan_ortu,$jumlah_tanggungan,$status_anak,$kartu_sosial);
+                $this->insert_data_nilai($nim,$nilai_rapot,$penghasilan_ortu,$jumlah_tanggungan,$status_anak,$kartu_sosial,$prestasi_non_akademik);
 
                 if($update_data){
                     $data_session = [
