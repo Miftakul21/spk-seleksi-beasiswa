@@ -17,18 +17,21 @@ class Laporan extends CI_Controller{
 
     public function index()
     {
-        $id_beasiswa = isset($_POST['id_beasiswa']) ? $_POST['id_beasiswa'] : '';
+        $jenis_beasiswa = isset($_POST['jenis_beasiswa']) ? $_POST['jenis_beasiswa'] : '';
         $periode = isset($_POST['periode']) ? $_POST['periode'] : '';
 
-        $data['beasiswa'] = $this->db->query("SELECT id_beasiswa, kuota FROM tb_beasiswa WHERE id_beasiswa = '$id_beasiswa' 
-                                    AND periode = '$periode'")->result_array();
+        $data['beasiswa'] = $this->db->query("SELECT * FROM tb_beasiswa WHERE jenis_beasiswa = '$jenis_beasiswa' 
+                                            AND periode = '$periode'")->result_array();
+
         $data['title'] = 'Halaman Laporan';
         $this->load->view('layout/page/top', $data);
         $this->load->view('pages/laporan', $data);
+
     }
-    
+    // Nanti Diperbaiki
     public function hasil()
     {
+        // $jenis_beasiswa = $this->input->post('jenis_beasiswa');
         $id_beasiswa = $this->input->post('id_beasiswa');
         $data['kuota'] = $this->input->post('kuota');
         $data['hasil'] = $this->db->query("SELECT a.nama, a.nim, b.nilai FROM tb_mahasiswa AS a JOIN tb_hasil AS b ON a.nim = b.nim WHERE 

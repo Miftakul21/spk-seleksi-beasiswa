@@ -131,7 +131,7 @@
 				<div class="modal-dialog modal-lg">
 					<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Edit Data</h5>
+						<h5 class="modal-title" id="exampleModalLabel">Edit Data <?= $b['periode']; ?> <?= $b['id_beasiswa']; ?></h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 						</button>
@@ -176,13 +176,13 @@
 				<div class="modal-dialog">
 					<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Hapus Data</h5>
+						<h5 class="modal-title" id="exampleModalLabel">Hapus Data <?= $u['periode']; ?> <?= $u['id_beasiswa']; ?> </h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
 				<form action="<?= base_url('beasiswa/delete'); ?>" method="POST">
-					<input type="hidden" value="<?= $b['id_beasiswa']; ?>" name="id_beasiswa">
+					<input type="hidden" value="<?= $u['id_beasiswa']; ?>" name="id_beasiswa">
 					<div class="modal-body">
 						Anda ingin menghapus?
 					</div>
@@ -250,7 +250,7 @@
 						</div>
 						<div class="modal-footer d-flex justify-content-center">
 							<form action="<?= base_url('beasiswa/status') ?>" method="POST">
-								<input type="hidden" name="id_beasiswa" value="<?= $b['id_beasiswa']; ?>">
+								<input type="hidden" name="id_beasiswa" value="<?= $u['id_beasiswa']; ?>">
 								<button name="status" value="1" class="btn btn-success mr-5">Buka</button>
 								<button name="status" value="0" class="btn btn-danger">Tutup</button>
 							</form>

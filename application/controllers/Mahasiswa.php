@@ -84,7 +84,11 @@ class Mahasiswa extends CI_Controller{
     public function delete()
     {
         $id = $this->input->post('id_mahasiswa');
+        $nim = $this->input->post('nim');
         $delete_data = $this->M_mahasiswa->delete_data($id);
+
+        // Hapus Akun MHS
+        $this->db->query("DELETE FROM tb_users WHERE username = '$nim'");
 
         if($delete_data) {
             $data_session = [

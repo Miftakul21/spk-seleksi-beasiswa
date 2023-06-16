@@ -322,7 +322,7 @@
 							<select class="form-control" id="jenis_beasiswa" name="jenis_beasiswa">
 								<option>--Pilih--</option>
 								<?php foreach($beasiswa as $b): ?>
-									<option value="<?= $b['id_beasiswa']; ?>"><?= $b['jenis_beasiswa']; ?></option>
+									<option value="<?= $b['id_beasiswa']; ?>"><?= $b['jenis_beasiswa']; ?> <?= $b['periode']; ?></option>
 								<?php endforeach; ?>
 							</select>
 						</div>

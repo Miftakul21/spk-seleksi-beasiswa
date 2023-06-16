@@ -43,6 +43,7 @@
 												<th>Jumlah Tanggungan</th>
 												<th>Status Anak</th>
 												<th>SKTM</th>
+												<th>Prestasi Non Akademik</th>
 												<th>File Upload</th>
 												<th style="width: 150">Aksi</th>
 											</tr>
@@ -342,11 +343,11 @@
 								foreach($data_file as $file){
 							?>	
 								<div class="col-4 offset-2 text-center">
-									<label for="">File Nilai Rapot </label>
+									<label for="">File Sertifikat Prestasi </label>
 									<a href="<?= base_url('datanilai/view/') ?><?= $file['file1'] ?>" class="btn btn-primary"><i class="fas fa-file-alt"></i></a>
 								</div>
 								<div class="col-4 text-center">
-									<label for="">File Kartu Sosial</label>
+									<label for="">File Surat Keterangan</label>
 									<a href="<?= base_url('datanilai/view/') ?><?= $file['file2'] ?>" class="btn btn-primary"><i class="fas fa-file-alt"></i></a>
 								</div>
 

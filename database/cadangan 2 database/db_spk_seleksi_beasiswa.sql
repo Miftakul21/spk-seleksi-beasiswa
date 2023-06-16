@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 05 Jun 2023 pada 17.15
+-- Waktu pembuatan: 12 Jun 2023 pada 03.04
 -- Versi server: 10.4.27-MariaDB
 -- Versi PHP: 8.0.25
 
@@ -43,7 +43,6 @@ CREATE TABLE `tb_beasiswa` (
 --
 
 INSERT INTO `tb_beasiswa` (`id_beasiswa`, `jenis_beasiswa`, `kuota`, `periode`, `tgl_pendaftaran`, `tgl_penutupan`, `file`, `status`) VALUES
-(1, 'KIP-Kuliah ', 2, '2021', '2021-05-04', '2022-06-04', '44c037bd7debdbe66bf75d3acd59f571.pdf', '1'),
 (5, 'KIP-Kuliah', 1, '2022', '2022-02-01', '2022-03-01', '', '1');
 
 -- --------------------------------------------------------
@@ -122,12 +121,6 @@ CREATE TABLE `tb_kriteria` (
 --
 
 INSERT INTO `tb_kriteria` (`id_kriteria`, `nama_kriteria`, `nilai_bobot`, `atribut_kriteria`, `id_beasiswa`) VALUES
-(1, 'Nilai Rata-Rata Rapot', 0.35, 'Benefit', '1'),
-(6, 'Penghasilan Orang Tua', 0.2, 'Cost', '1'),
-(7, 'Jumlah Tanggungan', 0.1, 'Benefit', '1'),
-(8, 'Status Anak', 0.05, 'Cost', '1'),
-(18, 'SKTM', 0.05, 'Benefit', '1'),
-(19, 'Prestasi Non Akademik', 0.25, 'Benefit', '1'),
 (20, 'Nilai Rata-Rata Rapot', 0.35, 'Benefit', '5'),
 (21, 'Penghasilan Orang Tua', 0.2, 'Cost', '5'),
 (22, 'Jumlah Tanggungan ', 0.1, 'Benefit', '5'),
@@ -275,33 +268,6 @@ CREATE TABLE `tb_subkriteria` (
 --
 
 INSERT INTO `tb_subkriteria` (`id_subkriteria`, `nama_subkriteria`, `nilai_subkriteria`, `id_kriteria`) VALUES
-(2, '70 – 74', 1, '1'),
-(3, '75 – 80', 2, '1'),
-(4, '81 – 85', 3, '1'),
-(5, '86 – 90', 4, '1'),
-(6, '91 - 100', 5, '1'),
-(8, '> Rp. 5.000.000', 1, '6'),
-(9, '> Rp. 4.000.000', 2, '6'),
-(10, '> Rp. 3.000.000', 3, '6'),
-(11, '> Rp. 2.000.000', 4, '6'),
-(12, '< Rp. 1.000.000', 5, '6'),
-(13, '1 Anak ', 1, '7'),
-(14, '2 Anak', 2, '7'),
-(15, '3 Anak', 3, '7'),
-(16, '4 Anak', 4, '7'),
-(17, '5 Anak', 5, '7'),
-(18, 'Tidak Satupun', 1, '8'),
-(19, 'Yatim', 2, '8'),
-(20, 'Piatu', 3, '8'),
-(21, 'Yatim Piatu ', 4, '8'),
-(22, 'Tidak memiliki surat rekomendasi', 1, '18'),
-(23, 'Surat Keterangan Tidak Mampu', 3, '18'),
-(24, 'Memiliki KIP-Kuliah', 5, '18'),
-(27, 'Tidak Memiliki', 1, '19'),
-(28, 'Tingkat Kota / Kabupaten', 2, '19'),
-(29, 'Tingkat Provinsi', 3, '19'),
-(30, 'Tingkat Nasional', 4, '19'),
-(31, 'Internasional', 5, '19'),
 (32, '	70 – 74', 1, '20'),
 (33, '	75 – 80', 2, '20'),
 (34, '81 – 85', 3, '20'),

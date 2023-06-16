@@ -22,21 +22,20 @@ $tahun = date('Y');
                     </div>
                     <hr style="border-top: 1px solid #bbb">
 
+                    <!-- Form Mencari Beasiswa Berdasarkan Periode -->
                     <form action="<?= base_url('laporan') ?>" method="POST">
                         <div class="row">
                             <div class="col-lg-4 d-flex align-items-center">
                                 <label for="jenis_beasiswa" class="mr-3">Jenis Beasiswa</label>
-                                <!-- <input type="text" class="form-control col-5"> -->
-                                <select class="form-control col-5" id="jenis_beasiswa" name="id_beasiswa">
+                                <select class="form-control col-5" id="jenis_beasiswa" name="jenis_beasiswa">
                                     <option>Jenis Beasiswa</option>
                                     <?php foreach($jenis_beasiswa as $jb):?>
-                                        <option value="<?= $jb['id_beasiswa'] ?>"><?= $jb['jenis_beasiswa'] ?></option>
+                                        <option value="<?= $jb['jenis_beasiswa'] ?>"><?= $jb['jenis_beasiswa'] ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
                             <div class="col-lg-4 d-flex align-items-center">
                                 <label for="periode" class="mr-3">Periode</label>
-                                <!-- <input type="text" class="form-control col-5"> -->
                                 <select name="periode" id="periode" class="form-control col-5">
                                     <option value="">Periode</option>
                                     <?php for($i = $tahun; $i >= 2019; $i--){ ?>
@@ -52,11 +51,14 @@ $tahun = date('Y');
 
                 <?php 
                     foreach($beasiswa as $b){ 
+                        $jenis_beasiswa = $b['jenis_beasiswa'];
                         $id_beasiswa = $b['id_beasiswa'];
                 ?>
+                    <!-- Form Cetak PDF  -->
                     <form action="<?= base_url('laporan/hasil') ?>" method="POST">
                         <input type="hidden" value="<?= $b['kuota'] ?>" name="kuota">
-                        <input type="hidden" value="<?= $b['id_beasiswa'] ?>" name="id_beasiswa">
+                        <!-- <input type="hidden" value="<?// = $b['jenis_beasiswa']; ?>" name="jenis_beasiswa"> -->
+                        <input type="hidden" value="<?= $b['id_beasiswa']; ?>" name="id_beasiswa">
                         <button class="btn btn-success mt-3">
                             <i class="fas fa-print text-white"></i> Cetak PDF
                         </button>
@@ -79,6 +81,7 @@ $tahun = date('Y');
                                             </thead>
                                             <tbody>
                                         <?php 
+                                            $id_beasiswa = $b['id_beasiswa'];
                                             $hasil_seleksi = $this->db->query("SELECT a.nama, a.nim, b.nilai FROM tb_mahasiswa AS a 
                                                                     JOIN tb_hasil AS b ON a.nim = b.nim WHERE a.`id_beasiswa` = '$id_beasiswa'  
                                                                     ORDER BY b.nilai DESC")->result_array();
@@ -104,7 +107,7 @@ $tahun = date('Y');
                             </div>
                         </div>
                     </div>
-
+                    
                 <?php } ?>
 
                 </div>

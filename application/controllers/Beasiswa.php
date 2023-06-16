@@ -107,8 +107,6 @@ class Beasiswa extends CI_Controller{
         $id_beasiswa=$this->input->post('id_beasiswa');
         $status=$this->input->post('status');
 
-        // print_r($id_beasiswa." ".$status);
-
         $status_pendaftaran = $this->db->query("UPDATE tb_beasiswa SET status = '$status' WHERE id_beasiswa = '$id_beasiswa'");
         if($status == '1'){
             $data_session = [

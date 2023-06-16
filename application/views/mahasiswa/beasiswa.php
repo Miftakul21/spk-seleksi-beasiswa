@@ -113,12 +113,12 @@ foreach($beasiswa as $b):
 
           <!-- <input type="file" class="form-control"> -->
           <div class="form-group mb-2">
-            <label for="">Upload Nilai Rapot</label>
+            <label for="">Upload Sertifikat Prestasi</label>
             <input type="file" class="form-control" name="file1">
           </div>
 
           <div class="form-group mb-2">
-            <label for="">Upload Kartu Sosial / Surat Keterangan</label>
+            <label for="">Upload Surat Keterangan Tidak Mampu / KIP-Kuliah</label>
             <input type="file" class="form-control" name="file2">
           </div>
       </div>

@@ -147,6 +147,7 @@
 		</div>
 		<?php endforeach; ?>
 
+		<!-- Model Delete Data -->
 		<?php foreach($mahasiswa as $mhs): ?>
 		<div class="modal fade" id="hapusData<?= $mhs['id_mahasiswa']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
@@ -159,6 +160,7 @@
 				</div>
 			<form action="<?= base_url('mahasiswa/delete'); ?>" method="POST">
 				<input type="hidden" value="<?= $mhs['id_mahasiswa']; ?>" name="id_mahasiswa">
+				<input type="hidden" value="<?= $mhs['nim'] ?>" name="nim">
 				<div class="modal-body">
 					Anda ingin menghapus?
 				</div>
