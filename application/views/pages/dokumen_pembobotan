@@ -1,0 +1,79 @@
+					<!-- Data Pembobotan -->
+					< class="card mt-3">
+						<div class="card-header">
+							<h5 class="fw-bold">Data Nilai Pembobotan</h5>
+						</div>
+						<div class="card-body">
+							<div class="table-responsive">
+								<table class="table table-hover table-striped w-100">
+									<thead>
+										<tr>
+											<th>No</th>
+											<th>Nama</th>
+											<!-- <th>NIM</th> -->
+											<?php for($Ci = 1; $Ci <=6; $Ci++){ ?>
+												<th>C<?= $Ci; ?></th>
+											<?php } ?>
+											<th>Hasil</th>
+										</tr>
+									</thead>
+									<tbody>
+						<?php 
+							$hasil_ranks = array();
+							$no = 1;
+							foreach($beasiswa as $b){
+								$id_beasiswa = $b['id_beasiswa'];
+								$mhs = $CI->M_datanilai->get_data_mahasiswa($id_beasiswa);
+								foreach($mhs as $m){
+									$nim_mhs = $m['nim'];
+									$nilai = $CI->M_datanilai->get_data_nilai_kriteria($nim_mhs);
+						?>
+											<tr>
+												<td><?= $no++; ?></td>
+												<td><?= $m['nama'] ?></td>
+						<?php 
+									$hasil_normalisasi = 0;
+									$hasil = 0;
+									foreach($nilai as $n){
+										$id_kriteria = $n['id_kriteria'];
+										$kriteria = $CI->M_datanilai->get_data_kriteria($id_kriteria);
+										foreach($kriteria as $k){
+											if($k['atribut_kriteria'] == 'Cost') {
+												$nilai_min = $CI->M_datanilai->get_data_nilai_min($id_kriteria);
+												foreach($nilai_min as $min){
+													$hasil = $min['nilai_min'] / $n['nilai'];
+													$hasil_kali = $hasil * $k['nilai_bobot'];
+													$hasil_normalisasi = $hasil_normalisasi + $hasil_kali;
+						?>			
+												<td><?= $hasil_kali ?></td>
+						<?php 
+												}	
+											} else if($k['atribut_kriteria'] == 'Benefit'){
+												$nilai_max = $CI->M_datanilai->get_data_nilai_max($id_kriteria);
+												foreach($nilai_max as $max){
+													$hasil = $n['nilai'] / $max['nilai_max'];												
+													$hasil_kali = $hasil * $k['nilai_bobot'];
+													$hasil_normalisasi = $hasil_normalisasi + $hasil_kali;
+						?>
+												<td><?= $hasil_kali ?></td>
+						<?php 
+												}
+											}
+										}
+									}
+									// Nilai Hasil Pembobotan
+									$nilai_rank['nim'] = $nim_mhs;
+									$nilai_rank['nilai'] = $hasil_normalisasi;
+									array_push($hasil_ranks,$nilai_rank)
+						?>
+												<td><?= $hasil_normalisasi; ?></td>
+											</tr>
+						<?php 									
+								}
+							}
+						?>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</>

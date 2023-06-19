@@ -117,10 +117,11 @@
 											<tr>
 												<td><?= $no++; ?></td>
 												<td><?= $m['nama'] ?></td>
-												<!-- <td><?// = $m['nim'] ?></td> -->
+											
 											<?php foreach($nilai as $n): ?>
 												<td><?= $n['nilai']; ?></td>
 											<?php endforeach; ?>
+
 											</tr>
 						<?php 									
 								endforeach;
@@ -132,10 +133,11 @@
 							</div>
 						</div>
 
-				<!-- Data Normalisasi -->
-				<div class="card mt-3">
+
+						<!-- Perkalian Bobot -->
+						<div class="card mt-3">
 							<div class="card-header">
-								<h5 class="fw-bold">Data Normalisasi</h5>
+								<h5 class="fw-bold">Data Nilai Pembobotan</h5>
 							</div>
 							<div class="card-body">
 								<div class="table-responsive">
@@ -144,153 +146,95 @@
 											<tr>
 												<th>No</th>
 												<th>Nama</th>
-												<!-- <th>NIM</th> -->
 												<?php for($Ci = 1; $Ci <=6; $Ci++){ ?>
 													<th>C<?= $Ci; ?></th>
 												<?php } ?>
+												<th>Hasil</th>
 											</tr>
 										</thead>
 										<tbody>
-						<?php 
-							$no = 1;
-							foreach($beasiswa as $b):
-								$id_beasiswa = $b['id_beasiswa'];
-								// Mahasiswa Mendaftar Beasiswa
-								$mhs = $CI->M_datanilai->get_data_mahasiswa($id_beasiswa);
-								foreach($mhs as $m):
-									$nim_mhs = $m['nim'];
-									// Nilai Subkriteria Berdasarkan Kriteria Dari Beasiswa
-									$nilai = $CI->M_datanilai->get_data_nilai_kriteria($nim_mhs);
-						?>
+								<!-- 
+									Algoritmanya 
+									1. ambil jenis beasiswa
+									2. cocokan id_beasiswa dengan kriteria serta mahasiswa yang mendaftar
+									3. Petakan nilai rating kecocokan / nilai dari subkriteria yang diinput saat mendaftar
+									4. cocokan id_subkriteria dengan id_kriteria untuk diambil nilai bobot dari kriteria
+									5. kalikan saja nilainya.
+								-->
+								<?php 
+									$hasil_ranks = array();
+									$no = 1;
+									// Beasiswa
+									foreach($beasiswa as $b){
+										$id_beasiswa = $b['id_beasiswa'];
+										$mhs = $CI->M_datanilai->get_data_mahasiswa($id_beasiswa);
+										foreach($mhs as $m){
+											$nim_mhs = $m['nim'];
+											// Ambil nilai dari tabel penilaian
+											$nilai = $CI->M_datanilai->get_data_nilai_kriteria($nim_mhs);
+								?>
 											<tr>
 												<td><?= $no++; ?></td>
 												<td><?= $m['nama'] ?></td>
-												<!-- <td><?//= $m['nim'] ?></td>	 -->
-						<?php 
-									foreach($nilai as $n){
-										$id_kriteria = $n['id_kriteria'];
-										// Untuk Mengambil Atribut Benefit dan Cost
-										$kriteria = $CI->M_datanilai->get_data_kriteria($id_kriteria);
+											
+											<?php 
+												$hasil_pembobotan = 0;
+												foreach($nilai as $n){
+													// Id kriteria pada tabel penilaian
+													$id_kriteria = $n['id_kriteria'];
+													// Id kriteria pada tabel kriteria
+													$kriteria = $CI->M_datanilai->get_data_kriteria($id_kriteria);
 
-										foreach($kriteria as $k){
-											if($k['atribut_kriteria'] == 'Cost') {
-												$nilai_min = $CI->M_datanilai->get_data_nilai_min($id_kriteria);
-												foreach($nilai_min as $min){
-													$hasil = $min['nilai_min'] / $n['nilai'];
-						?>			
-										<td><?= $hasil ?></td>
-						<?php 
-												}	
-											} elseif($k['atribut_kriteria'] == 'Benefit'){
-												$nilai_max = $CI->M_datanilai->get_data_nilai_max($id_kriteria);
-												foreach($nilai_max as $max){
-													$hasil = $n['nilai'] / $max['nilai_max'];												
-						?>
-										<td><?= $hasil ?></td>
-						<?php 
+													foreach($kriteria as $k) {
+														if($k['id_kriteria'] == $id_kriteria){
+															$hasil_kali_bobot = $k['nilai_bobot'] * $n['nilai'];
+															$hasil_pembobotan += $hasil_kali_bobot;
+
+													
+											?>
+												<td><?= $hasil_kali_bobot; ?></td>
+
+											<?php 
+														}
+													}
 												}
+												// Hasil Pembobotan
+												$nilai_rank['nim'] = $nim_mhs;
+												$nilai_rank['nilai'] = $hasil_pembobotan;
+												array_push($hasil_ranks,$nilai_rank)
+											?>
+												<td><?= $hasil_pembobotan ?></td>
+											</tr>
+								<?php 
 											}
 										}
-									}
-						?>
-											</tr>
-						<?php 									
-								endforeach;
-							endforeach;
-						?>
+								?>
 										</tbody>
 									</table>
 								</div>
 							</div>
 						</div>
 
-					<!-- Data Pembobotan -->
-					<div class="card mt-3">
-						<div class="card-header">
-							<h5 class="fw-bold">Data Nilai Pembobotan</h5>
-						</div>
-						<div class="card-body">
-							<div class="table-responsive">
-								<table class="table table-hover table-striped w-100">
-									<thead>
-										<tr>
-											<th>No</th>
-											<th>Nama</th>
-											<!-- <th>NIM</th> -->
-											<?php for($Ci = 1; $Ci <=6; $Ci++){ ?>
-												<th>C<?= $Ci; ?></th>
-											<?php } ?>
-										</tr>
-									</thead>
-									<tbody>
-						<?php 
-							$hasil_ranks = array();
-							$no = 1;
-							foreach($beasiswa as $b){
-								$id_beasiswa = $b['id_beasiswa'];
-								$mhs = $CI->M_datanilai->get_data_mahasiswa($id_beasiswa);
-								foreach($mhs as $m){
-									$nim_mhs = $m['nim'];
-									$nilai = $CI->M_datanilai->get_data_nilai_kriteria($nim_mhs);
-						?>
-											<tr>
-												<td><?= $no++; ?></td>
-												<td><?= $m['nama'] ?></td>
-												<!-- <td><?//= $m['nim'] ?></td> -->
-						<?php 
-									$hasil_normalisasi = 0;
-									$hasil = 0;
-									foreach($nilai as $n){
-										$id_kriteria = $n['id_kriteria'];
-										$kriteria = $CI->M_datanilai->get_data_kriteria($id_kriteria);
-										foreach($kriteria as $k){
-											if($k['atribut_kriteria'] == 'Cost') {
-												$nilai_min = $CI->M_datanilai->get_data_nilai_min($id_kriteria);
-												foreach($nilai_min as $min){
-													$hasil = $min['nilai_min'] / $n['nilai'];
-													$hasil_kali = $hasil * $k['nilai_bobot'];
-													$hasil_normalisasi = $hasil_normalisasi + $hasil_kali;
-						?>			
-												<td><?= $hasil_kali ?></td>
-						<?php 
-												}	
-											} else if($k['atribut_kriteria'] == 'Benefit'){
-												$nilai_max = $CI->M_datanilai->get_data_nilai_max($id_kriteria);
-												foreach($nilai_max as $max){
-													$hasil = $n['nilai'] / $max['nilai_max'];												
-													$hasil_kali = $hasil * $k['nilai_bobot'];
-													$hasil_normalisasi = $hasil_normalisasi + $hasil_kali;
-						?>
-												<td><?= $hasil_kali ?></td>
-						<?php 
-												}
-											}
-										}
-									}
-									// Nilai Hasil Pembobotan
-									$nilai_rank['nim'] = $nim_mhs;
-									$nilai_rank['nilai'] = $hasil_normalisasi;
-									array_push($hasil_ranks,$nilai_rank)
-					
-								
-						?>
-												<!-- <td><?//= $hasil_normalisasi; ?></td> -->
-											</tr>
-						<?php 									
-								}
-							}
-						?>
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 						
 						<!-- Insert Data Hasil Pembobotan Untuk Perangkingan -->
 						<?php 
 							// Cek Jumlah Data Penilaian (Group Berdasarkan NIM Mahasiswa)
 							$query1 = "SELECT * FROM tb_penilaian GROUP BY nim";
 							$penilaian = $this->db->query($query1)->result_array();
+							
 							foreach($penilaian as $p){
 								foreach($hasil_ranks as $rank){
 									$nim = $rank['nim'];
@@ -309,7 +253,6 @@
 									}
 								}
 							}
-
 						?>
 					<!-- End Content -->
 

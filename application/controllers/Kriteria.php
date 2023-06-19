@@ -26,7 +26,6 @@ class Kriteria extends CI_Controller{
         $nama_kriteria = $this->input->post('nama_kriteria');
         $nilai_bobot = $this->input->post('nilai_bobot');
         $jenis_beasiswa = $this->input->post('jenis_beasiswa');
-        $atribut_kriteria = $this->input->post('atribut_kriteria');        
 
         // Cek Jumlah Kriteria Minimal 5
         $cek_jumlah_kriteria = $this->M_kriteria->cek_jumlah_kriteria($jenis_beasiswa);
@@ -40,7 +39,7 @@ class Kriteria extends CI_Controller{
             redirect('kriteria/index');
         } else {
             $nilai_bobot = $nilai_bobot / 100;
-            $insert_data = $this->M_kriteria->insert_data($nama_kriteria, $nilai_bobot, $atribut_kriteria, $jenis_beasiswa);
+            $insert_data = $this->M_kriteria->insert_data($nama_kriteria, $nilai_bobot, $jenis_beasiswa);
 
             if($insert_data){
                 $data_session = [
@@ -66,11 +65,10 @@ class Kriteria extends CI_Controller{
         $nilai_bobot = $this->input->post('nilai_bobot');
         $jenis_beasiswa = $this->input->post('jenis_beasiswa');
         $id = $this->input->post('id');
-        $atribut_kriteria = $this->input->post('atribut_kriteria'); 
         
         $nilai_bobot = $nilai_bobot / 100;
         
-        $update_data = $this->M_kriteria->update_data($nama_kriteria, $nilai_bobot, $atribut_kriteria, $jenis_beasiswa, $id);
+        $update_data = $this->M_kriteria->update_data($nama_kriteria, $nilai_bobot, $jenis_beasiswa, $id);
         
         if($update_data){
             $data_session = [

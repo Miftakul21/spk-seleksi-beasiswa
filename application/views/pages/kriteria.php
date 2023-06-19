@@ -44,7 +44,7 @@
 										<div class="header-card">
 											<div class="title-card">
 												<h5><?= $k['nama_kriteria']; ?></h5>
-												<p>Nilai Bobot: <?= $k['nilai_bobot']; ?> | Atribut: <?= $k['atribut_kriteria']; ?></p>
+												<p>Nilai Bobot: <?= $k['nilai_bobot']; ?></p>
 											</div>
 											<div class="action-card">
 												<button class="btn btn-sm btn-primary" data-toggle="modal"
@@ -275,19 +275,6 @@
 												<input type="text" class="form-control" id="nilai_bobot" name="nilai_bobot" 
 													value="<?= $k['nilai_bobot']; ?>">
 											</div>
-											<div class="form-group">
-												<label for="atribut_kriteria">Atribut</label>
-												<select class="form-control" id="atribut_kriteria" name="atribut_kriteria">
-												<?php 
-													foreach($atribut as $a):
-														$selected = ($a == $k['atribut_kriteria']) ? 'selected': '';	
-												?>
-												<option value="<?= $a ?>" <?= $selected ?>> <?= $a ?> </option>
-												<?php 
-													endforeach;
-												?>
-												</select>
-											</div>
 										</div>
 											<div class="modal-footer">
 												<button class="btn btn-secondary" data-dismiss="modal">Batal</button>
@@ -333,14 +320,6 @@
 						<div class="form-group">
 							<label for="nilai_bobot">Nilai Bobot</label>
 							<input type="text" class="form-control" id="nilai_bobot" name="nilai_bobot" placeholder="Masukkan Nilai Bobot">
-						</div>
-						<div class="form-group">
-							<label for="atribut_kriteria">Atribut</label>
-							<select class="form-control" id="atribut_kriteria" name="atribut_kriteria">
-								<option value="">--Pilih--</option>
-								<option value="Cost">Cost</option>
-								<option value="Benefit">Benefit</option>
-							</select>
 						</div>
 					</div>
 						<div class="modal-footer">
