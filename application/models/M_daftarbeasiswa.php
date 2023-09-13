@@ -18,9 +18,9 @@ class M_daftarbeasiswa extends CI_Model{
         return $query;
     }
 
-    function upload_file($nim, $file1, $file2) 
+    function upload_file($nim, $file1, $file2, $file3, $file4, $file5, $file6, $file7, $file8) 
     {
-        $query = $this->db->query("INSERT INTO tb_file(nim,file1,file2) VALUES ('$nim','$file1','$file2')");
+        $query = $this->db->query("INSERT INTO tb_file(nim,file1,file2,file3,file4,file5,file6,file7,file8) VALUES ('$nim','$file1','$file2','$file3','$file4','$file5','$file6','$file7','$file8')");
         return $query;
     }
 

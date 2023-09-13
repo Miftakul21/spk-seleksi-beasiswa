@@ -12,7 +12,7 @@ class Login extends CI_Controller {
 
 	public function index()
 	{
-		$data['title'] = "Login";
+		$data['title'] = "Login Kontol";
 		$this->load->view('index');
 	}
 
@@ -72,6 +72,13 @@ class Login extends CI_Controller {
 				];
 				$this->session->set_userdata($data_session);
 				redirect('home');
+			} else {
+				$data_session = [
+					'error' => 'Error',
+					'message' => 'Kesalahan saat login, silahakan coba kembali!'
+				];
+				$this->session->set_userdata($data_session);
+				redirect('login');
 			}
 
 			/*

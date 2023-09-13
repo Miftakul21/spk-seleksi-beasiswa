@@ -88,6 +88,13 @@ class M_datanilai extends CI_Model{
         return $query;
     }
 
+    function cek_file_sertifikat($nim) {
+        $query = $this->db->query("SELECT file6, file7, file8 FROM tb_file WHERE nim = '$nim'")->result_array();
+        return $query;
+    }
+
+
+
 }
 
 ?>

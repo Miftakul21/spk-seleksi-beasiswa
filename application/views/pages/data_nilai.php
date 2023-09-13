@@ -43,7 +43,7 @@
 												<th>Jumlah Tanggungan</th>
 												<th>Status Anak</th>
 												<th>SKTM</th>
-												<th>Prestasi Non Akademik</th>
+												<th>Prestasi Sekolah</th>
 												<th>File Upload</th>
 												<th style="width: 150">Aksi</th>
 											</tr>
@@ -150,17 +150,11 @@
 													<th>C<?= $Ci; ?></th>
 												<?php } ?>
 												<th>Hasil</th>
+												<!-- <th>Nilai Tambah</th> -->
+												<!-- <th>Total</th> -->
 											</tr>
 										</thead>
 										<tbody>
-								<!-- 
-									Algoritmanya 
-									1. ambil jenis beasiswa
-									2. cocokan id_beasiswa dengan kriteria serta mahasiswa yang mendaftar
-									3. Petakan nilai rating kecocokan / nilai dari subkriteria yang diinput saat mendaftar
-									4. cocokan id_subkriteria dengan id_kriteria untuk diambil nilai bobot dari kriteria
-									5. kalikan saja nilainya.
-								-->
 								<?php 
 									$hasil_ranks = array();
 									$no = 1;
@@ -172,25 +166,51 @@
 											$nim_mhs = $m['nim'];
 											// Ambil nilai dari tabel penilaian
 											$nilai = $CI->M_datanilai->get_data_nilai_kriteria($nim_mhs);
+
 								?>
 											<tr>
 												<td><?= $no++; ?></td>
 												<td><?= $m['nama'] ?></td>
 											
 											<?php 
-												$hasil_pembobotan = 0;
+												$hasil_pembobotan = 0; // nilai asli 
+												$nilai_prestasi = 0; // nilai tambah
+												$total = 0; // nilai keseluruhan (nilai asli + nilai tambah)
 												foreach($nilai as $n){
 													// Id kriteria pada tabel penilaian
 													$id_kriteria = $n['id_kriteria'];
 													// Id kriteria pada tabel kriteria
 													$kriteria = $CI->M_datanilai->get_data_kriteria($id_kriteria);
-
 													foreach($kriteria as $k) {
+
+														// Ambil Kriteria Prestasi Sekolah
+														if($k['nama_kriteria'] == 'Prestasi Sekolah') {
+															// Ambil Nilai Prestasi Sekolah
+															$sertifikat = $CI->M_datanilai->cek_file_sertifikat($nim_mhs);
+
+															$temp1 = 0;
+															$temp2 = 0;
+															$temp = 0;
+															$nilai_tambah = 0;
+															foreach($sertifikat as $s){	
+																$temp1  = ($s['file7'] != NULL) ? $n['nilai'] : 0 ;
+																$temp2  = ($s['file8'] != NULL) ? $n['nilai'] : 0 ;
+
+																$bobot_kriteria = ($k['nama_kriteria'] == 'Prestasi Sekolah') ? $k['nilai_bobot']  : 0;
+																// Rumus Nilai Tambah
+																$nilai_tambah = ($temp1 + $temp2) / $n['nilai'] * $bobot_kriteria;
+																
+															}
+
+															$nilai_prestasi = $nilai_tambah;
+														}
+
 														if($k['id_kriteria'] == $id_kriteria){
 															$hasil_kali_bobot = $k['nilai_bobot'] * $n['nilai'];
-															$hasil_pembobotan += $hasil_kali_bobot;
+															$hasil_pembobotan += $hasil_kali_bobot + $nilai_prestasi;
+															// $hasil_tambah = $nilai_prestasi;
+															// $total = $hasil_pembobotan + $nilai_prestasi;
 
-													
 											?>
 												<td><?= $hasil_kali_bobot; ?></td>
 
@@ -203,7 +223,9 @@
 												$nilai_rank['nilai'] = $hasil_pembobotan;
 												array_push($hasil_ranks,$nilai_rank)
 											?>
-												<td><?= $hasil_pembobotan ?></td>
+												<td><?= $hasil_pembobotan; ?></td>
+												<!-- <td><?//= $nilai_tambah; ?></td>
+												<td><?//= $total ?></td> -->
 											</tr>
 								<?php 
 											}
@@ -215,20 +237,6 @@
 							</div>
 						</div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-						
 						<!-- Insert Data Hasil Pembobotan Untuk Perangkingan -->
 						<?php 
 							// Cek Jumlah Data Penilaian (Group Berdasarkan NIM Mahasiswa)
@@ -272,7 +280,7 @@
 					$data_file = $CI->M_datanilai->get_data_file($nim_mhs);
 		?>
 		<div class="modal fade" id="fileBukti<?= $m['nim']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
+				<div class="modal-dialog modal-lg">
 					<div class="modal-content">
 						<div class="modal-header">
 							<h5 class="modal-title" id="exampleModalLabel">File Bukti <?= $m['nama'] ?></h5>
@@ -281,21 +289,71 @@
 							</button>
 						</div>
 						<div class="modal-body">
+							<?php foreach($data_file as $file):?>
 							<div class="row">
-							<?php 
-								foreach($data_file as $file){
-							?>	
-								<div class="col-4 offset-2 text-center">
-									<label for="">File Sertifikat Prestasi </label>
-									<a href="<?= base_url('datanilai/view/') ?><?= $file['file1'] ?>" class="btn btn-primary"><i class="fas fa-file-alt"></i></a>
+								<div class="col-4">
+									<label for="staticEmail" class="col-sm-8 col-form-label d-inline font-weight-bold">File Upload Dokumen</label>
 								</div>
-								<div class="col-4 text-center">
-									<label for="">File Surat Keterangan</label>
-									<a href="<?= base_url('datanilai/view/') ?><?= $file['file2'] ?>" class="btn btn-primary"><i class="fas fa-file-alt"></i></a>
-								</div>
-
-							<?php } ?>
 							</div>
+							<div class="row mt-3 mb-3">
+								<div class="col-3">
+									<label for="" class="d-block text-center">Nilai Raport</label>
+									<div class="text-center">
+										<a href="<?= base_url('datanilai/view/') ?><?= $file['file1'] ?>" class="btn btn-primary"><i class="fas fa-file-alt"></i></a>									
+									</div>
+								</div>
+								<div class="col-3">
+									<label for="" class="d-block text-center">Surat Penghasilan</label>
+									<div class="text-center">
+										<a href="<?= base_url('datanilai/view/') ?><?= $file['file2'] ?>" class="btn btn-primary"><i class="fas fa-file-alt"></i></a>									
+									</div>
+								</div>
+								<div class="col-3">
+									<label for="" class="d-block text-center">Kartu Keluarga</label>
+									<div class="text-center">
+										<a href="<?= base_url('datanilai/view/') ?><?= $file['file3'] ?>" class="btn btn-primary"><i class="fas fa-file-alt"></i></a>									
+									</div>
+								</div>
+								<div class="col-3">
+									<label for="" class="d-block text-center">Surat SKTM</label>
+									<div class="text-center">
+										<a href="<?= base_url('datanilai/view/') ?><?= $file['file4'] ?>" class="btn btn-primary"><i class="fas fa-file-alt"></i></a>									
+									</div>
+								</div>
+								<div class="col-3 mt-2">
+									<label for="" class="d-block text-center">KIP-Kuliah</label>
+									<div class="text-center">
+										<a href="<?= base_url('datanilai/view/') ?><?= $file['file5'] ?>" class="btn btn-primary"><i class="fas fa-file-alt"></i></a>									
+									</div>
+								</div>
+							</div>
+							<div class="row mb-3">
+								<div class="col-4">
+									<label for="staticEmail" class="col-sm-8 col-form-label d-inline font-weight-bold">File Sertifikat/Piagam</label>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-4">
+									<label for="" class="d-block text-center">Sertifikat / Piagam 1</label>
+									<div class="text-center">
+										<a href="<?= base_url('datanilai/view/') ?><?= $file['file6'] ?>" class="btn btn-primary"><i class="fas fa-file-alt"></i></a>									
+									</div>
+								</div>
+								<div class="col-4">
+									<label for="" class="d-block text-center">Sertifikat / Piagam 2</label>
+									<div class="text-center">
+										<a href="<?= base_url('datanilai/view/') ?><?= $file['file7'] ?>" class="btn btn-primary"><i class="fas fa-file-alt"></i></a>									
+									</div>
+								</div>
+								<div class="col-4">
+									<label for="" class="d-block text-center">Sertifikat / Piagam 3</label>
+									<div class="text-center">
+										<a href="<?= base_url('datanilai/view/') ?><?= $file['file8'] ?>" class="btn btn-primary"><i class="fas fa-file-alt"></i></a>									
+									</div>
+								</div>
+							</div>
+
+							<?php endforeach; ?>
 						</div>
 					</div>
 				</div>
@@ -304,6 +362,7 @@
 				endforeach;
 			endforeach; 
 		?>
+
 		<!-- Modal Hapus Data-->
 		<?php 
 		foreach($beasiswa as $b):

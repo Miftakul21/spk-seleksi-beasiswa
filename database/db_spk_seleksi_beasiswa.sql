@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 05 Jun 2023 pada 17.15
+-- Waktu pembuatan: 25 Jun 2023 pada 14.18
 -- Versi server: 10.4.27-MariaDB
 -- Versi PHP: 8.0.25
 
@@ -56,24 +56,30 @@ CREATE TABLE `tb_file` (
   `id_file` int(11) NOT NULL,
   `nim` varchar(10) NOT NULL,
   `file1` varchar(100) NOT NULL,
-  `file2` varchar(100) NOT NULL
+  `file2` varchar(100) NOT NULL,
+  `file3` varchar(100) NOT NULL,
+  `file4` varchar(100) NOT NULL,
+  `file5` varchar(100) NOT NULL,
+  `file6` varchar(100) NOT NULL,
+  `file7` varchar(100) NOT NULL,
+  `file8` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `tb_file`
 --
 
-INSERT INTO `tb_file` (`id_file`, `nim`, `file1`, `file2`) VALUES
-(22, '1122100048', '034f3fc9c9028bc6695d64d25bad7c7c.pdf', 'a21786705d2007d7eef7ceeb0faae5ae.pdf'),
-(27, '1122100020', '3fc5c320071eeefaf39a930d57dfa5b8.pdf', 'e3e66de2010461031e12f90310cd2d3d.pdf'),
-(31, '1152100128', '47364962d89043b647e79163ad4145ab.pdf', 'fb59bd0a02661f390891e9771c3454ba.pdf'),
-(32, '1212100267', '605db684d26c2f62cb5e05b8a74f7f92.pdf', '89d8da6d14a65c055d6f019eb7035f5c.pdf'),
-(33, '1122100082', '72c6dc9b62a79a782861647129838e57.pdf', 'b88c8b163f45e8c15f22205e9b7e4dce.pdf'),
-(34, '1152200177', '6e8110b169d16d5a74fc4e1646e70851.pdf', 'd7871b5492613573f4df44d20323259d.pdf'),
-(35, '1122200111', '0c7580c4673ecb46e59cd66647ae3712.pdf', '3f0b9d1dfe236f58800c693bfc950fe6.pdf'),
-(36, '1122200129', 'b070a58fb9bf8d0ccc996ed5913bdda4.pdf', '14c929696acfa2cf8ea0be8ed328a9d2.pdf'),
-(37, '1412200088', 'c0454724bbb9635ed0c7e16c2f1fa1e8.pdf', '3b7b5485604a86e84a01fb352d3575a1.pdf'),
-(38, '1462200178', '159fa3915f2e5b3eb5e82f86c3f8662c.pdf', '31dd2903e087be1c9951fd945be2e190.pdf');
+INSERT INTO `tb_file` (`id_file`, `nim`, `file1`, `file2`, `file3`, `file4`, `file5`, `file6`, `file7`, `file8`) VALUES
+(45, '1122100048', '1a253d8d6f4697094974b7454fd373a0.pdf', '48ddd9526654223ce557be18e4cebe24.pdf', 'efb94adf6f346f14bd538a42da76a509.pdf', '', '94aa216f49144474b3f7559a0116c18b.pdf', '0fbaa567be7c4aeedfa0d4fb71f5bc36.pdf', '', ''),
+(46, '1122100020', 'dd3010318c52378dfb30023fca483afd.pdf', '58c392d506e45993ca1dce74e6e4a53d.pdf', '507471355790115534c112aec1f93b83.pdf', '', '', '63458d4bf750d708bf3afcf52e1e5107.pdf', '', ''),
+(47, '1152100128', 'a52c37849a3050a0c60955c3c2f92f3c.pdf', '857b38a43aa798d728d7717904c7fcae.pdf', 'e0d95896458cad423ae6981f5ff85678.pdf', '', '', '8ee05c2a28f6fb039fb3c6ab9c875ec4.pdf', '', ''),
+(48, '1212100267', '9d5db44437fb9a2f62774ede8fce3a2c.pdf', 'f586d53ef22e983cf15579c82b6a838a.pdf', 'd2879c85437118120b0406cb40022d9d.pdf', '', '', '', '', ''),
+(49, '1122100082', 'd5263157adb61a394f1a2af4c5f53029.pdf', '814f74c6f40eb7cfc2b9207cc7d6fd81.pdf', 'c68001f737bf9e6613823e2d44e64688.pdf', '', '', '05dc98a54d54efb42ad48aeafc2fd460.pdf', '', ''),
+(51, '1152200177', '97a74b7eaa689e24ce46f2e1d24db4e9.pdf', '5c65257b9d99986dd958f08ef34733bc.pdf', '3451896270c538e8722cc6d36a560d5e.pdf', '', '', '9bbb35a51eef6c9e6dcb7ffa69692116.pdf', '', ''),
+(52, '1122200111', '478f44ebd1070d208e7647786e07b65c.pdf', 'c88b090048ee5a8f0ae16c05a62c5c46.pdf', 'e99861ef97c03dc63bf3f4c19628a716.pdf', '', '', '0c133fb62cf59a41d2f281862a7ef91b.pdf', '', ''),
+(53, '1122200129', 'bbad95bddb25d03abf17c9ddf716e139.pdf', '3d760167233c91dd702205d37d75add5.pdf', '0bb06537db404fc98277fa73488ef064.pdf', '', '', '58c80a4dfd5177869519377fc5a3a6d8.pdf', '', ''),
+(54, '1412200088', '915a599c72c1bf4c62fa1de7120cb774.pdf', 'af075f5a43077e652db09d1e2a4cea16.pdf', '5cc91d9338c6abd2f76356c1dac189a3.pdf', '', 'ba5a1d96adec2b77ce92d3363c9c7c8e.pdf', '2a652671cd73e2dd8f5cbfca5954382b.pdf', '', ''),
+(55, '1462200178', 'e563be0f76398b4b89f95c1d7df0ed5c.pdf', '73d2840b3f2cbad915db3a437dfc5a75.pdf', '374a7e7e76c974207e3562bd92f42cc0.pdf', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -92,16 +98,17 @@ CREATE TABLE `tb_hasil` (
 --
 
 INSERT INTO `tb_hasil` (`id_nilai`, `nim`, `nilai`) VALUES
-(30, '1122100048', 0.62),
-(31, '1122100020', 0.54),
-(35, '1152100128', 0.515),
-(36, '1212100267', 0.57),
-(37, '1122100082', 0.78),
-(38, '1152200177', 0.5675),
-(39, '1122200111', 0.5875),
-(40, '1122200129', 0.54),
-(41, '1412200088', 0.7725),
-(42, '1462200178', 0.7125);
+(43, '', 3.2),
+(51, '1122100048', 3.15),
+(52, '1122100020', 3.15),
+(53, '1152100128', 2.1),
+(54, '1212100267', 3.3),
+(55, '1122100082', 4.35),
+(57, '1152200177', 2.6),
+(58, '1122200111', 3),
+(59, '1122200129', 2.85),
+(60, '1412200088', 3.7),
+(61, '1462200178', 2.4);
 
 -- --------------------------------------------------------
 
@@ -113,7 +120,6 @@ CREATE TABLE `tb_kriteria` (
   `id_kriteria` int(11) NOT NULL,
   `nama_kriteria` varchar(100) NOT NULL,
   `nilai_bobot` double DEFAULT NULL,
-  `atribut_kriteria` varchar(10) NOT NULL,
   `id_beasiswa` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -121,19 +127,19 @@ CREATE TABLE `tb_kriteria` (
 -- Dumping data untuk tabel `tb_kriteria`
 --
 
-INSERT INTO `tb_kriteria` (`id_kriteria`, `nama_kriteria`, `nilai_bobot`, `atribut_kriteria`, `id_beasiswa`) VALUES
-(1, 'Nilai Rata-Rata Rapot', 0.35, 'Benefit', '1'),
-(6, 'Penghasilan Orang Tua', 0.2, 'Cost', '1'),
-(7, 'Jumlah Tanggungan', 0.1, 'Benefit', '1'),
-(8, 'Status Anak', 0.05, 'Cost', '1'),
-(18, 'SKTM', 0.05, 'Benefit', '1'),
-(19, 'Prestasi Non Akademik', 0.25, 'Benefit', '1'),
-(20, 'Nilai Rata-Rata Rapot', 0.35, 'Benefit', '5'),
-(21, 'Penghasilan Orang Tua', 0.2, 'Cost', '5'),
-(22, 'Jumlah Tanggungan ', 0.1, 'Benefit', '5'),
-(23, 'Status', 0.05, 'Cost', '5'),
-(24, 'SKTM', 0.05, 'Benefit', '5'),
-(25, 'Prestasi Non Akademik', 0.25, 'Benefit', '5');
+INSERT INTO `tb_kriteria` (`id_kriteria`, `nama_kriteria`, `nilai_bobot`, `id_beasiswa`) VALUES
+(1, 'Nilai Rata-Rata Raport', 0.35, '1'),
+(6, 'Penghasilan Orang Tua', 0.2, '1'),
+(7, 'Jumlah Tanggungan', 0.1, '1'),
+(8, 'Status Anak', 0.05, '1'),
+(18, 'SKTM', 0.05, '1'),
+(19, 'Prestasi Sekolah', 0.25, '1'),
+(21, 'Nilai Rata-Rata Raport', 0.35, '5'),
+(26, 'Penghasilan Orang Tua', 0.2, '5'),
+(27, 'Jumlah Tanggungan', 0.1, '5'),
+(28, 'Status Anak', 0.05, '5'),
+(29, 'SKTM', 0.05, '5'),
+(30, 'Prestasi Sekolah', 0.25, '5');
 
 -- --------------------------------------------------------
 
@@ -164,7 +170,8 @@ INSERT INTO `tb_mahasiswa` (`id_mahasiswa`, `nama`, `nim`, `jurusan`, `angkatan`
 (7, 'FARSHA ALFINA AZZHARA PUTRI', '1122200111', 'Ilmu Administrasi Niaga', '2022', '5'),
 (8, 'SARAH NABILLA KHOIRUNISA WINARTO', '1122200129', 'Ilmu Administrasi Niaga', '2022', '5'),
 (9, 'WANDAH WIDYANTIKA', '1412200088', 'Teknik Industri', '2022', '5'),
-(10, 'Maulana Achmad Rifai', '1462200178', 'Teknik Informatika', '2022', '5');
+(10, 'Maulana Achmad Rifai', '1462200178', 'Teknik Informatika', '2022', '5'),
+(11, 'Joko', '142100092', 'Teknik Informatika', '2021', '');
 
 --
 -- Trigger `tb_mahasiswa`
@@ -196,66 +203,66 @@ CREATE TABLE `tb_penilaian` (
 --
 
 INSERT INTO `tb_penilaian` (`id_nilai`, `id_kriteria`, `id_subkriteria`, `nim`, `nilai`) VALUES
-(153, '1', '4', '1122100048', 3),
-(154, '6', '11', '1122100048', 4),
-(155, '7', '15', '1122100048', 3),
-(156, '8', '18', '1122100048', 1),
-(157, '18', '24', '1122100048', 5),
-(158, '19', '29', '1122100048', 3),
-(183, '1', '5', '1122100020', 4),
-(184, '6', '12', '1122100020', 5),
-(185, '7', '13', '1122100020', 1),
-(186, '8', '18', '1122100020', 1),
-(187, '18', '22', '1122100020', 1),
-(188, '19', '28', '1122100020', 2),
-(207, '1', '3', '1152100128', 2),
-(208, '6', '9', '1152100128', 2),
-(209, '7', '14', '1152100128', 2),
-(210, '8', '19', '1152100128', 2),
-(211, '18', '22', '1152100128', 1),
-(212, '19', '28', '1152100128', 2),
-(213, '1', '5', '1212100267', 4),
-(214, '6', '12', '1212100267', 5),
-(215, '7', '17', '1212100267', 5),
-(216, '8', '18', '1212100267', 1),
-(217, '18', '22', '1212100267', 1),
-(218, '19', '27', '1212100267', 1),
-(219, '1', '6', '1122100082', 5),
-(220, '6', '12', '1122100082', 5),
-(221, '7', '14', '1122100082', 2),
-(222, '8', '18', '1122100082', 1),
-(223, '18', '22', '1122100082', 1),
-(224, '19', '31', '1122100082', 5),
-(225, '20', '34', '1152200177', 3),
-(226, '21', '40', '1152200177', 4),
-(227, '22', '42', '1152200177', 1),
-(228, '23', '47', '1152200177', 1),
-(229, '24', '51', '1152200177', 1),
-(230, '25', '55', '1152200177', 2),
-(231, '20', '34', '1122200111', 3),
-(232, '21', '41', '1122200111', 5),
-(233, '22', '44', '1122200111', 3),
-(234, '23', '47', '1122200111', 1),
-(235, '24', '51', '1122200111', 1),
-(236, '25', '55', '1122200111', 2),
-(237, '20', '33', '1122200129', 2),
-(238, '21', '41', '1122200129', 5),
-(239, '22', '46', '1122200129', 5),
-(240, '23', '47', '1122200129', 1),
-(241, '24', '51', '1122200129', 1),
-(242, '25', '55', '1122200129', 2),
-(243, '20', '34', '1412200088', 3),
-(244, '21', '41', '1412200088', 5),
-(245, '22', '45', '1412200088', 4),
-(246, '23', '47', '1412200088', 1),
-(247, '24', '53', '1412200088', 5),
-(248, '25', '57', '1412200088', 4),
-(249, '20', '35', '1462200178', 4),
-(250, '21', '38', '1462200178', 2),
-(251, '22', '43', '1462200178', 2),
-(252, '23', '47', '1462200178', 1),
-(253, '24', '51', '1462200178', 1),
-(254, '25', '54', '1462200178', 1);
+(291, '1', '4', '1122100048', 3),
+(292, '6', '11', '1122100048', 4),
+(293, '7', '15', '1122100048', 3),
+(294, '8', '18', '1122100048', 1),
+(295, '18', '61', '1122100048', 4),
+(296, '19', '29', '1122100048', 3),
+(297, '1', '5', '1122100020', 4),
+(298, '6', '12', '1122100020', 5),
+(299, '7', '13', '1122100020', 1),
+(300, '8', '18', '1122100020', 1),
+(301, '18', '23', '1122100020', 2),
+(302, '19', '28', '1122100020', 2),
+(303, '1', '3', '1152100128', 2),
+(304, '6', '9', '1152100128', 2),
+(305, '7', '14', '1152100128', 2),
+(306, '8', '59', '1152100128', 4),
+(307, '18', '23', '1152100128', 2),
+(308, '19', '28', '1152100128', 2),
+(309, '1', '5', '1212100267', 4),
+(310, '6', '12', '1212100267', 5),
+(311, '7', '17', '1212100267', 5),
+(312, '8', '18', '1212100267', 1),
+(313, '18', '23', '1212100267', 2),
+(314, '19', '27', '1212100267', 1),
+(315, '1', '6', '1122100082', 5),
+(316, '6', '12', '1122100082', 5),
+(317, '7', '14', '1122100082', 2),
+(318, '8', '18', '1122100082', 1),
+(319, '18', '23', '1122100082', 2),
+(320, '19', '31', '1122100082', 5),
+(327, '21', '39', '1152200177', 3),
+(328, '26', '66', '1152200177', 4),
+(329, '27', '68', '1152200177', 1),
+(330, '28', '73', '1152200177', 1),
+(331, '29', '79', '1152200177', 2),
+(332, '30', '84', '1152200177', 2),
+(333, '21', '39', '1122200111', 3),
+(334, '26', '67', '1122200111', 5),
+(335, '27', '70', '1122200111', 3),
+(336, '28', '73', '1122200111', 1),
+(337, '29', '79', '1122200111', 2),
+(338, '30', '84', '1122200111', 2),
+(339, '21', '38', '1122200129', 2),
+(340, '26', '67', '1122200129', 5),
+(341, '27', '72', '1122200129', 5),
+(342, '28', '73', '1122200129', 1),
+(343, '29', '79', '1122200129', 2),
+(344, '30', '84', '1122200129', 2),
+(345, '21', '39', '1412200088', 3),
+(346, '26', '67', '1412200088', 5),
+(347, '27', '71', '1412200088', 4),
+(348, '28', '73', '1412200088', 1),
+(349, '29', '81', '1412200088', 4),
+(350, '30', '86', '1412200088', 4),
+(351, '21', '40', '1462200178', 4),
+(352, '26', '64', '1462200178', 2),
+(353, '27', '69', '1462200178', 2),
+(354, '28', '73', '1462200178', 1),
+(355, '29', '79', '1462200178', 2),
+(356, '30', '83', '1462200178', 1);
 
 -- --------------------------------------------------------
 
@@ -291,12 +298,11 @@ INSERT INTO `tb_subkriteria` (`id_subkriteria`, `nama_subkriteria`, `nilai_subkr
 (16, '4 Anak', 4, '7'),
 (17, '5 Anak', 5, '7'),
 (18, 'Tidak Satupun', 1, '8'),
-(19, 'Yatim', 2, '8'),
+(19, 'Bercerai', 2, '8'),
 (20, 'Piatu', 3, '8'),
-(21, 'Yatim Piatu ', 4, '8'),
-(22, 'Tidak memiliki surat rekomendasi', 1, '18'),
-(23, 'Surat Keterangan Tidak Mampu', 3, '18'),
-(24, 'Memiliki KIP-Kuliah', 5, '18'),
+(22, 'Keluarga Mampu', 1, '18'),
+(23, 'Tidak memiliki surat rekomendasi', 2, '18'),
+(24, 'Memiliki SKTM', 3, '18'),
 (27, 'Tidak Memiliki', 1, '19'),
 (28, 'Tingkat Kota / Kabupaten', 2, '19'),
 (29, 'Tingkat Provinsi', 3, '19'),
@@ -307,11 +313,11 @@ INSERT INTO `tb_subkriteria` (`id_subkriteria`, `nama_subkriteria`, `nilai_subkr
 (34, '81 – 85', 3, '20'),
 (35, '86 – 90', 4, '20'),
 (36, '91 - 100', 5, '20'),
-(37, '> Rp. 5.000.000', 1, '21'),
-(38, '> Rp. 4.000.000', 2, '21'),
-(39, '> Rp. 3.000.000', 3, '21'),
-(40, '> Rp. 2.000.000', 4, '21'),
-(41, '< Rp. 1.000.000', 5, '21'),
+(37, '70-74', 1, '21'),
+(38, '75 - 80', 2, '21'),
+(39, '81 - 85', 3, '21'),
+(40, '86 - 90', 4, '21'),
+(41, '91 - 100', 5, '21'),
 (42, '1 Anak', 1, '22'),
 (43, '2 Anak', 2, '22'),
 (44, '3 Anak', 3, '22'),
@@ -328,7 +334,36 @@ INSERT INTO `tb_subkriteria` (`id_subkriteria`, `nama_subkriteria`, `nilai_subkr
 (55, 'Tingkat Kota / Kabupaten', 2, '25'),
 (56, 'Tingkat Provinsi', 3, '25'),
 (57, 'Tingkat Nasional', 4, '25'),
-(58, 'Internasional', 5, '25');
+(58, 'Internasional', 5, '25'),
+(59, 'Yatim', 4, '8'),
+(60, 'Yatim Piatu', 5, '8'),
+(61, 'Memiliki KIP-Kuliah', 4, '18'),
+(62, 'Memiliki SKTM dan KIP-Kuliah', 5, '18'),
+(63, '> Rp. 5.000.000', 1, '26'),
+(64, '> Rp. 4.000.000', 2, '26'),
+(65, '> Rp. 3.000.000', 3, '26'),
+(66, '> Rp. 2.000.000', 4, '26'),
+(67, '< Rp. 1.000.000', 5, '26'),
+(68, '1 Anak', 1, '27'),
+(69, '2 Anak', 2, '27'),
+(70, '3 Anak', 3, '27'),
+(71, '4 Anak', 4, '27'),
+(72, '5 Anak', 5, '27'),
+(73, 'Tidak satupun', 1, '28'),
+(74, 'Bercerai', 2, '28'),
+(75, 'Yatim', 3, '28'),
+(76, 'Piatu', 4, '28'),
+(77, 'Yatim Piatu', 5, '28'),
+(78, 'Keluarga Mampu', 1, '29'),
+(79, 'TIdak memiliki SKTM', 2, '29'),
+(80, 'Memiliki SKTM', 3, '29'),
+(81, 'KIP-Kuliah', 4, '29'),
+(82, 'Memiliki SKTM dan KIP-Kuliah', 5, '29'),
+(83, 'Tidak Memiliki', 1, '30'),
+(84, 'TIngkat Kota/Kabupaten', 2, '30'),
+(85, 'Tingkat Provinsi', 3, '30'),
+(86, 'Tingkat Nasional', 4, '30'),
+(87, 'International', 5, '30');
 
 -- --------------------------------------------------------
 
@@ -360,7 +395,8 @@ INSERT INTO `tb_users` (`id_users`, `nama`, `username`, `password`, `level_user`
 (26, 'FARSHA ALFINA AZZHARA PUTRI', '1122200111', 'ca07dfd76970986b57603f9f100af35e', 'mahasiswa'),
 (27, 'SARAH NABILLA KHOIRUNISA WINARTO', '1122200129', 'dde68798d24ed3ce4894cd0cab270e7f', 'mahasiswa'),
 (28, 'WANDAH WIDYANTIKA', '1412200088', 'faeb277a16bf535d67c3ef295e98ca78', 'mahasiswa'),
-(29, 'Maulana Achmad Rifai', '1462200178', '1db8d186f6e311a3607e237b640bbaa0', 'mahasiswa');
+(29, 'Maulana Achmad Rifai', '1462200178', '1db8d186f6e311a3607e237b640bbaa0', 'mahasiswa'),
+(30, 'Joko', '142100092', '6ddadb1549669fbad9e5f607dd97937c', 'mahasiswa');
 
 --
 -- Trigger `tb_users`
@@ -441,43 +477,43 @@ ALTER TABLE `tb_beasiswa`
 -- AUTO_INCREMENT untuk tabel `tb_file`
 --
 ALTER TABLE `tb_file`
-  MODIFY `id_file` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id_file` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_hasil`
 --
 ALTER TABLE `tb_hasil`
-  MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_kriteria`
 --
 ALTER TABLE `tb_kriteria`
-  MODIFY `id_kriteria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id_kriteria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_mahasiswa`
 --
 ALTER TABLE `tb_mahasiswa`
-  MODIFY `id_mahasiswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_mahasiswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_penilaian`
 --
 ALTER TABLE `tb_penilaian`
-  MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=255;
+  MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=357;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_subkriteria`
 --
 ALTER TABLE `tb_subkriteria`
-  MODIFY `id_subkriteria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id_subkriteria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_users`
 --
 ALTER TABLE `tb_users`
-  MODIFY `id_users` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id_users` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -14,7 +14,6 @@
 		<script src="<?= base_url() ?>assets/plugins/summernote/summernote-bs4.min.js"></script>
 		<script src="<?= base_url() ?>assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 		<script src="<?= base_url() ?>assets/dist/js/adminlte.js"></script>
-		<!-- <script src="<? //= base_url() ?>assets/dist/js/demo.js"></script> -->
 		<script src="<?= base_url() ?>assets/dist/js/pages/dashboard.js"></script>
 		<script src="<?= base_url() ?>assets/izitoast/js/iziToast.js"></script>
 		<script src="<?= base_url() ?>assets/izitoast/js/iziToast.min.js"></script>

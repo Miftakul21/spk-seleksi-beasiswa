@@ -102,10 +102,12 @@ class DaftarBeasiswa extends CI_Controller {
                 
                 $this->load->library('upload', $config);
 
+                //File Raport 
                 if(!$this->upload->do_upload('file1')) {
                     $data_session = [
                         'info' => 'Error',
-                        'message' => 'Upload File Tidak Sesuai Format'
+                        // 'message' => 'Upload File Tidak Sesuai Format'
+                        'message' => $this->upload->display_errors()
                     ];
                     $this->session->set_userdata($data_session);
                     redirect('daftarbeasiswa');
@@ -114,10 +116,13 @@ class DaftarBeasiswa extends CI_Controller {
                     $nama_file1 = $this->upload->data();
                     $file1 = $nama_file1['file_name'];              
                 }
+
+                // File Penghasilan
                 if(!$this->upload->do_upload('file2')) {
                     $data_session = [
                         'info' => 'Error',
-                        'message' => 'Upload File Tidak Sesuai Format'
+                        // 'message' => 'Upload File Tidak Sesuai Format'
+                        'message' => $this->upload->display_errors()
                     ];
                     $this->session->set_userdata($data_session);
                     redirect('daftarbeasiswa');
@@ -125,9 +130,56 @@ class DaftarBeasiswa extends CI_Controller {
                     $nama_file2 = $this->upload->data();
                     $file2 = $nama_file2['file_name'];   
                 }
+
+                // File Kartu Keluarga
+                if(!$this->upload->do_upload('file3')) {
+                    $data_session = [
+                        'info' => 'Error',
+                        // 'message' => 'Upload File Tidak Sesuai Format'
+                        'message' => $this->upload->display_errors()
+                    ];
+                    $this->session->set_userdata($data_session);
+                    redirect('daftarbeasiswa');
+                } else {
+                    $nama_file3 = $this->upload->data();
+                    $file3 = $nama_file3['file_name'];   
+                }
+
+                // File SKTM
+                if($this->upload->do_upload('file4')) {
+                    $nama_file4 = $this->upload->data() ? $this->upload->data() : '';
+                    $file4 = $nama_file4['file_name'];   
+                }
+
+                // KIP-Kuliah
+                if($this->upload->do_upload('file5')) {
+                    $nama_file5 = $this->upload->data() ? $this->upload->data() : '';
+                    $file5 = $nama_file5['file_name'];   
+                }
+
+                // File Piagram/Sertifikat 1
+                if($this->upload->do_upload('file6')) {
+                    $nama_file6 = $this->upload->data() ? $this->upload->data() : '';
+                    $file6 = $nama_file6['file_name'];   
+                }
+
+                // File Piagram/Sertifikat 2
+                if($this->upload->do_upload('file7')) {
+                    $nama_file7 = $this->upload->data() ? $this->upload->data() : '';
+                    $file7 = $nama_file7['file_name'];   
+                }
+
+                // File Piagram/Sertifikat 3
+                if($this->upload->do_upload('file8')) {
+                    $nama_file8 = $this->upload->data() ? $this->upload->data() : '';
+                    $file8 = $nama_file8['file_name'];   
+                }
+
                 $update_data = $this->M_daftarbeasiswa->daftar_beasiswa($id_beasiswa,$nim);
+
                 // Upload file Document
-                $this->M_daftarbeasiswa->upload_file($nim, $file1, $file2);
+                $this->M_daftarbeasiswa->upload_file($nim, $file1, $file2, $file3, $file4, $file5, $file6, $file7, $file8);
+
                 // Upload Nilai Kriteria                                                                    
                 $this->insert_data_nilai($nim,$nilai_rapot,$penghasilan_ortu,$jumlah_tanggungan,$status_anak,$kartu_sosial,$prestasi_non_akademik);
 

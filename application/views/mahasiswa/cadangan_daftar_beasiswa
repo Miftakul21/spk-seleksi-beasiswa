@@ -1,0 +1,44 @@
+<form method="POST" enctype="multipart/form-data" id="form" action="<?= base_url('daftarbeasiswa/store') ?>">
+          <!-- NIM Mahasiswa -->
+          <input type="hidden" name="nim" value="<?= $this->session->userdata('nim'); ?>" >
+          <!-- Id Beasiswa -->
+          <input type="hidden" name="id_beasiswa" value="<?= $b['id_beasiswa']; ?>" >
+          <?php 
+            $no = 1; 
+            foreach($kriteria as $k):
+              $id_kriteria = $k['id_kriteria'];
+              $sql2 = "SELECT * FROM tb_subkriteria AS a JOIN tb_kriteria AS b ON a.id_kriteria = b.id_kriteria WHERE 
+                      a.id_kriteria = '$id_kriteria'";
+              $subkriteria = $this->db->query($sql2)->result_array();
+          ?>
+          <div class="form-group mb-2">
+            <label for="<?= $k['nama_kriteria']; ?>"><?= $k['nama_kriteria']; ?></label>
+            <select class="form-control form-select" id="<?= $k['nama_kriteria']; ?>" name="<?= $no++; ?>">
+                <option value="">--Pilih--</option>
+                <?php
+                  foreach($subkriteria as $sk):
+                ?>
+				          <!-- 1. id_kriteria, 2. id_subkriteria, 3. nilai_subkritreia -->		
+                  <option value="<?= $sk['id_kriteria']; ?>|<?= $sk['id_subkriteria']; ?>|<?= $sk['nilai_subkriteria']; ?>">
+                    <?= $sk['nama_subkriteria']; ?>
+                  </option>
+                <?php endforeach; ?>
+            </select>
+          </div>
+          <?php endforeach; ?>
+
+          <!-- <input type="file" class="form-control"> -->
+          <div class="form-group mb-2">
+            <label for="">Upload Sertifikat Prestasi</label>
+            <input type="file" class="form-control" name="file1">
+          </div>
+
+          <div class="form-group mb-2">
+            <label for="">Upload Surat Keterangan Tidak Mampu / KIP-Kuliah</label>
+            <input type="file" class="form-control" name="file2">
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button class="btn btn-primary">Simpan</button>
+    </form>
